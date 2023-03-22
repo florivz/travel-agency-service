@@ -4,7 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -14,6 +15,8 @@ public class HelloApplication extends Application {
 
     private static final String
         MAIN_VIEW = VIEWS_DIRECTORY + "hello-view.fxml";
+
+    static final Logger logger = LogManager.getLogger(HelloApplication.class);
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -25,6 +28,20 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
+        logger.debug("Logger");
+        logger.info("info");
+        logger.debug("Logger");
+        logger.info("info");
+        logger.debug("Logger");
+        logger.info("info");
+        logger.debug("Logger");
+        logger.info("info");
+        logger.debug("Logger");
+        logger.info("info");
+        logger.debug("Logger");
+        logger.info("info");
+        logger.debug("Logger");
+        logger.info("info");
         launch();
     }
 }
