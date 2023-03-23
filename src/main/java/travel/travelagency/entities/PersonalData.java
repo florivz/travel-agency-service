@@ -126,6 +126,7 @@ public class PersonalData {
   @Override
   public int hashCode() {
     StringBuilder appendedHashCodes = new StringBuilder();
+    appendedHashCodes.append(id != null           ? id.hashCode()           : null);
     appendedHashCodes.append(lastName != null     ? lastName.hashCode()     : null);
     appendedHashCodes.append(firstName != null    ? firstName.hashCode()    : null);
     appendedHashCodes.append(middleNames != null  ? middleNames.hashCode()  : null);

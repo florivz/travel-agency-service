@@ -121,6 +121,7 @@ public class Address {
   @Override
   public int hashCode() {
     StringBuilder appendedHashCodes = new StringBuilder();
+    appendedHashCodes.append(id != null       ? id.hashCode()       : null);
     appendedHashCodes.append(street != null   ? street.hashCode()   : null);
     appendedHashCodes.append(number != null   ? number.hashCode()   : null);
     appendedHashCodes.append(zipCode != null  ? zipCode.hashCode()  : null);
