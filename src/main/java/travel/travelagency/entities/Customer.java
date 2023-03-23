@@ -31,12 +31,17 @@ public class Customer {
   @Column(name = "BILLING_ADDRESS_ID")
   private Address billingAddress;
 
-  public Integer getId() {
-    return id;
+  public Customer() { }
+
+  public Customer(Integer id, String iban, PersonalData personalData, Address billingAddress) {
+    this.id = id;
+    this.iban = iban;
+    this.personalData = personalData;
+    this.billingAddress = billingAddress;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
+  public Integer getId() {
+    return id;
   }
 
   public String getIban() {

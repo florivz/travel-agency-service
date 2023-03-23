@@ -23,6 +23,14 @@ public class Traveller {
   @Column(name = "PERSONAL_DATA_ID")
   private PersonalData personalData;
 
+  public Traveller() { }
+
+  public Traveller(String passportID, String placeOfBirth, PersonalData personalData) {
+    this.passportID = passportID;
+    this.placeOfBirth = placeOfBirth;
+    this.personalData = personalData;
+  }
+
   public String getPassportID() {
     return passportID;
   }

@@ -31,12 +31,22 @@ public class Address {
   @Column(name = "COUNTRY")
   private String country;
 
-  public Integer getId() {
-    return id;
+  public Address() { }
+
+  public Address(
+      Integer id, String streetName, String houseNumber,
+      String zipCode, String townName, String country
+  ) {
+    this.id = id;
+    this.streetName = streetName;
+    this.houseNumber = houseNumber;
+    this.zipCode = zipCode;
+    this.townName = townName;
+    this.country = country;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
+  public Integer getId() {
+    return id;
   }
 
   public String getStreetName() {
@@ -77,6 +87,40 @@ public class Address {
 
   public void setCountry(String country) {
     this.country = country;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if(obj != null && obj.getClass().equals(this.getClass())) {
+      Address address = (Address) obj;
+      return
+        ((id == null && address.getId() == null) || id.equals(address.getId())) &&
+        ((streetName == null && address.getStreetName() == null) || streetName.equals(address.getStreetName())) &&
+        ((houseNumber == null && address.getHouseNumber() == null) || houseNumber.equals(address.getHouseNumber())) &&
+        ((zipCode == null && address.getZipCode() == null) || zipCode.equals(address.getZipCode())) &&
+        ((townName == null && address.getTownName() == null) || townName.equals(address.getTownName())) &&
+        ((country == null && address.getCountry() == null) || country.equals(address.getCountry()));
+    }
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    return
+        streetName +
+        " " +
+        houseNumber +
+        ", " +
+        zipCode +
+        " " +
+        townName +
+        ", " +
+        country;
+  }
+
+  @Override
+  public int hashCode() {
+    return this.toString().hashCode();
   }
 
 }

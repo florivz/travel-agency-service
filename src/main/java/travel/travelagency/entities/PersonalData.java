@@ -37,12 +37,19 @@ public class PersonalData {
   @Column(name = "ADDRESS_ID")
   private Address address;
 
-  public Integer getId() {
-    return id;
+  public PersonalData() { }
+
+  public PersonalData(Integer id, String lastName, String firstName, String middleNames, Date dateOfBirth, Address address) {
+    this.id = id;
+    this.lastName = lastName;
+    this.firstName = firstName;
+    this.middleNames = middleNames;
+    this.dateOfBirth = dateOfBirth;
+    this.address = address;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
+  public Integer getId() {
+    return id;
   }
 
   public String getLastName() {
