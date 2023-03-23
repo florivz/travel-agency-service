@@ -54,4 +54,36 @@ public class Traveller {
   public void setPersonalData(PersonalData personalData) {
     this.personalData = personalData;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if(obj != null && obj.getClass().equals(this.getClass())) {
+      Traveller traveller = (Traveller) obj;
+      return
+          ((passportID == null && traveller.getPassportID() == null)
+              || passportID.equals(traveller.getPassportID())) &&
+          ((placeOfBirth == null && traveller.getPlaceOfBirth() == null)
+              || placeOfBirth.equals(traveller.getPlaceOfBirth())) &&
+          ((personalData == null && traveller.getPersonalData() == null)
+              || personalData.equals(traveller.getPersonalData()));
+    }
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    return
+        (personalData != null ? personalData.toString() + '\n' : "" )
+            + (passportID != null   ? "Passport Number: " + passportID.toString() + '\n'  : "" )
+            + (placeOfBirth != null ? "Place of Birth : " + placeOfBirth.toString()       : "" );
+  }
+
+  @Override
+  public int hashCode() {
+    return
+        (String.valueOf(passportID != null ? passportID.hashCode() : null)
+            + (placeOfBirth != null ? placeOfBirth.hashCode() : null)
+            + (personalData != null ? personalData.hashCode() : null)).hashCode();
+  }
+
 }
