@@ -17,16 +17,16 @@ public class Address {
   private Integer id;
 
   @Column(name = "STREET")
-  private String streetName;
+  private String street;
 
   @Column(name = "NUMBER")
-  private String houseNumber;
+  private String number;
 
   @Column(name = "ZIP")
   private String zipCode;
 
   @Column(name = "TOWN")
-  private String townName;
+  private String town;
 
   @Column(name = "COUNTRY")
   private String country;
@@ -34,14 +34,14 @@ public class Address {
   public Address() { }
 
   public Address(
-      Integer id, String streetName, String houseNumber,
-      String zipCode, String townName, String country
+      Integer id, String street, String number,
+      String zipCode, String town, String country
   ) {
     this.id = id;
-    this.streetName = streetName;
-    this.houseNumber = houseNumber;
+    this.street = street;
+    this.number = number;
     this.zipCode = zipCode;
-    this.townName = townName;
+    this.town = town;
     this.country = country;
   }
 
@@ -49,20 +49,20 @@ public class Address {
     return id;
   }
 
-  public String getStreetName() {
-    return streetName;
+  public String getStreet() {
+    return street;
   }
 
-  public void setStreetName(String streetName) {
-    this.streetName = streetName;
+  public void setStreet(String street) {
+    this.street = street;
   }
 
-  public String getHouseNumber() {
-    return houseNumber;
+  public String getNumber() {
+    return number;
   }
 
-  public void setHouseNumber(String houseNumber) {
-    this.houseNumber = houseNumber;
+  public void setNumber(String number) {
+    this.number = number;
   }
 
   public String getZipCode() {
@@ -73,12 +73,12 @@ public class Address {
     this.zipCode = zipCode;
   }
 
-  public String getTownName() {
-    return townName;
+  public String getTown() {
+    return town;
   }
 
-  public void setTownName(String townName) {
-    this.townName = townName;
+  public void setTown(String town) {
+    this.town = town;
   }
 
   public String getCountry() {
@@ -95,10 +95,10 @@ public class Address {
       Address address = (Address) obj;
       return
         ((id == null && address.getId() == null) || id.equals(address.getId())) &&
-        ((streetName == null && address.getStreetName() == null) || streetName.equals(address.getStreetName())) &&
-        ((houseNumber == null && address.getHouseNumber() == null) || houseNumber.equals(address.getHouseNumber())) &&
+        ((street == null && address.getStreet() == null) || street.equals(address.getStreet())) &&
+        ((number == null && address.getNumber() == null) || number.equals(address.getNumber())) &&
         ((zipCode == null && address.getZipCode() == null) || zipCode.equals(address.getZipCode())) &&
-        ((townName == null && address.getTownName() == null) || townName.equals(address.getTownName())) &&
+        ((town == null && address.getTown() == null) || town.equals(address.getTown())) &&
         ((country == null && address.getCountry() == null) || country.equals(address.getCountry()));
     }
     return false;
@@ -107,20 +107,26 @@ public class Address {
   @Override
   public String toString() {
     return
-        streetName +
+        street +
         " " +
-        houseNumber +
+            number +
         ", " +
         zipCode +
         " " +
-        townName +
+            town +
         ", " +
         country;
   }
 
   @Override
   public int hashCode() {
-    return this.toString().hashCode();
+    StringBuilder appendedHashCodes = new StringBuilder();
+    appendedHashCodes.append(street != null   ? street.hashCode()   : null);
+    appendedHashCodes.append(number != null   ? number.hashCode()   : null);
+    appendedHashCodes.append(zipCode != null  ? zipCode.hashCode()  : null);
+    appendedHashCodes.append(town != null     ? town.hashCode()     : null);
+    appendedHashCodes.append(country != null  ? country.hashCode()  : null);
+    return appendedHashCodes.toString().hashCode();
   }
 
 }

@@ -56,8 +56,8 @@ public class AddressTest {
       "Disneyland");
 
     assertEquals(
-      address.toString(),
-      "Street 101a, 19824 My Town, Disneyland"
+      "Street 101a, 19824 My Town, Disneyland",
+      address.toString()
     );
   }
 

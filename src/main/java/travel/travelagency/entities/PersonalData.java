@@ -91,4 +91,46 @@ public class PersonalData {
   public void setAddress(Address address) {
     this.address = address;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if(obj != null && obj.getClass().equals(this.getClass())) {
+      PersonalData data = (PersonalData) obj;
+      return
+          ((id == null && data.getId() == null) || id.equals(data.getId())) &&
+          ((lastName == null && data.getLastName() == null) || lastName.equals(data.getLastName())) &&
+          ((firstName == null && data.getFirstName() == null) || firstName.equals(data.getFirstName())) &&
+          ((middleNames == null && data.getMiddleNames() == null) || middleNames.equals(data.getMiddleNames())) &&
+          ((dateOfBirth == null && data.getDateOfBirth() == null) || dateOfBirth.equals(data.getDateOfBirth())) &&
+          ((address == null && data.getAddress() == null) || address.equals(data.getAddress()));
+    }
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    return
+      firstName +
+      " " +
+      middleNames +
+      " " +
+      lastName +
+      (dateOfBirth != null ? ", " +
+          dateOfBirth.getDate() + "." +
+          dateOfBirth.getMonth() + "." +
+          dateOfBirth.getYear()
+      : "") +
+      (address     != null ? "\n" + address.toString()     : "");
+  }
+
+  @Override
+  public int hashCode() {
+    StringBuilder appendedHashCodes = new StringBuilder();
+    appendedHashCodes.append(lastName != null     ? lastName.hashCode()     : null);
+    appendedHashCodes.append(firstName != null    ? firstName.hashCode()    : null);
+    appendedHashCodes.append(middleNames != null  ? middleNames.hashCode()  : null);
+    appendedHashCodes.append(dateOfBirth != null  ? dateOfBirth.hashCode()  : null);
+    appendedHashCodes.append(address != null      ? address.hashCode()      : null);
+    return appendedHashCodes.toString().hashCode();
+  }
 }
