@@ -31,12 +31,17 @@ public class Customer {
   @Column(name = "BILLING_ADDRESS_ID")
   private Address billingAddress;
 
-  public Integer getId() {
-    return id;
+  public Customer() { }
+
+  public Customer(Integer id, String iban, PersonalData personalData, Address billingAddress) {
+    this.id = id;
+    this.iban = iban;
+    this.personalData = personalData;
+    this.billingAddress = billingAddress;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
+  public Integer getId() {
+    return id;
   }
 
   public String getIban() {
@@ -62,4 +67,38 @@ public class Customer {
   public void setBillingAddress(Address billingAddress) {
     this.billingAddress = billingAddress;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if(obj != null && obj.getClass().equals(this.getClass())) {
+      Customer customer = (Customer) obj;
+      return
+          ((id == null && customer.getId() == null) || id.equals(customer.getId())) &&
+          ((iban == null && customer.getIban() == null) || iban.equals(customer.getIban())) &&
+          ((personalData == null && customer.getPersonalData() == null)
+              || personalData.equals(customer.getPersonalData())) &&
+          ((billingAddress == null && customer.getBillingAddress() == null)
+              || billingAddress.equals(customer.getBillingAddress()));
+    }
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    return
+        (personalData != null ? personalData.toString() + '\n' : "" )
+        + (iban != null ? iban + '\n' : "" )
+        + (id != null ? "Customer Number: " + id.toString() + '\n' : "" )
+        + (billingAddress != null ? "Billing Address: " + billingAddress.toString() : "" );
+  }
+
+  @Override
+  public int hashCode() {
+    return
+        (String.valueOf(id != null ? id.hashCode() : null)
+        + (iban != null ? iban.hashCode() : null)
+        + (personalData != null ? personalData.hashCode() : null)
+        + (billingAddress != null ? billingAddress.hashCode() : null)).hashCode();
+  }
+
 }
