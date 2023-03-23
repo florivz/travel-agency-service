@@ -17,7 +17,6 @@ public class HelloApplication extends Application {
         MAIN_VIEW = VIEWS_DIRECTORY + "hello-view.fxml";
 
     static final Logger logger = LogManager.getLogger(HelloApplication.class);
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(MAIN_VIEW));
@@ -28,20 +27,6 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        logger.debug("Logger");
-        logger.info("info");
-        logger.debug("Logger");
-        logger.info("info");
-        logger.debug("Logger");
-        logger.info("info");
-        logger.debug("Logger");
-        logger.info("info");
-        logger.debug("Logger");
-        logger.info("info");
-        logger.debug("Logger");
-        logger.info("info");
-        logger.debug("Logger");
-        logger.info("info");
         launch();
     }
 }
