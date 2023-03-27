@@ -7,8 +7,8 @@ module travel.travelagency {
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
-    requires hibernate.jpa;
     requires org.apache.logging.log4j;
+    requires hibernate.jpa;
 
   opens travel.travelagency to javafx.fxml;
     exports travel.travelagency;

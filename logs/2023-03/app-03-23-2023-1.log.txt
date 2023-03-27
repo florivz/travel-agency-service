@@ -1,0 +1,14 @@
+2023-03-22 20:25:26,531 DEBUG t.t.HelloApplication [main] Logger
+2023-03-22 20:25:26,547 INFO t.t.HelloApplication [main] info
+2023-03-22 20:25:26,547 DEBUG t.t.HelloApplication [main] Logger
+2023-03-22 20:25:26,547 INFO t.t.HelloApplication [main] info
+2023-03-22 20:25:26,547 DEBUG t.t.HelloApplication [main] Logger
+2023-03-22 20:25:26,547 INFO t.t.HelloApplication [main] info
+2023-03-22 20:25:26,548 DEBUG t.t.HelloApplication [main] Logger
+2023-03-22 20:25:26,548 INFO t.t.HelloApplication [main] info
+2023-03-22 20:25:26,548 DEBUG t.t.HelloApplication [main] Logger
+2023-03-22 20:25:26,548 INFO t.t.HelloApplication [main] info
+2023-03-22 20:25:26,548 DEBUG t.t.HelloApplication [main] Logger
+2023-03-22 20:25:26,548 INFO t.t.HelloApplication [main] info
+2023-03-22 20:25:26,558 DEBUG t.t.HelloApplication [main] Logger
+2023-03-22 20:25:26,558 INFO t.t.HelloApplication [main] info
