@@ -10,7 +10,7 @@ public class TravellerTest {
   private static Traveller nullTraveller, emptyTraveller, traveller, copyTraveller, differentTraveller;
 
   @BeforeAll
-  public static void initializeCustomers() {
+  public static void initializeTravellers() {
     nullTraveller = null;
     emptyTraveller = new Traveller();
     traveller = new Traveller(
