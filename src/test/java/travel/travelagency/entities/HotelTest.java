@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Date;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -113,7 +112,7 @@ public class HotelTest {
   }
 
   @Test
-  public void testHashCodeMethodWithIdenticalTraveller() {
+  public void testHashCodeMethodWithIdenticalHotel() {
     int expectedHashCode  = hotel.hashCode();
     int actualHashCode    = copyHotel.hashCode();
 
@@ -121,7 +120,7 @@ public class HotelTest {
   }
 
   @Test
-  public void testHashCodeMethodWithDifferentTraveller() {
+  public void testHashCodeMethodWithDifferentHotel() {
     int unexpectedHashCode  = hotel.hashCode();
     int actualHashCode      = differentHotel.hashCode();
 

@@ -1,6 +1,6 @@
 package travel.travelagency.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -30,7 +30,7 @@ public class PersonalData {
   private String middleNames;
 
   @Column(name = "DATE_OF_BIRTH")
-  private Date dateOfBirth;
+  private LocalDate dateOfBirth;
 
   @ManyToOne
   @JoinColumn(name = "ADDRESS_ID")
@@ -38,7 +38,7 @@ public class PersonalData {
 
   public PersonalData() { }
 
-  public PersonalData(Integer id, String lastName, String firstName, String middleNames, Date dateOfBirth, Address address) {
+  public PersonalData(Integer id, String lastName, String firstName, String middleNames, LocalDate dateOfBirth, Address address) {
     this.id = id;
     this.lastName = lastName;
     this.firstName = firstName;
@@ -75,11 +75,11 @@ public class PersonalData {
     this.middleNames = middleNames;
   }
 
-  public Date getDateOfBirth() {
+  public LocalDate getDateOfBirth() {
     return dateOfBirth;
   }
 
-  public void setDateOfBirth(Date dateOfBirth) {
+  public void setDateOfBirth(LocalDate dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
 
@@ -114,11 +114,7 @@ public class PersonalData {
       middleNames +
       " " +
       lastName +
-      (dateOfBirth != null ? ", " +
-          dateOfBirth.getDate() + "." +
-          dateOfBirth.getMonth() + "." +
-          dateOfBirth.getYear()
-      : "") +
+      (dateOfBirth != null ? ", " + dateOfBirth.toString() : "") +
       (address     != null ? "\n" + address.toString()     : "");
   }
 
