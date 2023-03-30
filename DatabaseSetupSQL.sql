@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `flight` (
     CONSTRAINT `fk_flight_connection` FOREIGN KEY (`flight_connection_id`) REFERENCES `flight_connection` (`flight_connection_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered flights';
 
--- export data of table travel-agency-service_db.flight: x rows
+-- export data of table travel-agency-service_db.flight: 62 rows
 DELETE FROM `flight`;
 INSERT INTO `flight` (`flight_id`, `flight_connection_id`, `departure_date`, `departure_time`, `departure_time_zone`, `arrival_date`, `arrival_time`, `arrival_time_zone`, `price_per_person`, `currency_key`) VALUES
     (1 , 1, '2023-05-01', '12:45:00', 'UTC+02:00', '2023-05-01', '15:15:00', 'UTC-07:00',  749.99, 'EUR'),
@@ -224,6 +224,84 @@ INSERT INTO `flight` (`flight_id`, `flight_connection_id`, `departure_date`, `de
     (60, 8, '2023-08-01', '14:00:00', 'UTC-05:00', '2023-08-01', '16:15:00', 'UTC-04:00',  449.99, 'EUR'),
     (61, 8, '2023-08-02', '14:00:00', 'UTC-05:00', '2023-08-02', '16:15:00', 'UTC-04:00',  399.99, 'EUR'),
     (62, 8, '2023-08-03', '14:00:00', 'UTC-05:00', '2023-08-03', '16:15:00', 'UTC-04:00',  349.99, 'EUR');
+
+-- export structure of table travel-agency-service_db.booking
+CREATE TABLE IF NOT EXISTS `booking` (
+    `booking_id` INT(11) NOT NULL COMMENT 'trip''s unique identification number',
+    `customer_id` INT(11) NOT NULL COMMENT 'booking associated with this trip',
+    PRIMARY KEY (`booking_id`),
+    CONSTRAINT `fk_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered bookings';
+
+-- export data of table travel-agency-service_db.booking: 3 rows
+DELETE FROM `booking`;
+INSERT INTO `booking` (`booking_id`, `customer_id`) VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4);
+
+-- export structure of table travel-agency-service_db.trip
+CREATE TABLE IF NOT EXISTS `trip` (
+    `trip_id` INT(11) NOT NULL COMMENT 'trip''s unique identification number',
+    `booking_id` INT(11) NOT NULL COMMENT 'booking associated with this trip',
+    PRIMARY KEY (`trip_id`),
+    CONSTRAINT `fk_booking_id` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered trips';
+
+-- export data of table travel-agency-service_db.trip: 5 rows
+DELETE FROM `trip`;
+INSERT INTO `trip` (`trip_id`, `booking_id`) VALUES
+    (1, 1),
+    (2, 1),
+    (3, 2),
+    (4, 3),
+    (5, 3),
+    (6, 4),
+    (7, 4);
+
+-- export structure of table travel-agency-service_db.hotel_booking
+CREATE TABLE IF NOT EXISTS `hotel_booking` (
+    `hotel_booking_id` INT(11) NOT NULL COMMENT 'hotel_booking''s unique identification number',
+    `trip_id` INT(11) NOT NULL COMMENT 'trip associated with the hotel booking',
+    `hotel_id` INT(11) NOT NULL COMMENT 'hotel associated with the booking',
+    `number_of_guests` SMALLINT NOT NULL COMMENT 'number of hotel guests',
+    PRIMARY KEY (`hotel_booking_id`),
+    CONSTRAINT `fk_hotel_trip_id` FOREIGN KEY (`trip_id`) REFERENCES `trip` (`trip_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `fk_hotel_id` FOREIGN KEY (`hotel_id`) REFERENCES `hotel` (`hotel_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered hotel bookings';
+
+-- export data of table travel-agency-service_db.hotel_booking: 5 rows
+DELETE FROM `hotel_booking`;
+INSERT INTO `hotel_booking` (`hotel_booking_id`, `trip_id`, `hotel_id`, `number_of_guests`) VALUES
+    (1, 1, 1, 3),
+    (2, 3, 1, 4),
+    (3, 4, 2, 2),
+    (4, 2, 2, 1),
+    (5, 5, 3, 12),
+    (6, 6, 3, 1),
+    (7, 6, 2, 4),
+    (8, 7, 3, 2);
+
+-- export structure of table travel-agency-service_db.flight_booking
+CREATE TABLE IF NOT EXISTS `flight_booking` (
+    `flight_booking_id` INT(11) NOT NULL COMMENT 'flight_booking''s unique identification number',
+    `trip_id` INT(11) NOT NULL COMMENT 'trip associated with the booking',
+    `flight_id` INT(11) NOT NULL COMMENT 'flight associated with the booking',
+    `number_of_passengers` SMALLINT NOT NULL COMMENT 'number of flight passengers',
+    PRIMARY KEY (`flight_booking_id`),
+    CONSTRAINT `fk_flight_trip_id` FOREIGN KEY (`trip_id`) REFERENCES `trip` (`trip_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `fk_flight_id` FOREIGN KEY (`flight_id`) REFERENCES `flight` (`flight_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered flight bookings';
+
+-- export data of table travel-agency-service_db.flight_booking: 5 rows
+DELETE FROM `flight_booking`;
+INSERT INTO `flight_booking` (`flight_booking_id`, `trip_id`, `flight_id`, `number_of_passengers`) VALUES
+    (1, 1, 1, 2),
+    (2, 5, 18, 4),
+    (3, 2, 41, 3),
+    (4, 3, 35, 7),
+    (5, 2, 29, 20);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
