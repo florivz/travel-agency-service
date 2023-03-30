@@ -3,12 +3,12 @@ package travel.travelagency.entities;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
-import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 
 @Entity
@@ -32,9 +32,8 @@ public class PersonalData {
   @Column(name = "DATE_OF_BIRTH")
   private Date dateOfBirth;
 
-  @OneToMany
+  @ManyToOne
   @JoinColumn(name = "ADDRESS_ID")
-  @Column(name = "ADDRESS_ID")
   private Address address;
 
   public PersonalData() { }

@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 
 @Entity
@@ -28,7 +28,7 @@ public class Hotel {
   @Column(name = "CURRENCY_KEY")
   private String currency;
 
-  @OneToMany
+  @ManyToOne
   @JoinColumn(name = "ADDRESS_ID")
   private Address address;
 
