@@ -21,13 +21,13 @@ USE `travel-agency-service_db`;
 
 -- export structure of table travel-agency-service_db.address
 CREATE TABLE IF NOT EXISTS `address` (
-  `address_id` INT(11) NOT NULL COMMENT 'address''s unique identification number',
-  `street` VARCHAR(60) NOT NULL COMMENT 'street name',
-  `number` VARCHAR(10) NOT NULL COMMENT 'house number',
-  `zip` VARCHAR(10) COMMENT 'zip code if existent',
-  `town` VARCHAR(50) NOT NULL COMMENT 'town name',
-  `country` VARCHAR(50) NOT NULL COMMENT 'country',
-  PRIMARY KEY (`address_id`)
+    `address_id` INT(11) NOT NULL COMMENT 'address''s unique identification number',
+    `street` VARCHAR(60) NOT NULL COMMENT 'street name',
+    `number` VARCHAR(10) NOT NULL COMMENT 'house number',
+    `zip` VARCHAR(10) COMMENT 'zip code if existent',
+    `town` VARCHAR(50) NOT NULL COMMENT 'town name',
+    `country` VARCHAR(50) NOT NULL COMMENT 'country',
+PRIMARY KEY (`address_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered addresses';
 
 -- export data of table travel-agency-service_db.address: 4 rows
@@ -36,18 +36,21 @@ INSERT INTO `address` (`address_id`, `street`, `number`, `zip`, `town`, `country
 	(1, 'Aachener Straße', '999', '50933', 'Köln', 'Deutschland'),
 	(2, 'Hasso-Plattner-Ring', '7', '69190', 'Walldorf', 'Deutschland'),
 	(3, 'Pennsylvania Avenue NW', '1600', '20500', 'Washington, DC', 'United States'),
-	(4, 'Dongzhimen Outer St', '17', '100027', 'Beijing', 'China');
+	(4, 'Dongzhimen Outer St', '17', '100027', 'Beijing', 'China'),
+	(5, 'Trankgasse', '1-5', '50667', 'Köln', 'Deutschland'),
+	(6, 'Dietmar-Hopp-Allee', '15', '69190', 'Walldorf', 'Deutschland'),
+    (7, 'W Buena Vista Dr', '1901', '32830', 'Buena Vista', 'United States');
 
 -- export structure of table travel-agency-service_db.personal_data
 CREATE TABLE IF NOT EXISTS `personal_data` (
-  `personal_data_id` INT(11) NOT NULL COMMENT 'personal_data''s unique identification number',
-  `last_name` VARCHAR(40) NOT NULL COMMENT 'last name',
-  `first_name` VARCHAR(40) NOT NULL COMMENT 'first name',
-  `middle_names` VARCHAR(200) COMMENT 'middle names',
-  `date_of_birth` DATE NOT NULL COMMENT 'date of birth',
-  `address_id` INT(11) NOT NULL COMMENT 'country',
-  PRIMARY KEY (`personal_data_id`),
-  CONSTRAINT `fk_address` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    `personal_data_id` INT(11) NOT NULL COMMENT 'personal_data''s unique identification number',
+    `last_name` VARCHAR(40) NOT NULL COMMENT 'last name',
+    `first_name` VARCHAR(40) NOT NULL COMMENT 'first name',
+    `middle_names` VARCHAR(200) COMMENT 'middle names',
+    `date_of_birth` DATE NOT NULL COMMENT 'date of birth',
+    `address_id` INT(11) NOT NULL COMMENT 'country',
+PRIMARY KEY (`personal_data_id`),
+CONSTRAINT `fk_address` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered personal data';
 
 -- export data of table travel-agency-service_db.personal_data: 6 rows
@@ -81,11 +84,11 @@ INSERT INTO `customer` (`customer_id`, `IBAN`, `personal_data_id`, `billing_addr
 
 -- export structure of table travel-agency-service_db.traveller
 CREATE TABLE IF NOT EXISTS `traveller` (
-  `passport_id` CHAR(9) NOT NULL COMMENT 'traveller''s unique identification number as from his current valid passport',
-  `place_of_birth` CHAR(50) NOT NULL COMMENT 'town name of birth',
-  `personal_data_id` INT(11) NOT NULL COMMENT 'unique identification number of the personal data',
-  PRIMARY KEY (`passport_id`),
-  CONSTRAINT `fk_traveller_data` FOREIGN KEY (`personal_data_id`) REFERENCES `personal_data` (`personal_data_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    `passport_id` CHAR(9) NOT NULL COMMENT 'traveller''s unique identification number as from his current valid passport',
+    `place_of_birth` CHAR(50) NOT NULL COMMENT 'town name of birth',
+    `personal_data_id` INT(11) NOT NULL COMMENT 'unique identification number of the personal data',
+    PRIMARY KEY (`passport_id`),
+    CONSTRAINT `fk_traveller_data` FOREIGN KEY (`personal_data_id`) REFERENCES `personal_data` (`personal_data_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered traveller';
 
 -- export data of table travel-agency-service_db.traveller: 6 rows
@@ -97,6 +100,24 @@ INSERT INTO `traveller` (`passport_id`, `place_of_birth`, `personal_data_id`) VA
 	('C75424278', 'Scranton, PA', 4),
 	('C58757857', 'Entenhausen', 5),
 	('C78578578', 'Musterstadt', 6);
+
+-- export structure of table travel-agency-service_db.customer
+CREATE TABLE IF NOT EXISTS `hotel` (
+    `hotel_id` INT(11) NOT NULL COMMENT 'hotel''s unique identification number',
+    `name` CHAR(60) NOT NULL COMMENT 'name of the hotel',
+    `price_per_person` DECIMAL (8,2) NOT NULL COMMENT 'price per person per night',
+    `currency_key` CHAR(3) NOT NULL COMMENT 'currency to the amount above',
+    `address_id` INT(11) NOT NULL COMMENT 'unique identification number of the hotel\'s address',
+    PRIMARY KEY (`hotel_id`),
+    CONSTRAINT `fk_hotel_address` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered hotels';
+
+-- export data of table travel-agency-service_db.customer: 4 rows
+DELETE FROM `hotel`;
+INSERT INTO `hotel` (`hotel_id`, `name`, `price_per_person`, `currency_key`, `address_id`) VALUES
+    (1, 'Excelsior Hotel Ernst', 500.00, 'EUR', 5),
+    (2, 'SAP Guesthouse', 10.00, 'EUR', 6),
+    (3, 'Disney\'s All-Star Movies Resort', 199.99, 'USD', 7);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

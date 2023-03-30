@@ -1,12 +1,12 @@
 package travel.travelagency.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
-import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 
 @Entity
@@ -21,14 +21,12 @@ public class Customer {
   @Column(name = "IBAN")
   private String iban;
 
-  @OneToMany
+  @ManyToOne
   @JoinColumn(name = "PERSONAL_DATA_ID")
-  @Column(name = "PERSONAL_DATA_ID")
   private PersonalData personalData;
 
-  @OneToMany
+  @ManyToOne
   @JoinColumn(name = "BILLING_ADDRESS_ID")
-  @Column(name = "BILLING_ADDRESS_ID")
   private Address billingAddress;
 
   public Customer() { }

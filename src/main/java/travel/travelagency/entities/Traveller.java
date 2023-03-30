@@ -1,10 +1,10 @@
 package travel.travelagency.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.Column;
-import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 
 @Entity
@@ -18,9 +18,8 @@ public class Traveller {
   @Column(name = "PLACE_OF_BIRTH")
   private String placeOfBirth;
 
-  @OneToMany
+  @ManyToOne
   @JoinColumn(name = "PERSONAL_DATA_ID")
-  @Column(name = "PERSONAL_DATA_ID")
   private PersonalData personalData;
 
   public Traveller() { }
