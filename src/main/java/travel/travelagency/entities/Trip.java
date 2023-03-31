@@ -26,11 +26,11 @@ public class Trip {
   private Booking booking;
 
   @OneToMany
-  @JoinColumn(table = "HOTEL_BOOKING", name = "TRIP_ID")
+  @JoinColumn(name = "TRIP_ID")
   private List<HotelBooking> hotelBookingList;
 
   @OneToMany
-  @JoinColumn(table = "FLIGHT_BOOKING", name = "TRIP_ID")
+  @JoinColumn(name = "TRIP_ID")
   private List<FlightBooking> flightBookingList;
 
   public Trip() {

@@ -10,23 +10,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "FLIGHT_BOOKING")
+@Table(name = "flight_booking")
 public class FlightBooking {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "FLIGHT_BOOKING_ID")
+  @Column(name = "flight_booking_id")
   private Integer id;
 
   @ManyToOne
-  @JoinColumn(name = "TRIP_ID")
+  @JoinColumn(name = "trip_id")
   private Trip trip;
 
   @ManyToOne
-  @JoinColumn(name = "FLIGHT")
-  private Hotel flight;
+  @JoinColumn(name = "flight_id")
+  private Flight flight;
 
-  @Column(name = "NUMBER_OF_PASSENGERS")
+  @Column(name = "number_of_passengers")
   private Integer numberOfPassengers;
 
   public FlightBooking() {

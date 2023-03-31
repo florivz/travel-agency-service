@@ -8,24 +8,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Column;
 
 @Entity
-@Table(name = "FLIGHT_CONNECTION")
+@Table(name = "flight_connection")
 public class FlightConnection {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "FLIGHT_CONNECTION_ID")
+  @Column(name = "flight_connection_id")
   private Integer id;
 
-  @Column(name = "CARRIER_ID")
+  @Column(name = "carrier_id")
   private String carrierID;
 
-  @Column(name = "CONNECTION_ID")
+  @Column(name = "connection_id")
   private String connectionID;
 
-  @Column(name = "DEPARTURE_AIRPORT_CODE")
+  @Column(name = "departure_airport_code")
   private String departureAirport;
 
-  @Column(name = "ARRIVAL_AIRPORT_CODE")
+  @Column(name = "arrival_airport_code")
   private String arrivalAirport;
 
   public FlightConnection() {

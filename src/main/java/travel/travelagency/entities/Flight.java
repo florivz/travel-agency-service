@@ -1,5 +1,6 @@
 package travel.travelagency.entities;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -13,55 +14,58 @@ import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Entity
-@Table(name = "FLIGHT")
+@Table(name = "flight")
 public class Flight {
+
+  static final Logger logger = LogManager.getLogger(Flight.class);
+
+  private static final String
+    MSG_NULL_TIMESTAMP = "date, time, and time zone have not all been initialized yet";
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "FLIGHT_ID")
+  @Column(name = "flight_id")
   private Integer id;
 
   @ManyToOne
-  @JoinColumn(name = "FLIGHT_CONNECTION_ID")
+  @JoinColumn(name = "flight_connection_id")
   private FlightConnection flightConnection;
 
-  @Column(name = "DEPARTURE_DATE")
+  @Column(name = "departure_date")
   private LocalDate dateOfDeparture;
 
-  @Column(name = "DEPARTURE_TIME")
+  @Column(name = "departure_time")
   private LocalTime timeOfDeparture;
 
-  @Column(name = "DEPARTURE_TIME_ZONE")
-  private ZoneId timeZoneOfDeparture;
+  @Column(name = "departure_time_zone")
+  private String timeZoneOfDeparture;
 
-  @Column(name = "ARRIVAL_DATE")
+  @Column(name = "arrival_date")
   private LocalDate dateOfArrival;
 
-  @Column(name = "ARRIVAL_TIME")
+  @Column(name = "arrival_time")
   private LocalTime timeOfArrival;
 
-  @Column(name = "ARRIVAL_TIME_ZONE")
-  private ZoneId timeZoneOfArrival;
+  @Column(name = "arrival_time_zone")
+  private String timeZoneOfArrival;
 
-  @Column(name = "PRICE_PER_PERSON")
+  @Column(name = "price_per_person")
   private Double pricePerPerson;
 
-  @Column(name = "CURRENCY_KEY")
+  @Column(name = "currency_key")
   private String currencyKey;
-
-  private ZonedDateTime departureTimestamp, arrivalTimestamp;
-
-  private java.time.Duration flightDuration;
 
   public Flight() {
 
   }
 
   public Flight(Integer id, FlightConnection flightConnection, LocalDate dateOfDeparture,
-      LocalTime timeOfDeparture, ZoneId timeZoneOfDeparture, LocalDate dateOfArrival,
-      LocalTime timeOfArrival, ZoneId timeZoneOfArrival, Double pricePerPerson,
+      LocalTime timeOfDeparture, String timeZoneOfDeparture, LocalDate dateOfArrival,
+      LocalTime timeOfArrival, String timeZoneOfArrival, Double pricePerPerson,
       String currencyKey) {
     this.id = id;
     this.flightConnection = flightConnection;
@@ -73,10 +77,6 @@ public class Flight {
     this.timeZoneOfArrival = timeZoneOfArrival;
     this.pricePerPerson = pricePerPerson;
     this.currencyKey = currencyKey;
-
-    this.departureTimestamp = ZonedDateTime.of(dateOfDeparture, timeOfDeparture, timeZoneOfDeparture);
-    this.arrivalTimestamp = ZonedDateTime.of(dateOfArrival, timeOfArrival, timeZoneOfArrival);
-    this.flightDuration = java.time.Duration.ofMinutes(ChronoUnit.MINUTES.between(arrivalTimestamp, departureTimestamp));
   }
 
   public Integer getId() {
@@ -112,25 +112,55 @@ public class Flight {
   }
 
   public ZonedDateTime getDepartureTimestamp() {
-    return departureTimestamp;
+    try {
+      return ZonedDateTime.of(dateOfDeparture, timeOfDeparture, ZoneId.of(timeZoneOfDeparture));
+    } catch (NullPointerException e) {
+      logger.error(MSG_NULL_TIMESTAMP + " for method getDepartureTimestamp()");
+      return null;
+    }
   }
 
   public void setDepartureTimestamp(ZonedDateTime departureTimestamp) {
-    this.departureTimestamp = departureTimestamp;
+    this.dateOfDeparture = departureTimestamp.toLocalDate();
+    this.timeOfDeparture = departureTimestamp.toLocalTime();
+    this.timeZoneOfDeparture = departureTimestamp.getZone().toString();
   }
 
   public ZonedDateTime getArrivalTimestamp() {
-    return arrivalTimestamp;
+    try {
+      return ZonedDateTime.of(dateOfArrival, timeOfArrival, ZoneId.of(timeZoneOfArrival));
+    } catch (NullPointerException e) {
+      logger.error(MSG_NULL_TIMESTAMP + " for method getArrivalTimestamp()");
+      return null;
+    }
   }
 
   public void setArrivalTimestamp(ZonedDateTime arrivalTimestamp) {
-    this.arrivalTimestamp = arrivalTimestamp;
+    this.dateOfArrival = arrivalTimestamp.toLocalDate();
+    this.timeOfArrival = arrivalTimestamp.toLocalTime();
+    this.timeZoneOfArrival = arrivalTimestamp.getZone().toString();
+  }
+
+  public Duration getFlightDuration() {
+    ZonedDateTime
+        departureTimestamp  = this.getDepartureTimestamp(),
+        arrivalTimestamp    = this.getArrivalTimestamp();
+    if(departureTimestamp != null && arrivalTimestamp != null)
+      return Duration.ofMinutes(ChronoUnit.MINUTES.between(
+          this.getArrivalTimestamp(),
+          this.getDepartureTimestamp()
+      )).abs();
+    logger.error(MSG_NULL_TIMESTAMP + " for method getFlightDurationTimestamp()");
+    return null;
   }
 
   @Override
   public boolean equals(Object obj) {
     if(obj != null && obj.getClass().equals(this.getClass())) {
       Flight flight = (Flight) obj;
+      ZonedDateTime
+          departureTimestamp  = this.getDepartureTimestamp(),
+          arrivalTimestamp    = this.getArrivalTimestamp();
       return
           ((id == null && flight.getId() == null)
               || id.equals(flight.getId())) &&
@@ -150,6 +180,9 @@ public class Flight {
 
   @Override
   public String toString() {
+    ZonedDateTime
+        departureTimestamp  = this.getDepartureTimestamp(),
+        arrivalTimestamp    = this.getArrivalTimestamp();
     return
         (flightConnection != null ? flightConnection.toString() + '\n' : "")
             + (departureTimestamp != null ? "Departure: " + departureTimestamp.toString() + '\n' : "")
@@ -160,6 +193,9 @@ public class Flight {
 
   @Override
   public int hashCode() {
+    ZonedDateTime
+        departureTimestamp  = this.getDepartureTimestamp(),
+        arrivalTimestamp    = this.getArrivalTimestamp();
     return
         (String.valueOf(id != null        ? id.hashCode()                 : null)
             + (flightConnection != null   ? flightConnection.hashCode()   : null)

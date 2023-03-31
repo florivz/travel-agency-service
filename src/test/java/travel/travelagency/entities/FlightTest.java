@@ -6,9 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -25,10 +27,10 @@ public class FlightTest {
         new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
         LocalDate.of(2023, 05, 14),
         LocalTime.of(11, 30, 20),
-        ZoneId.of("UTC+02:00"),
+        "UTC+02:00",
         LocalDate.of(2023, 05, 14),
         LocalTime.of(16, 15),
-        ZoneId.of("UTC-05:00"),
+        "UTC-05:00",
         299.99,
         "EUR"
     );
@@ -37,10 +39,10 @@ public class FlightTest {
         new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
         LocalDate.of(2023, 05, 14),
         LocalTime.of(11, 30, 20),
-        ZoneId.of("UTC+02:00"),
+        "UTC+02:00",
         LocalDate.of(2023, 05, 14),
         LocalTime.of(16, 15),
-        ZoneId.of("UTC-05:00"),
+        "UTC-05:00",
         299.99,
         "EUR"
     );
@@ -49,13 +51,87 @@ public class FlightTest {
         new FlightConnection(13, "DL", "0016", "ATL", "FRA"),
         LocalDate.of(2023, 07, 30),
         LocalTime.of(15, 5),
-        ZoneId.of("UTC-05:00"),
+        "UTC-05:00",
         LocalDate.of(2023, 07, 31),
         LocalTime.of(7, 30, 38),
-        ZoneId.of("UTC+02:00"),
+        "UTC+02:00",
         599.99,
         "EUR"
     );
+  }
+
+  /**
+   * This test is designed to test the getDepartureTimestamp() method on an empty Flight object.
+   * The method should return <code>null</code>.
+   */
+  @Test
+  public void testGetDepartureTimestampWithEmpty() {
+    assertDoesNotThrow(() -> emptyFlight.getDepartureTimestamp());
+    assertEquals(null, emptyFlight.getDepartureTimestamp());
+  }
+
+  /**
+   * This test is designed to test the getArrivalTimestamp() method on an empty Flight object.
+   * The method should return <code>null</code>.
+   */
+  @Test
+  public void testGetArrivalTimestampWithEmpty() {
+    assertDoesNotThrow(() -> emptyFlight.getArrivalTimestamp());
+    assertEquals(null, emptyFlight.getArrivalTimestamp());
+  }
+
+  /**
+   * This test is designed to test the getDepartureTimestamp() method on a valid Flight object.
+   * The method should return the correct timestamp.
+   */
+  @Test
+  public void testGetDepartureTimestampWithValidFlight() {
+    ZonedDateTime expectedTimestamp = ZonedDateTime.of(
+        LocalDate.of(2023, 05, 14),
+        LocalTime.of(11, 30, 20),
+        ZoneId.of("UTC+02:00")
+    );
+
+    assertDoesNotThrow(() -> flight.getDepartureTimestamp());
+    assertEquals(expectedTimestamp, flight.getDepartureTimestamp());
+  }
+
+  /**
+   * This test is designed to test the getArrivalTimestamp() method on a valid Flight object.
+   * The method should return the correct timestamp.
+   */
+  @Test
+  public void testGetArrivalTimestampWithValidFlight() {
+    ZonedDateTime expectedTimestamp = ZonedDateTime.of(
+        LocalDate.of(2023, 05, 14),
+        LocalTime.of(16, 15),
+        ZoneId.of("UTC-05:00")
+    );
+
+    assertDoesNotThrow(() -> flight.getArrivalTimestamp());
+    assertEquals(expectedTimestamp, flight.getArrivalTimestamp());
+  }
+
+
+  /**
+   * This test is designed to test the getFlightDuration() method on an empty Flight object.
+   * The method should return <code>null</code>.
+   */
+  @Test
+  public void testGetFlightDurationWithEmpty() {
+    assertDoesNotThrow(() -> emptyFlight.getFlightDuration());
+    assertEquals(null, emptyFlight.getFlightDuration());
+  }
+
+  /**
+   * This test is designed to test the getFlightDuration() method on an empty Flight object.
+   * The method should return <code>null</code>.
+   */
+  @Test
+  public void testGetFlightDurationWithValidFlight() {
+    Duration expectedDuration = Duration.ofMinutes(704);
+    assertDoesNotThrow(() -> flight.getFlightDuration());
+    assertEquals(expectedDuration, flight.getFlightDuration());
   }
 
   @Test()
@@ -97,10 +173,10 @@ public class FlightTest {
         new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
         LocalDate.of(2023, 05, 14),
         LocalTime.of(11, 30, 20),
-        ZoneId.of("UTC+02:00"),
+        "UTC+02:00",
         LocalDate.of(2023, 05, 14),
         LocalTime.of(16, 15),
-        ZoneId.of("UTC-05:00"),
+        "UTC-05:00",
         299.99,
         "EUR"
     );
