@@ -19,10 +19,6 @@ public class HotelBooking {
   private Integer id;
 
   @ManyToOne
-  @JoinColumn(name = "TRIP_ID")
-  private Trip trip;
-
-  @ManyToOne
   @JoinColumn(name = "HOTEL_ID")
   private Hotel hotel;
 
@@ -33,6 +29,62 @@ public class HotelBooking {
 
   }
 
+  public HotelBooking(Integer id, Hotel hotel, Integer numberOfGuests) {
+    this.id = id;
+    this.hotel = hotel;
+    this.numberOfGuests = numberOfGuests;
+  }
 
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public Hotel getHotel() {
+    return hotel;
+  }
+
+  public void setHotel(Hotel hotel) {
+    this.hotel = hotel;
+  }
+
+  public Integer getNumberOfGuests() {
+    return numberOfGuests;
+  }
+
+  public void setNumberOfGuests(Integer numberOfGuests) {
+    this.numberOfGuests = numberOfGuests;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if(obj != null && obj.getClass().equals(this.getClass())) {
+      HotelBooking booking = (HotelBooking) obj;
+      return
+          ((id == null && booking.getId() == null) || id.equals(booking.getId())) &&
+          ((hotel == null && booking.getHotel() == null) || hotel.equals(booking.getHotel())) &&
+          ((numberOfGuests == null && booking.getNumberOfGuests() == null)
+              || numberOfGuests.equals(booking.getNumberOfGuests()));
+    }
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    return
+        (hotel != null          ? hotel.toString() + '\n' : "" )
+      + (numberOfGuests != null ? "Guests: " + numberOfGuests.toString() : "" );
+  }
+
+  @Override
+  public int hashCode() {
+    return
+        (String.valueOf(id != null    ? id.hashCode()             : null)
+            + (hotel != null          ? hotel.hashCode()          : null)
+            + (numberOfGuests != null ? numberOfGuests.hashCode() : null)).hashCode();
+  }
 
 }

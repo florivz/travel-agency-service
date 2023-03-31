@@ -1,6 +1,6 @@
 package travel.travelagency.entities;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,20 +20,79 @@ public class Trip {
   @Column(name = "TRIP_ID")
   private Integer id;
 
-  @ManyToOne
-  @JoinColumn(name = "BOOKING_ID")
-  private Booking booking;
+  @OneToMany
+  @JoinColumn(name = "TRIP_ID")
+  private Set<HotelBooking> hotelBookingSet;
 
   @OneToMany
   @JoinColumn(name = "TRIP_ID")
-  private List<HotelBooking> hotelBookingList;
-
-  @OneToMany
-  @JoinColumn(name = "TRIP_ID")
-  private List<FlightBooking> flightBookingList;
+  private Set<FlightBooking> flightBookingSet;
 
   public Trip() {
 
+  }
+
+  public Trip(Integer id, Set<HotelBooking> hotelBookingSet,
+      Set<FlightBooking> flightBookingSet) {
+    this.id = id;
+    this.hotelBookingSet = hotelBookingSet;
+    this.flightBookingSet = flightBookingSet;
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public Set<HotelBooking> getHotelBookingSet() {
+    return hotelBookingSet;
+  }
+
+  public void setHotelBookingSet(
+      Set<HotelBooking> hotelBookingList) {
+    this.hotelBookingSet = hotelBookingList;
+  }
+
+  public Set<FlightBooking> getFlightBookingSet() {
+    return flightBookingSet;
+  }
+
+  public void setFlightBookingSet(
+      Set<FlightBooking> flightBookingList) {
+    this.flightBookingSet = flightBookingList;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if(obj != null && obj.getClass().equals(this.getClass())) {
+      Trip trip = (Trip) obj;
+      return
+          ((id == null && trip.getId() == null) || id.equals(trip.getId())) &&
+          ((hotelBookingSet == null && trip.getHotelBookingSet() == null)
+              || hotelBookingSet.equals(trip.getHotelBookingSet())) &&
+          ((flightBookingSet == null && trip.getFlightBookingSet() == null)
+              || flightBookingSet.equals(trip.getFlightBookingSet()));
+    }
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    return
+        (id != null ? "Trip no. : " + id + '\n' : "")
+      + (hotelBookingSet != null  ? "Hotel Bookings:\n" + hotelBookingSet.toString() + '\n' : "" )
+      + (flightBookingSet != null ? "Flight Bookings:\n" + flightBookingSet.toString() : "" );
+  }
+
+  @Override
+  public int hashCode() {
+    return
+        (String.valueOf(id != null      ? id.hashCode()               : null)
+            + (hotelBookingSet != null  ? hotelBookingSet.hashCode()  : null)
+            + (flightBookingSet != null ? flightBookingSet.hashCode() : null)).hashCode();
   }
 
 }
