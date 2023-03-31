@@ -1,48 +1,57 @@
 package travel.travelagency.entities;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class AddressTest {
 
+  private static Address nullAddress, emptyAddress, address, copyAddress, differentAddress;
+
+  @BeforeAll
+  public static void initializeAddresses() {
+    nullAddress = null;
+    emptyAddress = new Address();
+    address = new Address(4, "Street", "18", "93726", "Town", "Country");
+    copyAddress = new Address(4, "Street", "18", "93726", "Town", "Country");
+    differentAddress = new Address(6, "Strasse", "94a", "89454", "Stadt", "Land");
+  }
+
   @Test()
   public void testEqualsMethodWithNull() {
-    Address emptyAddress = new Address();
-    Address nullAddress = null;
     assertDoesNotThrow(() -> emptyAddress.equals(nullAddress));
     assertFalse(emptyAddress.equals(nullAddress));
   }
 
   @Test
   public void testEqualsMethodWithEmptyAddress() {
-    Address emptyAddress1 = new Address();
-    Address emptyAddress2 = new Address();
-    assertDoesNotThrow(() -> emptyAddress1.equals(emptyAddress2));
-    assertTrue(emptyAddress1.equals(emptyAddress2));
+    Address copyEmptyAddress = new Address();
+    assertDoesNotThrow(() -> emptyAddress.equals(copyEmptyAddress));
+    assertTrue(emptyAddress.equals(copyEmptyAddress));
   }
 
   @Test
   public void testEqualsMethodWithIdenticalAddress() {
-    Address address1 = new Address(4, "Street", "18", "93726", "Town", "Country");
-    Address address2 = new Address(4, "Street", "18", "93726", "Town", "Country");
-    assertDoesNotThrow(() -> address1.equals(address2));
-    assertTrue(address1.equals(address2));
+    assertDoesNotThrow(() -> address.equals(copyAddress));
+    assertTrue(address.equals(copyAddress));
   }
 
   @Test
   public void testEqualsMethodWithDifferentAddress() {
-    Address address1 = new Address(4, "Street", "18", "93726", "Town", "Country");
-    Address address2 = new Address(7, "Dwy", "18b", "HKL21", "Town", "Ivy");
-    assertDoesNotThrow(() -> address1.equals(address2));
-    assertFalse(address1.equals(address2));
+    assertDoesNotThrow(() -> address.equals(differentAddress));
+    assertFalse(address.equals(differentAddress));
   }
 
   @Test
   public void testEqualsMethodWithDifferentClass() {
-    Address address1 = new Address(4, "Street", "18", "93726", "Town", "Country");
     Object obj = new Object();
-    assertDoesNotThrow(() -> address1.equals(obj));
-    assertFalse(address1.equals(obj));
+    assertDoesNotThrow(() -> address.equals(obj));
+    assertFalse(address.equals(obj));
   }
 
   @Test
@@ -62,43 +71,17 @@ public class AddressTest {
   }
 
   @Test
-  public void testHashCodeMethodWithIdenticalAddresses() {
-    int expectedHashCode = new Address(
-        9364,
-        "Allee",
-        "1e",
-        "52888",
-        "Burghausen",
-        "Schlaraffenland").hashCode();
-
-    int actualHashCode = new Address(
-        9364,
-        "Allee",
-        "1e",
-        "52888",
-        "Burghausen",
-        "Schlaraffenland").hashCode();
+  public void testHashCodeMethodWithIdenticalAddress() {
+    int expectedHashCode = address.hashCode();
+    int actualHashCode = copyAddress.hashCode();
 
     assertEquals(expectedHashCode, actualHashCode);
   }
 
   @Test
-  public void testHashCodeMethodWithDifferentAddresses() {
-    int unexpectedHashCode = new Address(
-        915,
-        "Weg",
-        "1e",
-        "9158a",
-        "Village",
-        "Schlaraffenland").hashCode();
-
-    int actualHashCode = new Address(
-        98500,
-        "Street",
-        "1e",
-        "32818",
-        "Lil Town",
-        "Schlaraffenland").hashCode();
+  public void testHashCodeMethodWithDifferentAddress() {
+    int unexpectedHashCode = address.hashCode();
+    int actualHashCode = differentAddress.hashCode();
 
     assertNotEquals(unexpectedHashCode, actualHashCode);
   }

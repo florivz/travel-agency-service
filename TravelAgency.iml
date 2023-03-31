@@ -5,7 +5,7 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <datasource-mapping>
-          <factory-entry name="travel-agency-service_persistence-unit" />
+          <factory-entry name="travel-agency-service_persistence-unit" value="33381885-3a67-45b1-aa7b-c817c7227eda" />
         </datasource-mapping>
         <naming-strategy-map />
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />

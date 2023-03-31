@@ -1,9 +1,15 @@
 package travel.travelagency.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TravellerTest {
 
@@ -21,7 +27,7 @@ public class TravellerTest {
             "Merkel",
             "Angela",
             "Dorothea",
-            new Date(1954, 07, 17),
+            LocalDate.of(1954, 07, 17),
             new Address(4, "Street", "18", "93726", "Town", "Country")
         )
     );
@@ -33,7 +39,7 @@ public class TravellerTest {
             "Merkel",
             "Angela",
             "Dorothea",
-            new Date(1954, 07, 17),
+            LocalDate.of(1954, 07, 17),
             new Address(4, "Street", "18", "93726", "Town", "Country")
         )
     );
@@ -45,7 +51,7 @@ public class TravellerTest {
             "Scholz",
             "Olaf",
             "",
-            new Date(1987, 11, 17),
+            LocalDate.of(1987, 11, 17),
             new Address(7, "Way", "9", "65958", "Stadt", "Osmanien")
         )
     );
@@ -93,13 +99,13 @@ public class TravellerTest {
             "Lustig",
             "Peter",
             "Fritz Willi",
-            new Date(1937, 10, 20),
+            LocalDate.of(1937, 10, 20),
             new Address(19, "Street", "101a", "19824", "My Town", "Disneyland")
         )
     );
 
     assertEquals("""
-        Peter Fritz Willi Lustig, 20.10.1937
+        Peter Fritz Willi Lustig, 1937-10-20
         Street 101a, 19824 My Town, Disneyland
         Passport Number: C98765432
         Place of Birth : Bärstadt""",
