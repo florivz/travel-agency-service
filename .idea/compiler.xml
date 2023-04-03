@@ -10,5 +10,6 @@
         <module name="travel-agency-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="19" />
   </component>
 </project>
