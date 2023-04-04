@@ -34,15 +34,19 @@ public class TravelAgencyViewServiceImplementation implements TravelAgencyViewSe
       namedQuery = Booking.FIND_ALL;
 
     TypedQuery<Booking> typedQuery = EM.createNamedQuery(namedQuery, Booking.class);
-    typedQuery.setParameter("bookingID", bookingID);
-    typedQuery.setParameter("customerID", customerID);
+    if(!namedQuery.equals(Booking.FIND_ALL)) {
+      if(!namedQuery.equals(Booking.FIND_BY_CUSTOMER_ID))
+        typedQuery = typedQuery.setParameter("bookingID", bookingID);
+      if(!namedQuery.equals(Booking.FIND_BY_ID))
+        typedQuery = typedQuery.setParameter("customerID", customerID);
+    }
     return typedQuery.getResultList();
   }
 
   @Override
   public List<Trip> getTrips(Booking booking) {
     List<Trip> tripList;
-    if(booking == null)
+    if(booking == null || booking.getTripSet() == null)
       tripList = new LinkedList<>();
     else
       tripList = new LinkedList<>(booking.getTripSet());
@@ -52,7 +56,7 @@ public class TravelAgencyViewServiceImplementation implements TravelAgencyViewSe
   @Override
   public List<HotelBooking> getHotelBookings(Trip trip) {
     List<HotelBooking> hotelBookingList;
-    if(trip == null)
+    if(trip == null || trip.getHotelBookingSet() == null)
       hotelBookingList = new LinkedList<>();
     else
       hotelBookingList = new LinkedList<>(trip.getHotelBookingSet());
@@ -62,7 +66,7 @@ public class TravelAgencyViewServiceImplementation implements TravelAgencyViewSe
   @Override
   public List<FlightBooking> getFlightBookings(Trip trip) {
     List<FlightBooking> flightBookingList;
-    if(trip == null)
+    if(trip == null || trip.getFlightBookingSet() == null)
       flightBookingList = new LinkedList<>();
     else
       flightBookingList = new LinkedList<>(trip.getFlightBookingSet());
