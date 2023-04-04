@@ -168,7 +168,7 @@ public class FlightTest {
 
   @Test
   public void testToStringMethod() {
-    Flight flight = new Flight(
+    Flight testedFlight = new Flight(
         1,
         new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
         LocalDate.of(2023, 05, 14),
@@ -181,13 +181,13 @@ public class FlightTest {
         "EUR"
     );
 
-    assertEquals("""
+    String expectedResult = """
         DL0015 from FRA to ATL
-        Departure:\s""" + flight.getDepartureTimestamp().toString() + '\n' + """
-        Arrival  :\s""" + flight.getArrivalTimestamp().toString() + '\n' + """
-        Price    : 299.99 EUR""",
-        flight.toString()
-    );
+        Departure:\s""" + testedFlight.getDepartureTimestamp().toString() + '\n' + """
+        Arrival  :\s""" + testedFlight.getArrivalTimestamp().toString() + '\n' + """
+        Price    : 299.99 EUR""";
+
+    assertEquals(expectedResult, testedFlight.toString());
   }
 
   @Test

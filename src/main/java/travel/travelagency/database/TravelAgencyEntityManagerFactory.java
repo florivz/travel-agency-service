@@ -5,8 +5,14 @@ import java.util.Properties;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.simple.SimpleLoggerContextFactory;
+import travel.travelagency.HelloApplication;
 
 public class TravelAgencyEntityManagerFactory {
+
+  static final Logger logger = LogManager.getLogger(TravelAgencyEntityManagerFactory.class);
 
   private EntityManagerFactory entityManagerFactory;
 
@@ -21,7 +27,8 @@ public class TravelAgencyEntityManagerFactory {
         throw new RuntimeException(msg);
       }
     } catch (Exception e) {
-      final String MSG = "Invalid database connection properties";
+      final String MSG = "Unable to create EntityManagerFactory";
+      logger.error(MSG);
       throw new RuntimeException(MSG);
     }
   }
