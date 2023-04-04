@@ -22,24 +22,9 @@ public class TravelAgencyViewServiceImplementation implements TravelAgencyViewSe
 
   @Override
   public List<Booking> getBookings(Integer bookingID, Integer customerID) {
-    String namedQuery;
-
-    if (bookingID != null && customerID != null)
-      namedQuery = Booking.FIND_BY_ID_AND_CUSTOMER_ID;
-    else if (bookingID != null)
-      namedQuery = Booking.FIND_BY_ID;
-    else if (customerID != null)
-      namedQuery = Booking.FIND_BY_CUSTOMER_ID;
-    else
-      namedQuery = Booking.FIND_ALL;
-
-    TypedQuery<Booking> typedQuery = EM.createNamedQuery(namedQuery, Booking.class);
-    if(!namedQuery.equals(Booking.FIND_ALL)) {
-      if(!namedQuery.equals(Booking.FIND_BY_CUSTOMER_ID))
-        typedQuery = typedQuery.setParameter("bookingID", bookingID);
-      if(!namedQuery.equals(Booking.FIND_BY_ID))
-        typedQuery = typedQuery.setParameter("customerID", customerID);
-    }
+    TypedQuery<Booking> typedQuery = EM.createNamedQuery(Booking.FIND_WITH_FILTERS, Booking.class);
+    typedQuery = typedQuery.setParameter(Booking.BOOKING_ID, bookingID);
+    typedQuery = typedQuery.setParameter(Booking.CUSTOMER_ID, customerID);
     return typedQuery.getResultList();
   }
 

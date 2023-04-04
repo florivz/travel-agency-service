@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 
+/**
+ * This class is a jpa entity to the corresponding table 'ADDRESS' in the database 'travel-agency-service_db'
+ */
 @Entity
 @Table(name = "ADDRESS")
 public class Address {
@@ -120,14 +123,13 @@ public class Address {
 
   @Override
   public int hashCode() {
-    StringBuilder appendedHashCodes = new StringBuilder();
-    appendedHashCodes.append(id != null       ? id.hashCode()       : null);
-    appendedHashCodes.append(street != null   ? street.hashCode()   : null);
-    appendedHashCodes.append(number != null   ? number.hashCode()   : null);
-    appendedHashCodes.append(zipCode != null  ? zipCode.hashCode()  : null);
-    appendedHashCodes.append(town != null     ? town.hashCode()     : null);
-    appendedHashCodes.append(country != null  ? country.hashCode()  : null);
-    return appendedHashCodes.toString().hashCode();
+    String appendedHashCodes = String.valueOf(id != null ? id.hashCode() : null)
+        + (street != null ? street.hashCode() : null)
+        + (number != null ? number.hashCode() : null)
+        + (zipCode != null ? zipCode.hashCode() : null)
+        + (town != null ? town.hashCode() : null)
+        + (country != null ? country.hashCode() : null);
+    return appendedHashCodes.hashCode();
   }
 
 }

@@ -7,23 +7,21 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.simple.SimpleLoggerContextFactory;
-import travel.travelagency.HelloApplication;
 
 public class TravelAgencyEntityManagerFactory {
 
   static final Logger logger = LogManager.getLogger(TravelAgencyEntityManagerFactory.class);
 
-  private EntityManagerFactory entityManagerFactory;
+  private final EntityManagerFactory entityManagerFactory;
 
-  public TravelAgencyEntityManagerFactory() {
-    Properties p = this.getDBAccessProperties();
+  public TravelAgencyEntityManagerFactory(String dbPropertiesPath) {
+    Properties p = this.getDBAccessProperties(dbPropertiesPath);
     try {
       String persistenceUnit = p.getProperty("persistence_unit");
       if(persistenceUnit != null)
         entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnit);
       else {
-        final String msg = "\'persistence_unit\' property not found in database properties";
+        final String msg = "'persistence_unit' property not found in database properties";
         throw new RuntimeException(msg);
       }
     } catch (Exception e) {
@@ -37,10 +35,9 @@ public class TravelAgencyEntityManagerFactory {
     return entityManagerFactory.createEntityManager();
   }
 
-  private Properties getDBAccessProperties() {
+  private Properties getDBAccessProperties(String dbPropertiesPath) {
     Properties dbAccessProperties;
-    try(InputStream is = getClass().getClassLoader().getResourceAsStream(
-        "db.properties")) {
+    try(InputStream is = getClass().getClassLoader().getResourceAsStream(dbPropertiesPath)) {
       dbAccessProperties = new Properties();
       dbAccessProperties.load( is );
     } catch (Exception e) {

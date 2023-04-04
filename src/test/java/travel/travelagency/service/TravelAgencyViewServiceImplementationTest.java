@@ -20,41 +20,36 @@ public class TravelAgencyViewServiceImplementationTest {
 
   @BeforeEach
   public void createMockedEntityManager() {
+    //Default typed query without filters
     TypedQuery<Booking> allBookings = getTypedQuery(createBookingList(null, null));
 
-    TypedQuery<Booking> byIdBookings = getTypedQuery(createBookingList(null, null));
-    TypedQuery<Booking> byIdSubQuery = getTypedQuery(createBookingList(1, null));
-    Mockito.when(byIdBookings.setParameter("bookingID", 1)).
-        thenReturn(byIdSubQuery);
+    //Typed query after filtering by parameter 'bookingID'
+    TypedQuery<Booking> byId1Bookings = getTypedQuery(createBookingList(1, null));
+    Mockito.when(allBookings.setParameter(Booking.BOOKING_ID, 1)).
+        thenReturn(byId1Bookings);
 
-    TypedQuery<Booking> byCustomerIdBookings = getTypedQuery(createBookingList(null, null));
-    TypedQuery<Booking> byCustomerIdSubQuery = getTypedQuery(createBookingList(null, 1));
-    Mockito.when(byCustomerIdBookings.setParameter("customerID", 1)).
-        thenReturn(byCustomerIdSubQuery);
+    TypedQuery<Booking> byCustomerId1Bookings = getTypedQuery(createBookingList(null, 1));
+    Mockito.when(allBookings.setParameter(Booking.CUSTOMER_ID, 1)).
+        thenReturn(byCustomerId1Bookings);
 
-    TypedQuery<Booking> byIdAndCustomerIdBookings = getTypedQuery(createBookingList(null, null));
-    TypedQuery<Booking> byIdAndCustomerIdSubQuery1 = getTypedQuery(createBookingList(3, null));
-    Mockito.when(byIdAndCustomerIdBookings.setParameter("bookingID", 3)).
-        thenReturn(byIdAndCustomerIdSubQuery1);
-    TypedQuery<Booking> byIdAndCustomerIdSubQuery2 = getTypedQuery(createBookingList(3, 2));
-    Mockito.when(byIdAndCustomerIdSubQuery1.setParameter("customerID", 2)).
-        thenReturn(byIdAndCustomerIdSubQuery2);
+    TypedQuery<Booking> byId3Bookings = getTypedQuery(createBookingList(3, null));
+    TypedQuery<Booking> byId3AndCustomerId2Bookings = getTypedQuery(createBookingList(3, 2));
+    Mockito.when(byId3Bookings.setParameter(Booking.CUSTOMER_ID, 2))
+        .thenReturn(byId3AndCustomerId2Bookings);
+    Mockito.when(allBookings.setParameter(Booking.BOOKING_ID, 3))
+        .thenReturn(byId3Bookings);
 
 
     EM = Mockito.mock(EntityManager.class);
-    Mockito.when(EM.createNamedQuery(Booking.FIND_ALL, Booking.class))
+    Mockito.when(EM.createNamedQuery(Booking.FIND_WITH_FILTERS, Booking.class))
         .thenReturn(allBookings);
-    Mockito.when(EM.createNamedQuery(Booking.FIND_BY_ID, Booking.class))
-        .thenReturn(byIdBookings);
-    Mockito.when(EM.createNamedQuery(Booking.FIND_BY_CUSTOMER_ID, Booking.class))
-        .thenReturn(byCustomerIdBookings);
-    Mockito.when(EM.createNamedQuery(Booking.FIND_BY_ID_AND_CUSTOMER_ID, Booking.class))
-        .thenReturn(byIdAndCustomerIdBookings);
   }
 
   private TypedQuery<Booking> getTypedQuery(List<Booking> resultList) {
     TypedQuery<Booking> typedQuery = Mockito.mock(TypedQuery.class);
     Mockito.when(typedQuery.getResultList()).thenReturn(resultList);
+    Mockito.when(typedQuery.setParameter(Booking.BOOKING_ID, null)).thenReturn(typedQuery);
+    Mockito.when(typedQuery.setParameter(Booking.CUSTOMER_ID, null)).thenReturn(typedQuery);
     return typedQuery;
   }
 

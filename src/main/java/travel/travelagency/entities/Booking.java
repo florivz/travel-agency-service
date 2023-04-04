@@ -14,6 +14,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * This class is a jpa entity to the corresponding table 'BOOKING' in the database 'travel-agency-service_db'.
+ * It contains several prepared statements that allow for queries of filtered bookings
+ */
 @Entity
 @Table(name = "BOOKING")
 @NamedQueries({
@@ -22,26 +26,20 @@ import javax.persistence.Table;
         query = "SELECT booking FROM Booking booking"
     ),
     @NamedQuery(
-        name = Booking.FIND_BY_ID,
-        query = "SELECT booking FROM Booking booking WHERE booking.id = :bookingID"
-    ),
-    @NamedQuery(
-        name = Booking.FIND_BY_CUSTOMER_ID,
-        query = "SELECT booking FROM Booking booking WHERE booking.customer.id = :customerID"
-    ),
-    @NamedQuery(
-        name = Booking.FIND_BY_ID_AND_CUSTOMER_ID,
-        query = "SELECT booking FROM Booking booking "
-            + "WHERE booking.id = :bookingID AND booking.customer.id = :customerID"
+        name = Booking.FIND_WITH_FILTERS,
+        query = """
+            SELECT booking FROM Booking booking
+            WHERE booking.id          = coalesce(:bookingID, booking.id)
+            AND   booking.customer.id = coalesce(:customerID, booking.customer.id)"""
     )
 })
 public class Booking {
 
   public static final String
       FIND_ALL = "Booking.findAll",
-      FIND_BY_ID = "Booking.findById",
-      FIND_BY_CUSTOMER_ID = "Booking.findByCustomerId",
-      FIND_BY_ID_AND_CUSTOMER_ID = "Booking.findByIdAndCustomerId";
+      FIND_WITH_FILTERS = "Booking.findWithFilters",
+      BOOKING_ID = "bookingID",
+      CUSTOMER_ID = "customerID";
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -108,8 +106,8 @@ public class Booking {
   public String toString() {
     return
         (id != null ? "Booking no. : " + id + '\n' : "")
-      + (customer != null ? "Customer:\n" + customer.toString() + '\n' : "" )
-      + (tripSet != null  ? "Trips:\n" + tripSet.toString() : "" );
+      + (customer != null ? "Customer:\n" + customer + '\n' : "" )
+      + (tripSet != null  ? "Trips:\n" + tripSet : "" );
   }
 
   @Override
