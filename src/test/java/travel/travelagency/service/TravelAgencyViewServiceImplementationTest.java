@@ -1,6 +1,7 @@
 package travel.travelagency.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -138,6 +139,11 @@ public class TravelAgencyViewServiceImplementationTest {
     assertEquals(expectedBookingList, actualBookingList);
   }
 
+  /**
+   * This method tests the <code>getTrips(Booking booking)</code> method for a booking
+   * equal to <code>null</code>.
+   * The expected <code>List</code> object shall be empty.
+   */
   @Test
   public void testGetTripsWithNull() {
     List<Trip> expectedTripList = new LinkedList<>();
@@ -148,6 +154,11 @@ public class TravelAgencyViewServiceImplementationTest {
     assertEquals(expectedTripList, actualTripList);
   }
 
+  /**
+   * This method tests the <code>getTrips(Booking booking)</code> method for a booking
+   * whose set of trips is equal to <code>null</code>.
+   * The expected <code>List</code> object shall be empty.
+   */
   @Test
   public void testGetTripsWithNullTripSet() {
     List<Trip> expectedTripList = new LinkedList<>();
@@ -158,6 +169,22 @@ public class TravelAgencyViewServiceImplementationTest {
     assertEquals(expectedTripList, actualTripList);
   }
 
+  /**
+   * This method tests the <code>getTrips(Booking booking)</code> method for a booking
+   * with at least one trip.
+   * The expected <code>List</code> object shall contain the trips
+   * belonging to the booking in question.
+   */
+  @Test
+  public void testGetTripsWithTripSet() {
+    fail();
+  }
+
+  /**
+   * This method tests the <code>getHotelBookings(Trip trip)</code> method for a trip
+   * equal to <code>null</code>.
+   * The expected <code>List</code> object shall be empty.
+   */
   @Test
   public void testGetHotelBookingsWithNull() {
     List<HotelBooking> expectedHotelBookingList = new LinkedList<>();
@@ -168,6 +195,11 @@ public class TravelAgencyViewServiceImplementationTest {
     assertEquals(expectedHotelBookingList, actualFlightBookingList);
   }
 
+  /**
+   * This method tests the <code>getHotelBookings(Trip trip)</code> method for a trip
+   * whose set of hotel bookings is equal to <code>null</code>.
+   * The expected <code>List</code> object shall be empty.
+   */
   @Test
   public void testGetHotelBookingsWithNullHotelBookingSet() {
     List<HotelBooking> expectedHotelBookingList = new LinkedList<>();
@@ -178,6 +210,22 @@ public class TravelAgencyViewServiceImplementationTest {
     assertEquals(expectedHotelBookingList, actualFlightBookingList);
   }
 
+  /**
+   * This method tests the <code>getHotelBookings(Trip trip)</code> method for a trip
+   * with at least one hotel booking.
+   * The expected <code>List</code> object shall contain the hotel bookings
+   * belonging to the trip in question.
+   */
+  @Test
+  public void testGetHotelBookingsWitHotelBookingSet() {
+    fail();
+  }
+
+  /**
+   * This method tests the <code>getFlightBookings(Trip trip)</code> method for a trip
+   * equal to <code>null</code>.
+   * The expected <code>List</code> object shall be empty.
+   */
   @Test
   public void testGetFlightBookingsWithNull() {
     List<FlightBooking> expectedFlightBookingList = new LinkedList<>();
@@ -188,6 +236,11 @@ public class TravelAgencyViewServiceImplementationTest {
     assertEquals(expectedFlightBookingList, actualFlightBookingList);
   }
 
+  /**
+   * This method tests the <code>getFlightBookings(Trip trip)</code> method for a trip
+   * whose set of flight bookings is equal to <code>null</code>.
+   * The expected <code>List</code> object shall be empty.
+   */
   @Test
   public void testGetFlightBookingsWithNullFlightBookingSet() {
     List<FlightBooking> expectedFlightBookingList = new LinkedList<>();
@@ -196,6 +249,17 @@ public class TravelAgencyViewServiceImplementationTest {
     List<FlightBooking> actualFlightBookingList = service.getFlightBookings(new Trip());
 
     assertEquals(expectedFlightBookingList, actualFlightBookingList);
+  }
+
+  /**
+   * This method tests the <code>getFlightBookings(Trip trip)</code> method for a trip
+   * with at least one flight booking.
+   * The expected <code>List</code> object shall contain the flight bookings
+   * belonging to the trip in question.
+   */
+  @Test
+  public void testGetFlightBookingsWithFlightBookingSet() {
+    fail();
   }
 
 }
