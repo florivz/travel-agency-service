@@ -9,12 +9,39 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "BOOKING")
+@NamedQueries({
+    @NamedQuery(
+        name = Booking.FIND_ALL,
+        query = "SELECT booking FROM Booking booking"
+    ),
+    @NamedQuery(
+        name = Booking.FIND_BY_ID,
+        query = "SELECT booking FROM Booking booking WHERE booking.id = :bookingID"
+    ),
+    @NamedQuery(
+        name = Booking.FIND_BY_CUSTOMER_ID,
+        query = "SELECT booking FROM Booking booking WHERE booking.customer.id = :customerID"
+    ),
+    @NamedQuery(
+        name = Booking.FIND_BY_ID_AND_CUSTOMER_ID,
+        query = "SELECT booking FROM Booking booking "
+            + "WHERE booking.id = :bookingID AND booking.customer.id = :customerID"
+    )
+})
 public class Booking {
+
+  public static final String
+      FIND_ALL = "Booking.findAll",
+      FIND_BY_ID = "Booking.findById",
+      FIND_BY_CUSTOMER_ID = "Booking.findByCustomerId",
+      FIND_BY_ID_AND_CUSTOMER_ID = "Booking.findByIdAndCustomerId";
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
