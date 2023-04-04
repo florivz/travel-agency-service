@@ -1,6 +1,4 @@
-target/*
-
-/.idea/*
+target/
+/logs/
 /.idea/
-
-/logs/*
+/src/main/resources/META-INF/persistence.xml
