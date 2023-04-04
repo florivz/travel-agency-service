@@ -20,13 +20,6 @@ public class TravelAgencyViewServiceImplementation implements TravelAgencyViewSe
     this.EM = entityManager;
   }
 
-  public static void main(String[] args) {
-    TravelAgencyViewService service = new TravelAgencyViewServiceImplementation(
-        new travel.travelagency.database.TravelAgencyEntityManagerFactory().createEntityManager());
-    List<Booking> list = service.getBookings(null, 1);
-    System.out.println(list.toString());
-  }
-
   @Override
   public List<Booking> getBookings(Integer bookingID, Integer customerID) {
     String namedQuery;
