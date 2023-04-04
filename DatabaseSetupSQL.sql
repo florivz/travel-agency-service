@@ -15,6 +15,9 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
+-- create demo user for database
+CREATE USER IF NOT EXISTS `DEMO_USER` IDENTIFIED BY 'PASSWORD';
+
 -- export database structure of travel-agency-service_db
 CREATE DATABASE IF NOT EXISTS `travel-agency-service_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `travel-agency-service_db`;
@@ -29,6 +32,9 @@ CREATE TABLE IF NOT EXISTS `address` (
     `country` VARCHAR(50) NOT NULL COMMENT 'country',
 PRIMARY KEY (`address_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered addresses';
+
+-- grant select to demo_user
+GRANT SELECT ON `address` TO `DEMO_USER`;
 
 -- export data of table travel-agency-service_db.address: 4 rows
 DELETE FROM `address`;
@@ -53,6 +59,9 @@ PRIMARY KEY (`personal_data_id`),
 CONSTRAINT `fk_address` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered personal data';
 
+-- grant select to demo_user
+GRANT SELECT ON `personal_data` TO `DEMO_USER`;
+
 -- export data of table travel-agency-service_db.personal_data: 6 rows
 DELETE FROM `personal_data`;
 INSERT INTO `personal_data` (`personal_data_id`, `last_name`, `first_name`, `middle_names`, `date_of_birth`, `address_id`) VALUES
@@ -74,6 +83,9 @@ CREATE TABLE IF NOT EXISTS `customer` (
   CONSTRAINT `fk_billing_address` FOREIGN KEY (`billing_address_id`) REFERENCES `address` (`address_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered customer';
 
+-- grant select to demo_user
+GRANT SELECT ON `customer` TO `DEMO_USER`;
+
 -- export data of table travel-agency-service_db.customer: 4 rows
 DELETE FROM `customer`;
 INSERT INTO `customer` (`customer_id`, `IBAN`, `personal_data_id`, `billing_address_id`) VALUES
@@ -90,6 +102,9 @@ CREATE TABLE IF NOT EXISTS `traveller` (
     PRIMARY KEY (`passport_id`),
     CONSTRAINT `fk_traveller_data` FOREIGN KEY (`personal_data_id`) REFERENCES `personal_data` (`personal_data_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered traveller';
+
+-- grant select to demo_user
+GRANT SELECT ON `traveller` TO `DEMO_USER`;
 
 -- export data of table travel-agency-service_db.traveller: 6 rows
 DELETE FROM `traveller`;
@@ -112,6 +127,9 @@ CREATE TABLE IF NOT EXISTS `hotel` (
     CONSTRAINT `fk_hotel_address` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered hotels';
 
+-- grant select to demo_user
+GRANT SELECT ON `hotel` TO `DEMO_USER`;
+
 -- export data of table travel-agency-service_db.hotel: 3 rows
 DELETE FROM `hotel`;
 INSERT INTO `hotel` (`hotel_id`, `name`, `price_per_person`, `currency_key`, `address_id`) VALUES
@@ -128,6 +146,9 @@ CREATE TABLE IF NOT EXISTS `flight_connection` (
     `arrival_airport_code` CHAR(3) NOT NULL COMMENT 'arriving airport code',
     PRIMARY KEY (`flight_connection_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered flight connections';
+
+-- grant select to demo_user
+GRANT SELECT ON `flight_connection` TO `DEMO_USER`;
 
 -- export data of table travel-agency-service_db.flight_connection: 4 rows
 DELETE FROM `flight_connection`;
@@ -158,6 +179,9 @@ CREATE TABLE IF NOT EXISTS `flight` (
     PRIMARY KEY (`flight_id`),
     CONSTRAINT `fk_flight_connection` FOREIGN KEY (`flight_connection_id`) REFERENCES `flight_connection` (`flight_connection_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered flights';
+
+-- grant select to demo_user
+GRANT SELECT ON `flight` TO `DEMO_USER`;
 
 -- export data of table travel-agency-service_db.flight: 62 rows
 DELETE FROM `flight`;
@@ -233,6 +257,9 @@ CREATE TABLE IF NOT EXISTS `booking` (
     CONSTRAINT `fk_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered bookings';
 
+-- grant select to demo_user
+GRANT SELECT ON `booking` TO `DEMO_USER`;
+
 -- export data of table travel-agency-service_db.booking: 3 rows
 DELETE FROM `booking`;
 INSERT INTO `booking` (`booking_id`, `customer_id`) VALUES
@@ -248,6 +275,9 @@ CREATE TABLE IF NOT EXISTS `trip` (
     PRIMARY KEY (`trip_id`),
     CONSTRAINT `fk_booking_id` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered trips';
+
+-- grant select to demo_user
+GRANT SELECT ON `trip` TO `DEMO_USER`;
 
 -- export data of table travel-agency-service_db.trip: 5 rows
 DELETE FROM `trip`;
@@ -271,6 +301,9 @@ CREATE TABLE IF NOT EXISTS `hotel_booking` (
     CONSTRAINT `fk_hotel_id` FOREIGN KEY (`hotel_id`) REFERENCES `hotel` (`hotel_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered hotel bookings';
 
+-- grant select to demo_user
+GRANT SELECT ON `hotel_booking` TO `DEMO_USER`;
+
 -- export data of table travel-agency-service_db.hotel_booking: 5 rows
 DELETE FROM `hotel_booking`;
 INSERT INTO `hotel_booking` (`hotel_booking_id`, `trip_id`, `hotel_id`, `number_of_guests`) VALUES
@@ -293,6 +326,9 @@ CREATE TABLE IF NOT EXISTS `flight_booking` (
     CONSTRAINT `fk_flight_trip_id` FOREIGN KEY (`trip_id`) REFERENCES `trip` (`trip_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `fk_flight_id` FOREIGN KEY (`flight_id`) REFERENCES `flight` (`flight_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered flight bookings';
+
+-- grant select to demo_user
+GRANT SELECT ON `flight_booking` TO `DEMO_USER`;
 
 -- export data of table travel-agency-service_db.flight_booking: 5 rows
 DELETE FROM `flight_booking`;
