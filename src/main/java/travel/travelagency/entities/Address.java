@@ -8,7 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Column;
 
 /**
- * This class is a jpa entity to the corresponding table 'ADDRESS' in the database 'travel-agency-service_db'
+ * This class is a jpa entity to the corresponding table 'ADDRESS'
+ * in the database 'travel-agency-service_db'.
  * @author I551381
  * @version 1.0
  */
@@ -17,11 +18,11 @@ import javax.persistence.Column;
 public class Address {
 
   /**
-   * Unique identifier for each address (primary key in the database).
+   * Unique identifier for each address record (primary key in the database).
    * This value will be generated automatically.
    */
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "ADDRESS_ID")
   private Integer id;
 
