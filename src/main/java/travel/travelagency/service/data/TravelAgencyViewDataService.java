@@ -1,4 +1,4 @@
-package travel.travelagency.service;
+package travel.travelagency.service.data;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import travel.travelagency.entities.Trip;
 import travel.travelagency.entities.HotelBooking;
 import travel.travelagency.entities.FlightBooking;
 
-public interface TravelAgencyViewService {
+public interface TravelAgencyViewDataService {
 
   /**
    * This method returns all bookings filtered by booking ID and customer ID.
@@ -27,7 +27,7 @@ public interface TravelAgencyViewService {
    *         If no booking with the selected criteria is found,
    *         an empty <code>List</code> object shall be returned.
    */
-  public List<Booking> getBookings(Integer bookingID, Integer customerID);
+  List<Booking> getBookings(Integer bookingID, Integer customerID);
 
   /**
    * This method returns all trips included in the booking provided.
@@ -40,7 +40,7 @@ public interface TravelAgencyViewService {
    *                the method shall return an empty <code>List</code> object.
    * @return A <code>List</code> object containing all trips included in this booking.
    */
-  public List<Trip> getTrips(Booking booking);
+  List<Trip> getTrips(Booking booking);
 
   /**
    * This method returns all hotel bookings included in the trip provided.
@@ -53,7 +53,7 @@ public interface TravelAgencyViewService {
    *             the method shall return an empty <code>List</code> object.
    * @return A <code>List</code> object containing all hotel bookings included in this trip.
    */
-  public List<HotelBooking> getHotelBookings(Trip trip);
+  List<HotelBooking> getHotelBookings(Trip trip);
 
   /**
    * This method returns all flight bookings included in the trip provided.
@@ -66,6 +66,6 @@ public interface TravelAgencyViewService {
    *             the method shall return an empty <code>List</code> object.
    * @return A <code>List</code> object containing all flight bookings included in this trip.
    */
-  public List<FlightBooking> getFlightBookings(Trip trip);
+  List<FlightBooking> getFlightBookings(Trip trip);
 
 }

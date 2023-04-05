@@ -1,4 +1,4 @@
-package travel.travelagency.service;
+package travel.travelagency.service.data;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -15,7 +15,7 @@ import travel.travelagency.entities.*;
 import java.util.List;
 import java.util.LinkedList;
 
-public class TravelAgencyViewServiceImplementationTest {
+public class TravelAgencyViewDataServiceImplementationTest {
 
   private EntityManager EM;
 
@@ -103,7 +103,7 @@ public class TravelAgencyViewServiceImplementationTest {
   public void testGetBookingsWithNull() {
     List<Booking> expectedBookingList = createBookingList(null, null);
 
-    TravelAgencyViewService service = new TravelAgencyViewServiceImplementation(EM);
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
     List<Booking> actualBookingList = service.getBookings(null, null);
 
     assertEquals(expectedBookingList, actualBookingList);
@@ -113,7 +113,7 @@ public class TravelAgencyViewServiceImplementationTest {
   public void testGetBookingsWithId() {
     List<Booking> expectedBookingList = createBookingList(1, null);
 
-    TravelAgencyViewService service = new TravelAgencyViewServiceImplementation(EM);
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
     List<Booking> actualBookingList = service.getBookings(1, null);
 
     assertEquals(expectedBookingList, actualBookingList);
@@ -123,7 +123,7 @@ public class TravelAgencyViewServiceImplementationTest {
   public void testGetBookingsWithCustomerId() {
     List<Booking> expectedBookingList = createBookingList(null, 1);
 
-    TravelAgencyViewService service = new TravelAgencyViewServiceImplementation(EM);
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
     List<Booking> actualBookingList = service.getBookings(null, 1);
 
     assertEquals(expectedBookingList, actualBookingList);
@@ -133,7 +133,7 @@ public class TravelAgencyViewServiceImplementationTest {
   public void testGetBookingsWithIdAndCustomerId() {
     List<Booking> expectedBookingList = createBookingList(3, 2);
 
-    TravelAgencyViewService service = new TravelAgencyViewServiceImplementation(EM);
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
     List<Booking> actualBookingList = service.getBookings(3, 2);
 
     assertEquals(expectedBookingList, actualBookingList);
@@ -148,7 +148,7 @@ public class TravelAgencyViewServiceImplementationTest {
   public void testGetTripsWithNull() {
     List<Trip> expectedTripList = new LinkedList<>();
 
-    TravelAgencyViewService service = new TravelAgencyViewServiceImplementation(EM);
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
     List<Trip> actualTripList = service.getTrips(null);
 
     assertEquals(expectedTripList, actualTripList);
@@ -163,7 +163,7 @@ public class TravelAgencyViewServiceImplementationTest {
   public void testGetTripsWithNullTripSet() {
     List<Trip> expectedTripList = new LinkedList<>();
 
-    TravelAgencyViewService service = new TravelAgencyViewServiceImplementation(EM);
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
     List<Trip> actualTripList = service.getTrips(new Booking());
 
     assertEquals(expectedTripList, actualTripList);
@@ -189,7 +189,7 @@ public class TravelAgencyViewServiceImplementationTest {
   public void testGetHotelBookingsWithNull() {
     List<HotelBooking> expectedHotelBookingList = new LinkedList<>();
 
-    TravelAgencyViewService service = new TravelAgencyViewServiceImplementation(EM);
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
     List<HotelBooking> actualFlightBookingList = service.getHotelBookings(null);
 
     assertEquals(expectedHotelBookingList, actualFlightBookingList);
@@ -204,7 +204,7 @@ public class TravelAgencyViewServiceImplementationTest {
   public void testGetHotelBookingsWithNullHotelBookingSet() {
     List<HotelBooking> expectedHotelBookingList = new LinkedList<>();
 
-    TravelAgencyViewService service = new TravelAgencyViewServiceImplementation(EM);
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
     List<HotelBooking> actualFlightBookingList = service.getHotelBookings(new Trip());
 
     assertEquals(expectedHotelBookingList, actualFlightBookingList);
@@ -230,7 +230,7 @@ public class TravelAgencyViewServiceImplementationTest {
   public void testGetFlightBookingsWithNull() {
     List<FlightBooking> expectedFlightBookingList = new LinkedList<>();
 
-    TravelAgencyViewService service = new TravelAgencyViewServiceImplementation(EM);
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
     List<FlightBooking> actualFlightBookingList = service.getFlightBookings(null);
 
     assertEquals(expectedFlightBookingList, actualFlightBookingList);
@@ -245,7 +245,7 @@ public class TravelAgencyViewServiceImplementationTest {
   public void testGetFlightBookingsWithNullFlightBookingSet() {
     List<FlightBooking> expectedFlightBookingList = new LinkedList<>();
 
-    TravelAgencyViewService service = new TravelAgencyViewServiceImplementation(EM);
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
     List<FlightBooking> actualFlightBookingList = service.getFlightBookings(new Trip());
 
     assertEquals(expectedFlightBookingList, actualFlightBookingList);

@@ -1,4 +1,4 @@
-package travel.travelagency.service;
+package travel.travelagency.service.data;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,11 +12,11 @@ import travel.travelagency.entities.FlightBooking;
 import travel.travelagency.entities.HotelBooking;
 import travel.travelagency.entities.Trip;
 
-public class TravelAgencyViewServiceImplementation implements TravelAgencyViewService {
+public class TravelAgencyViewDataServiceImplementation implements TravelAgencyViewDataService {
 
   private final EntityManager EM;
 
-  public TravelAgencyViewServiceImplementation(EntityManager entityManager) {
+  public TravelAgencyViewDataServiceImplementation(EntityManager entityManager) {
     this.EM = entityManager;
   }
 

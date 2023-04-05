@@ -72,11 +72,15 @@ public class FlightBooking {
     return false;
   }
 
+  public double getTotalPrice() {
+    return numberOfPassengers * flight.getPricePerPerson();
+  }
+
   @Override
   public String toString() {
     return
         (flight != null             ? flight.toString() + '\n'                       : "" )
-      + (numberOfPassengers != null ? "Passengers: " + numberOfPassengers.toString() : "" );
+      + (numberOfPassengers != null ? "Passengers: " + numberOfPassengers : "" );
   }
 
   @Override

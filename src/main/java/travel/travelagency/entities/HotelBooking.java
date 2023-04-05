@@ -59,6 +59,10 @@ public class HotelBooking {
     this.numberOfGuests = numberOfGuests;
   }
 
+  public double getTotalPrice() {
+    return numberOfGuests * hotel.getPricePerPerson();
+  }
+
   @Override
   public boolean equals(Object obj) {
     if(obj != null && obj.getClass().equals(this.getClass())) {
@@ -76,7 +80,7 @@ public class HotelBooking {
   public String toString() {
     return
         (hotel != null          ? hotel.toString() + '\n' : "" )
-      + (numberOfGuests != null ? "Guests: " + numberOfGuests.toString() : "" );
+      + (numberOfGuests != null ? "Guests: " + numberOfGuests : "" );
   }
 
   @Override
