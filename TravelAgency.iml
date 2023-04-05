@@ -12,4 +12,9 @@
       </configuration>
     </facet>
   </component>
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/logs/2023-04" />
+    </content>
+  </component>
 </module>
