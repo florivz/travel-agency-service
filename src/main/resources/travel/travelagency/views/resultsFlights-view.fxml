@@ -10,7 +10,7 @@
         <TableView layoutY="56.0" prefHeight="358.0" prefWidth="600.0">
             <columns>
                 <TableColumn prefWidth="119.0" text="Flight Number" />
-                <TableColumn prefWidth="75.0" text="Airline" />
+                <TableColumn prefWidth="75.0" text="Airline Code" />
                 <TableColumn prefWidth="90.0" text="Departure" />
                 <TableColumn minWidth="8.0" prefWidth="79.0" text="Arrival" />
                 <TableColumn prefWidth="68.0" text="Price" />

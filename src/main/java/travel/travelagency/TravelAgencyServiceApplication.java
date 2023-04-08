@@ -16,10 +16,12 @@ public class TravelAgencyServiceApplication extends Application {
     private static final String
             MAIN_VIEW = VIEWS_DIRECTORY + "loginpage-view.fxml";
 
+    private FXMLLoader fxmlLoader;
+
     static final Logger logger = LogManager.getLogger(TravelAgencyServiceApplication.class);
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(TravelAgencyServiceApplication.class.getResource(MAIN_VIEW));
+        fxmlLoader = new FXMLLoader(TravelAgencyServiceApplication.class.getResource(MAIN_VIEW));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Travel Agency Service");
         stage.setScene(scene);

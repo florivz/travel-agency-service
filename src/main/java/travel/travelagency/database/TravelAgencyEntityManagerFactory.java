@@ -8,12 +8,26 @@ import javax.persistence.Persistence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * This class creates <code>EntityManager</code> connected to the database.
+ * @author I551381
+ * @version 1.0
+ */
 public class TravelAgencyEntityManagerFactory {
 
   static final Logger logger = LogManager.getLogger(TravelAgencyEntityManagerFactory.class);
 
+  /**
+   * private <code>EntityManagerFactory</code> used to create <code>EntityManager</code> objects.
+   */
   private final EntityManagerFactory entityManagerFactory;
 
+  /**
+   * This constructor reads the provided database properties file and creates an <code>EntityManagerFactory</code>
+   * object which creates <code>EntityManager</code> objects.
+   * @param dbPropertiesPath this '.properties' file must contain the name of the persistence unit as a
+   *                         property named 'persistence_unit'.
+   */
   public TravelAgencyEntityManagerFactory(String dbPropertiesPath) {
     Properties p = this.getDBAccessProperties(dbPropertiesPath);
     try {
@@ -31,6 +45,11 @@ public class TravelAgencyEntityManagerFactory {
     }
   }
 
+  /**
+   * This method is used to create an <code>EntityManager</code> object that can persist, read, update, and delete
+   * Entities in the database connected to the peristence unit specified in the constructor.
+   * @return <code>EntityManager</code> object connected to the database
+   */
   public EntityManager createEntityManager() {
     return entityManagerFactory.createEntityManager();
   }
