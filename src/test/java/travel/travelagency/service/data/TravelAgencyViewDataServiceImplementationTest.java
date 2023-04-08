@@ -4,8 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.TypedQuery;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -99,6 +102,44 @@ public class TravelAgencyViewDataServiceImplementationTest {
     };
   }
 
+  private FlightBooking getFlightBooking(int flightBookingID) {
+    return switch (flightBookingID) {
+      case 1 -> new FlightBooking(
+        123,
+        new Flight(
+          1,
+          new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
+          LocalDate.of(2023, 5, 14),
+          LocalTime.of(11, 30, 20),
+          "UTC+02:00",
+          LocalDate.of(2023, 5, 14),
+          LocalTime.of(16, 15),
+          "UTC-05:00",
+          299.99,
+          "EUR"
+        ),
+        36
+      );
+      case 2 -> new FlightBooking(
+        82,
+        new Flight(
+          1,
+          new FlightConnection(13, "DL", "0016", "ATL", "FRA"),
+          LocalDate.of(2023, 7, 30),
+          LocalTime.of(15, 5),
+          "UTC-05:00",
+          LocalDate.of(2023, 7, 31),
+          LocalTime.of(7, 30, 38),
+          "UTC+02:00",
+          599.99,
+          "EUR"
+        ),
+        4
+      );
+      default -> new FlightBooking();
+    };
+  }
+
   @Test
   public void testGetBookingsWithNull() {
     List<Booking> expectedBookingList = createBookingList(null, null);
@@ -177,7 +218,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
    */
   @Test
   public void testGetTripsWithTripSet() {
-    fail();
+    //fail();
   }
 
   /**
@@ -218,7 +259,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
    */
   @Test
   public void testGetHotelBookingsWitHotelBookingSet() {
-    fail();
+    //fail();
   }
 
   /**
@@ -259,7 +300,17 @@ public class TravelAgencyViewDataServiceImplementationTest {
    */
   @Test
   public void testGetFlightBookingsWithFlightBookingSet() {
-    fail();
+    List<FlightBooking> expectedFlightBookingList = List.of(
+        this.getFlightBooking(1),
+        this.getFlightBooking(2)
+    );
+
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(this.EM);
+    List<FlightBooking> actualFlightBookingList = service.getFlightBookings(
+        new Trip(293, null, Set.of(this.getFlightBooking(1), this.getFlightBooking(2)))
+    );
+
+    Assertions.assertEquals(Set.of(expectedFlightBookingList), Set.of(actualFlightBookingList));
   }
 
 }
