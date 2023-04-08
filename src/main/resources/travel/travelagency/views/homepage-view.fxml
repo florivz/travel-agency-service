@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <GridPane layoutX="30.0" layoutY="18.0" prefHeight="364.0" prefWidth="540.0" vgap="10.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="540.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="201.0" minHeight="10.0" prefHeight="183.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="148.0" minHeight="10.0" prefHeight="148.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+
+            <VBox alignment="CENTER" GridPane.rowIndex="0" spacing="5">
+                <Label text="Book a New Trip" />
+                <TextField maxWidth="150" promptText="Destination" />
+                <DatePicker maxWidth="150" promptText="Departure Date" />
+                <DatePicker maxWidth="150" promptText="Return Date" />
+                <TextField maxWidth="100" promptText="People" />
+                <Button text="Search" />
+            </VBox>
+
+            <VBox alignment="CENTER" GridPane.rowIndex="1" spacing="5">
+                <Label text="Search for an existing trip" />
+                <TextField maxWidth="150" promptText="Order No." />
+                <TextField maxWidth="150" promptText="Customer ID" />
+                <TextField maxWidth="150" promptText="Customer Name" />
+                <Button text="Search" />
+            </VBox>
+        </GridPane>
+    </children>
+</AnchorPane>
