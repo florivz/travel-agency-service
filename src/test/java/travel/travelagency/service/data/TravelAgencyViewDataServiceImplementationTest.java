@@ -102,6 +102,48 @@ public class TravelAgencyViewDataServiceImplementationTest {
     };
   }
 
+  private HotelBooking getHotelBooking(int hotelBookingID) {
+    return switch(hotelBookingID) {
+      case 1 -> new HotelBooking(
+        123,
+        new Hotel(
+          8398,
+          "Luxor Deluxe",
+          20000.01,
+          "GIB",
+          new Address(
+            43,
+            "Meerenge von Gibraltar",
+            "1",
+            "00001",
+            "Zwischen Marokko und Gibraltar",
+            "Mittelmeer"
+          )
+        ),
+        204
+      );
+      case 2 -> new HotelBooking(
+        938,
+        new Hotel(
+          8398,
+          "Billig Hotel",
+          1.99,
+          "EUR",
+          new Address(
+            99,
+            "Reeperbahn",
+            "69",
+            "12345",
+            "Hamburg-St. Pauli",
+            "Deutschland"
+          )
+        ),
+        29
+      );
+      default -> null;
+    };
+  }
+
   private FlightBooking getFlightBooking(int flightBookingID) {
     return switch (flightBookingID) {
       case 1 -> new FlightBooking(
@@ -259,7 +301,17 @@ public class TravelAgencyViewDataServiceImplementationTest {
    */
   @Test
   public void testGetHotelBookingsWitHotelBookingSet() {
-    //fail();
+    List<HotelBooking> expectedHotelBookingList = List.of(
+            this.getHotelBooking(1),
+            this.getHotelBooking(2)
+    );
+
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(this.EM);
+    List<HotelBooking> actualHotelBookingList = service.getHotelBookings(
+        new Trip(293, Set.of(this.getHotelBooking(1), this.getHotelBooking(2)), null)
+    );
+
+    Assertions.assertEquals(Set.of(expectedHotelBookingList), Set.of(actualHotelBookingList));
   }
 
   /**
