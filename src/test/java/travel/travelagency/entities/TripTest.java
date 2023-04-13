@@ -47,7 +47,8 @@ public class TripTest {
           "Mittelmeer"
         )
       ),
-      204
+      204,
+      12
     ));
     hotelBookingSet.add(new HotelBooking(
       136,
@@ -58,7 +59,8 @@ public class TripTest {
         "EUR",
         new Address(1, "Trankgasse", "1-5", "50667", "Köln", "Deutschland")
       ),
-      15
+      15,
+      3
     ));
     copyHotelBookingSet = new HashSet<>();
     copyHotelBookingSet.add(new HotelBooking(
@@ -77,7 +79,8 @@ public class TripTest {
                 "Mittelmeer"
             )
         ),
-        204
+        204,
+        12
     ));
     copyHotelBookingSet.add(new HotelBooking(
         136,
@@ -88,7 +91,8 @@ public class TripTest {
             "EUR",
             new Address(1, "Trankgasse", "1-5", "50667", "Köln", "Deutschland")
         ),
-        15
+        15,
+        3
     ));
     differentHotelBookingSet = new HashSet<>();
     differentHotelBookingSet.add(new HotelBooking(
@@ -107,7 +111,8 @@ public class TripTest {
                 "Deutschland"
             )
         ),
-        29
+        29,
+        1
     ));
     differentHotelBookingSet.add(new HotelBooking(
         136,
@@ -118,7 +123,8 @@ public class TripTest {
             "EUR",
             new Address(1, "Trankgasse", "1-5", "50667", "Köln", "Deutschland")
         ),
-        15
+        15,
+        12
     ));
   }
 

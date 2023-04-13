@@ -18,22 +18,23 @@ public class HotelBookingTest {
     nullBooking = null;
     emptyBooking = new HotelBooking();
     booking = new HotelBooking(
-        123,
-        new Hotel(
-        8398,
-        "Luxor Deluxe",
-        20000.01,
-        "GIB",
-          new Address(
-              43,
-              "Meerenge von Gibraltar",
-              "1",
-              "00001",
-              "Zwischen Marokko und Gibraltar",
-              "Mittelmeer"
-          )
-        ),
-        204
+      123,
+      new Hotel(
+      8398,
+      "Luxor Deluxe",
+      20000.01,
+      "GIB",
+        new Address(
+          43,
+          "Meerenge von Gibraltar",
+          "1",
+          "00001",
+          "Zwischen Marokko und Gibraltar",
+          "Mittelmeer"
+        )
+      ),
+      204,
+      12
     );
     copyBooking = new HotelBooking(
         123,
@@ -51,7 +52,8 @@ public class HotelBookingTest {
                 "Mittelmeer"
             )
         ),
-        204
+        204,
+        12
     );
     differentBooking = new HotelBooking(
         938,
@@ -69,8 +71,26 @@ public class HotelBookingTest {
               "Deutschland"
           )
         ),
-        29
+        29,
+        1
     );
+  }
+
+  @Test
+  public void testGetTotalPrice() {
+    double expectedPrice = 5600.00;
+
+    Hotel hotel = new Hotel();
+    hotel.setPricePerPerson(200.0);
+
+    HotelBooking hotelBooking = new HotelBooking();
+    hotelBooking.setHotel(hotel);
+    hotelBooking.setNumberOfGuests(7);
+    hotelBooking.setNumberOfNights(4);
+
+    double actualPrice = hotelBooking.getTotalPrice();
+
+    assertEquals(expectedPrice, actualPrice);
   }
 
   @Test()
@@ -116,14 +136,16 @@ public class HotelBookingTest {
       "EUR",
         new Address(1, "Trankgasse", "1-5", "50667", "Köln", "Deutschland")
       ),
-      15
+      15,
+      3
     );
 
     String expectedResult = """
         Excelsior Hotel Ernst
         Trankgasse 1-5, 50667 Köln, Deutschland
         Price: 500.0 EUR
-        Guests: 15""";
+        Guests: 15
+        Nights: 3""";
 
     assertEquals(expectedResult, testedHotelBooking.toString());
   }

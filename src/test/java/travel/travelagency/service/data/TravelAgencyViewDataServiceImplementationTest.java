@@ -130,7 +130,8 @@ public class TravelAgencyViewDataServiceImplementationTest {
             "Mittelmeer"
           )
         ),
-        204
+        204,
+        12
       );
       case 2 -> new HotelBooking(
         938,
@@ -148,7 +149,8 @@ public class TravelAgencyViewDataServiceImplementationTest {
             "Deutschland"
           )
         ),
-        29
+        29,
+        3
       );
       default -> null;
     };

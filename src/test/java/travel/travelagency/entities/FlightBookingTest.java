@@ -69,6 +69,22 @@ public class FlightBookingTest {
     );
   }
 
+  @Test
+  public void testGetTotalPrice() {
+    double expectedPrice = 200.0;
+
+    Flight flight = new Flight();
+    flight.setPricePerPerson(50.0);
+
+    FlightBooking flightBooking = new FlightBooking();
+    flightBooking.setFlight(flight);
+    flightBooking.setNumberOfPassengers(4);
+
+    double actualPrice = flightBooking.getTotalPrice();
+
+    assertEquals(expectedPrice, actualPrice);
+  }
+
   @Test()
   public void testEqualsMethodWithNull() {
     assertDoesNotThrow(() -> emptyBooking.equals(nullBooking));

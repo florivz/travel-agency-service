@@ -25,14 +25,18 @@ public class HotelBooking {
   @Column(name = "NUMBER_OF_GUESTS")
   private Integer numberOfGuests;
 
+  @Column(name = "NUMBER_OF_NIGHTS")
+  private Integer numberOfNights;
+
   public HotelBooking() {
 
   }
 
-  public HotelBooking(Integer id, Hotel hotel, Integer numberOfGuests) {
+  public HotelBooking(Integer id, Hotel hotel, Integer numberOfGuests, Integer numberOfNights) {
     this.id = id;
     this.hotel = hotel;
     this.numberOfGuests = numberOfGuests;
+    this.numberOfNights = numberOfNights;
   }
 
   public Integer getId() {
@@ -59,8 +63,16 @@ public class HotelBooking {
     this.numberOfGuests = numberOfGuests;
   }
 
+  public Integer getNumberOfNights() {
+    return numberOfNights;
+  }
+
+  public void setNumberOfNights(Integer numberOfNights) {
+    this.numberOfNights = numberOfNights;
+  }
+
   public double getTotalPrice() {
-    return numberOfGuests * hotel.getPricePerPerson();
+    return numberOfGuests * numberOfNights * hotel.getPricePerPerson();
   }
 
   @Override
@@ -71,7 +83,9 @@ public class HotelBooking {
           ((id == null && booking.getId() == null) || id.equals(booking.getId())) &&
           ((hotel == null && booking.getHotel() == null) || hotel.equals(booking.getHotel())) &&
           ((numberOfGuests == null && booking.getNumberOfGuests() == null)
-              || numberOfGuests.equals(booking.getNumberOfGuests()));
+              || numberOfGuests.equals(booking.getNumberOfGuests())) &&
+          ((numberOfNights == null && booking.getNumberOfNights() == null)
+              || numberOfNights.equals(booking.getNumberOfNights()));
     }
     return false;
   }
@@ -80,7 +94,8 @@ public class HotelBooking {
   public String toString() {
     return
         (hotel != null          ? hotel.toString() + '\n' : "" )
-      + (numberOfGuests != null ? "Guests: " + numberOfGuests : "" );
+      + (numberOfGuests != null ? "Guests: " + numberOfGuests + '\n' : "" )
+      + (numberOfNights != null ? "Nights: " + numberOfNights : "" );
   }
 
   @Override
@@ -88,7 +103,8 @@ public class HotelBooking {
     return
         (String.valueOf(id != null    ? id.hashCode()             : null)
             + (hotel != null          ? hotel.hashCode()          : null)
-            + (numberOfGuests != null ? numberOfGuests.hashCode() : null)).hashCode();
+            + (numberOfGuests != null ? numberOfGuests.hashCode() : null)
+            + (numberOfNights != null ? numberOfNights.hashCode() : null)).hashCode();
   }
 
 }
