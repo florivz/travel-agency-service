@@ -29,8 +29,9 @@ import javax.persistence.Table;
         name = Booking.FIND_WITH_FILTERS,
         query = """
             SELECT booking FROM Booking booking
-            WHERE booking.id          = coalesce(:bookingID, booking.id)
-            AND   booking.customer.id = coalesce(:customerID, booking.customer.id)"""
+            WHERE booking.id                              = coalesce(:bookingID, booking.id)
+            AND   booking.customer.id                     = coalesce(:customerID, booking.customer.id)
+            AND   booking.customer.personalData.lastName  = coalesce(:customerName, booking.customer.personalData.lastName)"""
     )
 })
 public class Booking {
@@ -39,7 +40,8 @@ public class Booking {
       FIND_ALL = "Booking.findAll",
       FIND_WITH_FILTERS = "Booking.findWithFilters",
       BOOKING_ID = "bookingID",
-      CUSTOMER_ID = "customerID";
+      CUSTOMER_ID = "customerID",
+      CUSTOMER_NAME = "customerName";
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -86,6 +88,10 @@ public class Booking {
 
   public void setTripSet(Set<Trip> tripList) {
     this.tripSet = tripList;
+  }
+
+  public double getTotalPrice() {
+    return tripSet.stream().mapToDouble(Trip::getTotalPrice).sum();
   }
 
   @Override

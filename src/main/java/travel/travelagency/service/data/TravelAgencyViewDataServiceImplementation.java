@@ -21,10 +21,11 @@ public class TravelAgencyViewDataServiceImplementation implements TravelAgencyVi
   }
 
   @Override
-  public List<Booking> getBookings(Integer bookingID, Integer customerID) {
-    TypedQuery<Booking> typedQuery = EM.createNamedQuery(Booking.FIND_WITH_FILTERS, Booking.class);
-    typedQuery = typedQuery.setParameter(Booking.BOOKING_ID, bookingID);
-    typedQuery = typedQuery.setParameter(Booking.CUSTOMER_ID, customerID);
+  public List<Booking> getBookings(Integer bookingID, Integer customerID, String customerName) {
+    TypedQuery<Booking> typedQuery = EM.createNamedQuery(Booking.FIND_WITH_FILTERS, Booking.class)
+      .setParameter(Booking.BOOKING_ID, bookingID)
+      .setParameter(Booking.CUSTOMER_ID, customerID)
+      .setParameter(Booking.CUSTOMER_NAME, customerName);
     return typedQuery.getResultList();
   }
 

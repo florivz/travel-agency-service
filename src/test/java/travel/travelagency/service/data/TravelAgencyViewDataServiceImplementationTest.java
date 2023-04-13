@@ -3,6 +3,7 @@ package travel.travelagency.service.data;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashSet;
@@ -25,21 +26,28 @@ public class TravelAgencyViewDataServiceImplementationTest {
   @BeforeEach
   public void createMockedEntityManager() {
     //Default typed query without filters
-    TypedQuery<Booking> allBookings = getTypedQuery(createBookingList(null, null));
+    TypedQuery<Booking> allBookings = getTypedQuery(createBookingList(null, null, null));
 
     //Typed query after filtering by parameter 'bookingID'
-    TypedQuery<Booking> byId1Bookings = getTypedQuery(createBookingList(1, null));
+    TypedQuery<Booking> byId1Bookings = getTypedQuery(createBookingList(1, null, null));
     Mockito.when(allBookings.setParameter(Booking.BOOKING_ID, 1)).
         thenReturn(byId1Bookings);
 
-    TypedQuery<Booking> byCustomerId1Bookings = getTypedQuery(createBookingList(null, 1));
+    TypedQuery<Booking> byCustomerId1Bookings = getTypedQuery(createBookingList(null, 1, null));
     Mockito.when(allBookings.setParameter(Booking.CUSTOMER_ID, 1)).
         thenReturn(byCustomerId1Bookings);
 
-    TypedQuery<Booking> byId3Bookings = getTypedQuery(createBookingList(3, null));
-    TypedQuery<Booking> byId3AndCustomerId2Bookings = getTypedQuery(createBookingList(3, 2));
+    TypedQuery<Booking> byCustomerNameBookings = getTypedQuery(createBookingList(null, null, "Merkel"));
+    Mockito.when(allBookings.setParameter(Booking.CUSTOMER_NAME, "Merkel")).
+        thenReturn(byCustomerNameBookings);
+
+    TypedQuery<Booking> byId3Bookings = getTypedQuery(createBookingList(3, null, null));
+    TypedQuery<Booking> byIdAndCustomerId2Bookings = getTypedQuery(createBookingList(3, 2, null));
+    TypedQuery<Booking> byIdAndCIDAndCNameBookings = getTypedQuery(createBookingList(3,2, "Scholz"));
+    Mockito.when(byIdAndCustomerId2Bookings.setParameter(Booking.CUSTOMER_NAME, "Scholz"))
+        .thenReturn(byIdAndCIDAndCNameBookings);
     Mockito.when(byId3Bookings.setParameter(Booking.CUSTOMER_ID, 2))
-        .thenReturn(byId3AndCustomerId2Bookings);
+        .thenReturn(byIdAndCustomerId2Bookings);
     Mockito.when(allBookings.setParameter(Booking.BOOKING_ID, 3))
         .thenReturn(byId3Bookings);
 
@@ -54,10 +62,11 @@ public class TravelAgencyViewDataServiceImplementationTest {
     Mockito.when(typedQuery.getResultList()).thenReturn(resultList);
     Mockito.when(typedQuery.setParameter(Booking.BOOKING_ID, null)).thenReturn(typedQuery);
     Mockito.when(typedQuery.setParameter(Booking.CUSTOMER_ID, null)).thenReturn(typedQuery);
+    Mockito.when(typedQuery.setParameter(Booking.CUSTOMER_NAME, null)).thenReturn((typedQuery));
     return typedQuery;
   }
 
-  private List<Booking> createBookingList(Integer bookingID, Integer customerID) {
+  private List<Booking> createBookingList(Integer bookingID, Integer customerID, String customerName) {
     List<Booking> bookingList = new LinkedList<>();
     bookingList.add(new Booking(1, getCustomer(1), new HashSet<>()));
     bookingList.add(new Booking(2, getCustomer(1), new HashSet<>()));
@@ -66,6 +75,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
       if(
         bookingID != null && !bookingID.equals(bookingList.get(i).getId())
         || customerID != null && !customerID.equals(bookingList.get(i).getCustomer().getId())
+        || customerName != null && !customerName.equals(bookingList.get(i).getCustomer().getPersonalData().getLastName())
       ) {
         bookingList.remove(i--);
       }
@@ -184,40 +194,50 @@ public class TravelAgencyViewDataServiceImplementationTest {
 
   @Test
   public void testGetBookingsWithNull() {
-    List<Booking> expectedBookingList = createBookingList(null, null);
+    List<Booking> expectedBookingList = createBookingList(null, null, null);
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
-    List<Booking> actualBookingList = service.getBookings(null, null);
+    List<Booking> actualBookingList = service.getBookings(null, null, null);
 
     assertEquals(expectedBookingList, actualBookingList);
   }
 
   @Test
   public void testGetBookingsWithId() {
-    List<Booking> expectedBookingList = createBookingList(1, null);
+    List<Booking> expectedBookingList = createBookingList(1, null, null);
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
-    List<Booking> actualBookingList = service.getBookings(1, null);
+    List<Booking> actualBookingList = service.getBookings(1, null, null);
 
     assertEquals(expectedBookingList, actualBookingList);
   }
 
   @Test
   public void testGetBookingsWithCustomerId() {
-    List<Booking> expectedBookingList = createBookingList(null, 1);
+    List<Booking> expectedBookingList = createBookingList(null, 1, null);
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
-    List<Booking> actualBookingList = service.getBookings(null, 1);
+    List<Booking> actualBookingList = service.getBookings(null, 1, null);
 
     assertEquals(expectedBookingList, actualBookingList);
   }
 
   @Test
-  public void testGetBookingsWithIdAndCustomerId() {
-    List<Booking> expectedBookingList = createBookingList(3, 2);
+  public void testGetBookingsWithCustomerName() {
+    List<Booking> expectedBookingList = createBookingList(null, null, "Merkel");
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
-    List<Booking> actualBookingList = service.getBookings(3, 2);
+    List<Booking> actualBookingList = service.getBookings(null, null, "Merkel");
+
+    assertEquals(expectedBookingList, actualBookingList);
+  }
+
+  @Test
+  public void testGetBookingsWithParameters() {
+    List<Booking> expectedBookingList = createBookingList(3, 2, "Scholz");
+
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
+    List<Booking> actualBookingList = service.getBookings(3, 2, "Scholz");
 
     assertEquals(expectedBookingList, actualBookingList);
   }
@@ -260,7 +280,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
    */
   @Test
   public void testGetTripsWithTripSet() {
-    //fail();
+    fail();
   }
 
   /**
