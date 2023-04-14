@@ -14,7 +14,7 @@ public class TravelAgencyServiceApplication extends Application {
             VIEWS_DIRECTORY = "views/";
 
     private static final String
-            MAIN_VIEW = VIEWS_DIRECTORY + "loginpage-view.fxml";
+            MAIN_VIEW = VIEWS_DIRECTORY + "starting_page.fxml";
 
     private FXMLLoader fxmlLoader;
 

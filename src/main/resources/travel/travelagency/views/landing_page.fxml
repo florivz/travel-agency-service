@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+
+<ScrollPane hbarPolicy="NEVER" prefWidth="1440" prefHeight="1024" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="travel.travelagency.controllers.LandingPageController">
+    <content>
+        <Pane prefWidth="1440" prefHeight="1022" >
+            <children>
+                <Rectangle  fx:id="_bg__landing_page" width="1440" height="1024"  fill="#FFFFFF" layoutX="0" layoutY="0" >
+                </Rectangle>
+                <Rectangle  fx:id="rectangle_2" width="720" height="1024"  fill="#FFFFFF" layoutX="0" layoutY="0" >
+                </Rectangle>
+                <ImageView fx:id="ellipse_2" pickOnBounds="true" preserveRatio="true"  layoutX="209" layoutY="155"  fitWidth="301" fitHeight="185" >
+                    <image>
+                        <Image url="@../../../drawable/ellipse_2.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="rectangle_3" pickOnBounds="true" preserveRatio="true"  layoutX="720" layoutY="66"  fitWidth="720" fitHeight="1024" >
+                    <image>
+                        <Image url="@../../../drawable/rectangle_3.png" />
+                    </image>
+                </ImageView>
+                <!-- android style --><Group fx:id="login_button"  layoutY="680" layoutX="161" >
+            <Group fx:id="frame_3" onMouseClicked="#frame_3_onClick" layoutY="0" layoutX="0" >
+                <Button textAlignment="CENTER" layoutX="89.333333333333" layoutY="42" text="LOG IN">
+                    <font>
+                        <Font name="Mako" size="40" />
+                    </font>
+                </Button>
+            </Group>
+
+            </Group>
+
+                <!-- android style --><Group fx:id="password"  layoutY="546" layoutX="161" >
+
+                <!-- android style --><Group fx:id="frame_2"  layoutY="0" layoutX="0" >
+
+                <Text fx:id="password_ek1" fill="#C9C8C8" layoutX="31.666666666667" layoutY="39" wrappingWidth="215" text="Password" >
+                    <font>
+                        <Font name="Poppins" size="32" />
+                    </font>
+                </Text>
+            </Group>
+
+            </Group>
+
+                <!-- android style --><Group fx:id="username"  layoutY="452" layoutX="161" >
+
+                <!-- android style --><Group fx:id="frame_1"  layoutY="0" layoutX="0" >
+
+                <Text fx:id="username_ek1" fill="#C9C8C8" layoutX="31.666666666667" layoutY="39" wrappingWidth="215" text="Username" >
+                    <font>
+                        <Font name="Poppins" size="32" />
+                    </font>
+                </Text>
+            </Group>
+
+            </Group>
+
+                <Text fx:id="welcome_back_" textAlignment="CENTER" fill="#000000" layoutX="209.33333333333" layoutY="400" wrappingWidth="337" text="Welcome back!" >
+                    <font>
+                        <Font name="Poppins" size="40" />
+                    </font>
+                </Text>
+            </children>
+        </Pane>
+    </content>
+</ScrollPane>

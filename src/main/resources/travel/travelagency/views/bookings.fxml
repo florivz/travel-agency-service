@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<ScrollPane hbarPolicy="NEVER" prefHeight="1024" prefWidth="1440" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="travel.travelagency.controllers.BookingsController">
+    <content>
+        <Pane prefHeight="1022" prefWidth="1440">
+            <children>
+
+                <Rectangle fx:id="_bg__bookings" fill="#FFFFFF" height="1024" layoutX="0" layoutY="0" width="1440">
+                </Rectangle>
+                <!-- android style --><Group fx:id="new_booking_button" layoutX="1110" layoutY="946" onMouseClicked="#new_booking_button_onClick">
+
+                <!-- android style --><Group fx:id="frame_3" layoutX="0" layoutY="0" onMouseClicked="#frame_3_onClick">
+
+                <Text fx:id="new_booking" fill="#FFFFFF" layoutX="-3" layoutY="31" text="NEW BOOKING" textAlignment="CENTER" wrappingWidth="211">
+                    <font>
+                        <Font name="Mako" size="24" />
+                    </font>
+                </Text>
+            </Group>
+
+            </Group>
+
+                <!-- android style --><Group fx:id="delete_booking_button" layoutX="198" layoutY="946">
+
+                <!-- android style --><Group fx:id="frame_3_ek1" layoutX="0" layoutY="0">
+
+                <Text fx:id="delete_booking" fill="#FFFFFF" layoutX="19" layoutY="31" text="DELETE BOOKING" textAlignment="CENTER" wrappingWidth="211">
+                    <font>
+                        <Font name="Mako" size="24" />
+                    </font>
+                </Text>
+            </Group>
+
+            </Group>
+
+                <Rectangle fx:id="line_1" fill="#3B768A" height="1" layoutX="114" layoutY="922" width="1207">
+                </Rectangle>
+                <!-- android style --><Group fx:id="existing_bookings" layoutX="157" layoutY="288">
+
+                <Rectangle fx:id="line_5" fill="#3B768A" height="1" layoutX="27" layoutY="480" width="1065">
+                </Rectangle>
+                <Rectangle fx:id="line_4" fill="#3B768A" height="1" layoutX="27" layoutY="360" width="1065">
+                </Rectangle>
+                <Rectangle fx:id="line_3" fill="#3B768A" height="1" layoutX="27" layoutY="240" width="1065">
+                </Rectangle>
+                <Rectangle fx:id="line_2" fill="#3B768A" height="1" layoutX="27" layoutY="120" width="1065">
+                </Rectangle>
+                <!-- android style --><Group fx:id="exisiting_trip_5" layoutX="27" layoutY="504">
+
+                <!-- android style --><Group fx:id="duration" layoutX="802" layoutY="8">
+
+                <Text fx:id="duration_ek1" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Duration" textAlignment="CENTER" wrappingWidth="102">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_20_12_23___29_12_23" fill="#000000" layoutX="6" layoutY="52" text="20.12.23 - 29.12.23" wrappingWidth="197">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="destination" layoutX="566" layoutY="8">
+
+                <Text fx:id="date_of_purchase" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Date of Purchase" textAlignment="CENTER" wrappingWidth="187">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_16_02_23" fill="#000000" layoutX="6" layoutY="52" text="16.02.23" wrappingWidth="258">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="customer_name" layoutX="347" layoutY="8">
+
+                <Text fx:id="customer_name_ek1" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Customer Name" textAlignment="CENTER" wrappingWidth="182">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="gerber__robin" fill="#000000" layoutX="6" layoutY="52" text="Gerber, Robin" wrappingWidth="197">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="customer_id" layoutX="177" layoutY="8">
+
+                <Text fx:id="customer_id_ek1" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Customer ID" textAlignment="CENTER" wrappingWidth="140">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="gero1191" fill="#000000" layoutX="6" layoutY="52" text="GERO1191" wrappingWidth="121">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="order_no_" layoutX="37" layoutY="8">
+
+                <Text fx:id="order_no__ek1" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Order No." textAlignment="CENTER" wrappingWidth="110">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_41874403" fill="#000000" layoutX="6" layoutY="52" text="41874403" wrappingWidth="118">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <ImageView fx:id="image_3" fitHeight="56" fitWidth="82" layoutX="976" layoutY="14" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../drawable/image_3.png" />
+                    </image>
+                </ImageView>
+            </Group>
+
+                <!-- android style --><Group fx:id="exisiting_trip_4" layoutX="27" layoutY="384">
+
+                <!-- android style --><Group fx:id="duration_ek2" layoutX="802" layoutY="9">
+
+                <Text fx:id="duration_ek3" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Duration" textAlignment="CENTER" wrappingWidth="102">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_01_07_23___22_07_23" fill="#000000" layoutX="6" layoutY="52" text="01.07.23 - 22.07.23" wrappingWidth="197">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="destination_ek1" layoutX="566" layoutY="8">
+
+                <Text fx:id="date_of_purchase_ek1" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Date of Purchase" textAlignment="CENTER" wrappingWidth="187">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_03_04_23" fill="#000000" layoutX="6" layoutY="52" text="03.04.23" wrappingWidth="258">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="customer_name_ek2" layoutX="347" layoutY="8">
+
+                <Text fx:id="customer_name_ek3" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Customer Name" textAlignment="CENTER" wrappingWidth="182">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="becker__jonas" fill="#000000" layoutX="6" layoutY="52" text="Becker, Jonas" wrappingWidth="197">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="customer_id_ek2" layoutX="177" layoutY="8">
+
+                <Text fx:id="customer_id_ek3" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Customer ID" textAlignment="CENTER" wrappingWidth="140">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="bejo5205" fill="#000000" layoutX="6" layoutY="52" text="BEJO5205" wrappingWidth="121">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="order_no__ek2" layoutX="37" layoutY="8">
+
+                <Text fx:id="order_no__ek3" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Order No" textAlignment="CENTER" wrappingWidth="110">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_10029874" fill="#000000" layoutX="6" layoutY="52" text="10029874" wrappingWidth="118">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <ImageView fx:id="image_3_ek1" fitHeight="56" fitWidth="82" layoutX="976" layoutY="14" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../drawable/image_3_ek1.png" />
+                    </image>
+                </ImageView>
+            </Group>
+
+                <!-- android style --><Group fx:id="exisiting_trip_3" layoutX="27" layoutY="264">
+
+                <!-- android style --><Group fx:id="duration_ek4" layoutX="802" layoutY="8">
+
+                <Text fx:id="duration_ek5" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Duration" textAlignment="CENTER" wrappingWidth="102">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_10_04_23___11_05_23" fill="#000000" layoutX="6" layoutY="52" text="10.04.23 - 11.05.23" wrappingWidth="197">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="destination_ek2" layoutX="566" layoutY="8">
+
+                <Text fx:id="date_of_purchase_ek2" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Date of Purchase" textAlignment="CENTER" wrappingWidth="187">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_04_12_22" fill="#000000" layoutX="6" layoutY="52" text="04.12.22" wrappingWidth="258">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="customer_name_ek4" layoutX="347" layoutY="8">
+
+                <Text fx:id="customer_name_ek5" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Customer Name" textAlignment="CENTER" wrappingWidth="182">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="veitz__florian" fill="#000000" layoutX="6" layoutY="52" text="Veitz, Florian" wrappingWidth="197">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="customer_id_ek4" layoutX="177" layoutY="8">
+
+                <Text fx:id="customer_id_ek5" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Customer ID" textAlignment="CENTER" wrappingWidth="140">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="vefl1299" fill="#000000" layoutX="6" layoutY="52" text="VEFL1299" wrappingWidth="121">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="order_no__ek4" layoutX="37" layoutY="8">
+
+                <Text fx:id="order_no__ek5" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Order No." textAlignment="CENTER" wrappingWidth="110">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_37256522" fill="#000000" layoutX="6" layoutY="52" text="37256522" wrappingWidth="118">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <ImageView fx:id="image_2" fitHeight="56" fitWidth="82" layoutX="976" layoutY="14" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../drawable/image_2.png" />
+                    </image>
+                </ImageView>
+            </Group>
+
+                <!-- android style --><Group fx:id="exisiting_trip_2" layoutX="27" layoutY="144">
+
+                <!-- android style --><Group fx:id="duration_ek6" layoutX="802" layoutY="8">
+
+                <Text fx:id="duration_ek7" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Duration" textAlignment="CENTER" wrappingWidth="102">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_07_08_23___14_08_23" fill="#000000" layoutX="6" layoutY="52" text="07.08.23 - 14.08.23" wrappingWidth="197">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="destination_ek3" layoutX="566" layoutY="8">
+
+                <Text fx:id="date_of_purchase_ek3" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Date of Purchase" textAlignment="CENTER" wrappingWidth="187">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_22_11_22" fill="#000000" layoutX="6" layoutY="52" text="22.11.22" wrappingWidth="258">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="customer_name_ek6" layoutX="347" layoutY="8">
+
+                <Text fx:id="customer_name_ek7" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Customer Name" textAlignment="CENTER" wrappingWidth="182">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="gossner__anna" fill="#000000" layoutX="6" layoutY="52" text="Gossner, Anna" wrappingWidth="197">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="customer_id_ek6" layoutX="177" layoutY="8">
+
+                <Text fx:id="customer_id_ek7" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Customer ID" textAlignment="CENTER" wrappingWidth="140">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="goan8376" fill="#000000" layoutX="6" layoutY="52" text="GOAN8376" wrappingWidth="121">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="order_no__ek6" layoutX="37" layoutY="8">
+
+                <Text fx:id="order_no__ek7" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Order No." textAlignment="CENTER" wrappingWidth="110">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_28300174" fill="#000000" layoutX="6" layoutY="52" text="28300174" wrappingWidth="118">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <ImageView fx:id="image_2_ek1" fitHeight="56" fitWidth="82" layoutX="976" layoutY="14" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../drawable/image_2_ek1.png" />
+                    </image>
+                </ImageView>
+            </Group>
+
+                <!-- android style --><Group fx:id="exisiting_trip_1" layoutX="27" layoutY="13">
+
+                <!-- android style --><Group fx:id="duration_ek8" layoutX="802" layoutY="8">
+
+                <Text fx:id="duration_ek9" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Duration" textAlignment="CENTER" wrappingWidth="102">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_22_06_23___06_07_23" fill="#000000" layoutX="6" layoutY="52" text="22.06.23 - 06.07.23" wrappingWidth="197">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="destination_ek4" layoutX="566" layoutY="8">
+
+                <Text fx:id="date_of_purchase_ek4" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Date of Purchase" textAlignment="CENTER" wrappingWidth="187">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_21_01_23" fill="#000000" layoutX="6" layoutY="52" text="21.01.23" wrappingWidth="258">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="customer_name_ek8" layoutX="347" layoutY="8">
+
+                <Text fx:id="customer_name_ek9" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Customer Name" textAlignment="CENTER" wrappingWidth="182">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="baedorf__cedrik" fill="#000000" layoutX="6" layoutY="52" text="Baedorf, Cedrik" wrappingWidth="197">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="customer_id_ek8" layoutX="177" layoutY="8">
+
+                <Text fx:id="customer_id_ek9" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Customer ID" textAlignment="CENTER" wrappingWidth="140">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="bace4927" fill="#000000" layoutX="6" layoutY="52" text="BACE4927" wrappingWidth="121">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="order_no__ek8" layoutX="37" layoutY="8">
+
+                <Text fx:id="order_no__ek9" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Order No." textAlignment="CENTER" wrappingWidth="110">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_18627406" fill="#000000" layoutX="6" layoutY="52" text="18627406" wrappingWidth="118">
+                    <font>
+                        <Font name="Poppins" size="18" />
+                    </font>
+                </Text>
+            </Group>
+
+                <ImageView fx:id="_image_1" fitHeight="56" fitWidth="82" layoutX="976" layoutY="14" onMouseClicked="#_image_1_onClick" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../drawable/_image_1.png" />
+                    </image>
+                </ImageView>
+            </Group>
+
+            </Group>
+
+                <!-- android style --><Group fx:id="exisiting_trip" layoutX="254" layoutY="131">
+
+                <!-- android style --><Group fx:id="customer_name_ek10" layoutX="398" layoutY="32">
+
+                <Text fx:id="customer_name_ek11" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Customer Name" textAlignment="CENTER" wrappingWidth="182">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fill="#000000" layoutX="5.3333333333333" layoutY="50" text="xxx" wrappingWidth="195" fx:id="xxx">
+                    <font>
+                        <Font name="Poppins" size="16" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="customer_id_ek10" layoutX="221" layoutY="32">
+
+                <Text fx:id="customer_id_ek11" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Customer ID" textAlignment="CENTER" wrappingWidth="140">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fill="#000000" layoutX="5.3333333333333" layoutY="50" text="xxx" wrappingWidth="119" fx:id="xxx_ek1">
+                    <font>
+                        <Font name="Poppins" size="16" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="order_no__ek10" layoutX="44" layoutY="32">
+
+                <Text fx:id="order_no__ek11" fill="#000000" layoutX="3.6666666666667" layoutY="20" style="-fx-font-weight: bold;" text="Order No." textAlignment="CENTER" wrappingWidth="110">
+                    <font>
+                        <Font name="Poppins" size="20" />
+                    </font>
+                </Text>
+                <Text fx:id="_18627406_ek1" fill="#000000" layoutX="5.3333333333333" layoutY="50" text="18627406" wrappingWidth="102">
+                    <font>
+                        <Font name="Poppins" size="16" />
+                    </font>
+                </Text>
+            </Group>
+
+                <!-- android style --><Group fx:id="search_button" layoutX="719" layoutY="37">
+
+                <!-- android style --><Group fx:id="frame_3_ek2" layoutX="0" layoutY="0" onMouseClicked="#frame_3_ek2_onClick" />
+
+            </Group>
+
+          <Button layoutX="700.0" layoutY="20.0" text="SEARCH" textAlignment="CENTER">
+              <font>
+                  <Font name="Mako" size="24" />
+              </font>
+          </Button>
+
+            </Group>
+
+                <!-- android style --><Group fx:id="taskbar" layoutX="-1" layoutY="0">
+
+                <Rectangle fx:id="rectangle_6" fill="#FFFFFF" height="102" layoutX="0" layoutY="0" width="1440">
+                </Rectangle>
+                <ImageView fx:id="ellipse_2" fitHeight="88" fitWidth="133" layoutX="160" layoutY="7" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../drawable/ellipse_2.png" />
+                    </image>
+                </ImageView>
+                <!-- android style --><Group fx:id="taskbar_texts" layoutX="740" layoutY="34">
+
+                <Text fx:id="_home" fill="#000000" layoutX="4" layoutY="24" onMouseClicked="#_home_onClick" text="Home" textAlignment="CENTER" wrappingWidth="89">
+                    <font>
+                        <Font name="Poppins" size="24" />
+                    </font>
+                </Text>
+                <Text fx:id="_new_trip" fill="#000000" layoutX="241" layoutY="24" onMouseClicked="#_new_trip_onClick" text="New Trip" textAlignment="CENTER" wrappingWidth="119">
+                    <font>
+                        <Font name="Poppins" size="24" />
+                    </font>
+                </Text>
+                <Text fx:id="_bookings" fill="#000000" layoutX="104" layoutY="24" onMouseClicked="#_bookings_onClick" text="Bookings" textAlignment="CENTER" wrappingWidth="125">
+                    <font>
+                        <Font name="Poppins" size="24" />
+                    </font>
+                </Text>
+            </Group>
+
+                <Rectangle fx:id="line_1_ek1" fill="#3B768A" height="1" layoutX="115" layoutY="102" width="1207">
+                </Rectangle>
+                <!-- android style --><Group fx:id="logout_button" layoutX="1111" layoutY="26">
+
+                <!-- android style --><Group fx:id="frame_3_ek3" layoutX="0" layoutY="0" onMouseClicked="#frame_3_ek3_onClick" />
+
+            </Group>
+
+                <Text fx:id="life_is_short__travel_often" fill="#3B768A" layoutX="317" layoutY="62" text="Life is short, travel often" wrappingWidth="458">
+                    <font>
+                        <Font name="Noto Serif Tamil" size="30" />
+                    </font>
+                </Text>
+
+          <Button layoutX="1163.0" layoutY="26.0" text="LOG OUT" textAlignment="CENTER">
+              <font>
+                  <Font name="Mako" size="24" />
+              </font>
+          </Button>
+            </Group>
+
+            </children>
+        </Pane>
+    </content>
+</ScrollPane>

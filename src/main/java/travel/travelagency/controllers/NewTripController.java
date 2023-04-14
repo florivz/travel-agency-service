@@ -1,0 +1,60 @@
+package travel.travelagency.controllers;
+
+import java.io.IOException;
+import javafx.fxml.FXML;
+
+
+import javafx.scene.shape.Rectangle;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
+import travel.travelagency.MainApp;
+
+public class NewTripController {
+    @FXML private Rectangle _bg__new_trip;
+    @FXML private ImageView world_amico_1;
+    @FXML private Text find_a_new_trip_for_your_customers;
+    @FXML private Text destination;
+    @FXML private Text where_to_;
+    @FXML private Text people;
+    @FXML private Text how_many_persons_;
+    @FXML private Text date;
+    @FXML private Text select_date;
+    @FXML private Text search;
+    @FXML private Rectangle rectangle_6;
+    @FXML private Text log_out;
+    @FXML private ImageView ellipse_2;
+    @FXML private Text _home;
+    @FXML private Text new_trip_ek1;
+    @FXML private Text _bookings;
+    @FXML private Rectangle line_1;
+    @FXML private Text life_is_short__travel_often;
+
+    public void initialize() throws IOException{
+
+        //custom code here
+
+    }
+
+
+    @FXML
+    private void frame_3_onClick() throws IOException {
+        MainApp.setRoot("trip_search");
+    }
+
+    @FXML
+    private void frame_3_ek1_onClick() throws IOException {
+        MainApp.setRoot("landing_page");
+    }
+
+    @FXML
+    private void _home_onClick() throws IOException {
+        MainApp.setRoot("starting_page");
+    }
+
+    @FXML
+    private void _bookings_onClick() throws IOException {
+        MainApp.setRoot("bookings");
+    }
+
+
+}
