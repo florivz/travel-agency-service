@@ -63,7 +63,7 @@
 
             </Group>
 
-          <Button layoutX="746.0" layoutY="34.0" text="SEARCH" textAlignment="CENTER">
+          <Button layoutX="746.0" layoutY="34.0" text="SEARCH" textAlignment="CENTER" onAction="#_search_bookings_onClick">
               <font>
                   <Font name="Mako" size="24" />
               </font>
@@ -185,7 +185,7 @@
                     </font>
                 </Text>
 
-          <Button layoutX="1189.0" layoutY="28.0" text="LOG OUT" textAlignment="CENTER">
+          <Button layoutX="1189.0" layoutY="28.0" text="LOG OUT" textAlignment="CENTER" onAction="#_logout_onClick">
               <font>
                   <Font name="Mako" size="24" />
               </font>

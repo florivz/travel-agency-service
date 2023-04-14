@@ -7,9 +7,13 @@ import javafx.fxml.FXML;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import travel.travelagency.MainApp;
+import travel.travelagency.TravelAgencyServiceApplication;
 
 public class NewTripController {
+
+    public static final String VIEW_NAME = "new_trip.fxml";
+
+
     @FXML private Rectangle _bg__new_trip;
     @FXML private ImageView world_amico_1;
     @FXML private Text find_a_new_trip_for_your_customers;
@@ -38,22 +42,22 @@ public class NewTripController {
 
     @FXML
     private void frame_3_onClick() throws IOException {
-        MainApp.setRoot("trip_search");
+        TravelAgencyServiceApplication.setRoot("trip_search");
     }
 
     @FXML
     private void frame_3_ek1_onClick() throws IOException {
-        MainApp.setRoot("landing_page");
+        TravelAgencyServiceApplication.setRoot("landing_page");
     }
 
     @FXML
     private void _home_onClick() throws IOException {
-        MainApp.setRoot("starting_page");
+        TravelAgencyServiceApplication.setRoot("starting_page");
     }
 
     @FXML
     private void _bookings_onClick() throws IOException {
-        MainApp.setRoot("bookings");
+        TravelAgencyServiceApplication.setRoot("bookings");
     }
 
 

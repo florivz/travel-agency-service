@@ -7,9 +7,11 @@ import javafx.fxml.FXML;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
-import travel.travelagency.MainApp;
+import travel.travelagency.TravelAgencyServiceApplication;
 
 public class BookingsController {
+
+    public static final String VIEW_NAME = "bookings.fxml";
 
 
     @FXML private Rectangle _bg__bookings;
@@ -100,42 +102,42 @@ public class BookingsController {
 
     @FXML
     private void new_booking_button_onClick() throws IOException {
-        MainApp.setRoot("new_trip");
+        TravelAgencyServiceApplication.setRoot("new_trip");
     }
 
     @FXML
     private void frame_3_onClick() throws IOException {
-        MainApp.setRoot("new_trip");
+        TravelAgencyServiceApplication.setRoot("new_trip");
     }
 
     @FXML
     private void _image_1_onClick() throws IOException {
-        MainApp.setRoot("booking_details");
+        TravelAgencyServiceApplication.setRoot("booking_details");
     }
 
     @FXML
     private void frame_3_ek2_onClick() throws IOException {
-        MainApp.setRoot("bookings_filtered");
+        TravelAgencyServiceApplication.setRoot("bookings_filtered");
     }
 
     @FXML
     private void _home_onClick() throws IOException {
-        MainApp.setRoot("starting_page");
+        TravelAgencyServiceApplication.setRoot("starting_page");
     }
 
     @FXML
     private void _new_trip_onClick() throws IOException {
-        MainApp.setRoot("new_trip");
+        TravelAgencyServiceApplication.setRoot("new_trip");
     }
 
     @FXML
     private void _bookings_onClick() throws IOException {
-        MainApp.setRoot("bookings");
+        TravelAgencyServiceApplication.setRoot("bookings");
     }
 
     @FXML
     private void frame_3_ek3_onClick() throws IOException {
-        MainApp.setRoot("landing_page");
+        TravelAgencyServiceApplication.setRoot("landing_page");
     }
 
 

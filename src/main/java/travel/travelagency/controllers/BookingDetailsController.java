@@ -6,10 +6,11 @@ import javafx.fxml.FXML;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
-import travel.travelagency.MainApp;
+import travel.travelagency.TravelAgencyServiceApplication;
 
 public class BookingDetailsController {
 
+    public static final String VIEW_NAME = "booking_details.fxml";
 
     @FXML private Rectangle _bg__booking_details;
     @FXML private Text new_booking;
@@ -67,32 +68,32 @@ public class BookingDetailsController {
 
     @FXML
     private void back_button_onClick() throws IOException {
-        MainApp.setRoot("new_trip");
+        TravelAgencyServiceApplication.setRoot("new_trip");
     }
 
     @FXML
     private void frame_3_onClick() throws IOException {
-        MainApp.setRoot("bookings");
+        TravelAgencyServiceApplication.setRoot("bookings");
     }
 
     @FXML
     private void _home_onClick() throws IOException {
-        MainApp.setRoot("starting_page");
+        TravelAgencyServiceApplication.setRoot("starting_page");
     }
 
     @FXML
     private void _new_trip_onClick() throws IOException {
-        MainApp.setRoot("new_trip");
+        TravelAgencyServiceApplication.setRoot("new_trip");
     }
 
     @FXML
     private void _bookings_onClick() throws IOException {
-        MainApp.setRoot("bookings");
+        TravelAgencyServiceApplication.setRoot("bookings");
     }
 
     @FXML
     private void frame_3_ek3_onClick() throws IOException {
-        MainApp.setRoot("landing_page");
+        TravelAgencyServiceApplication.setRoot("landing_page");
     }
 
 

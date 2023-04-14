@@ -30,7 +30,7 @@
                 </ImageView>
                 <!-- android style --><Group fx:id="login_button"  layoutY="680" layoutX="161" >
             <Group fx:id="frame_3" onMouseClicked="#frame_3_onClick" layoutY="0" layoutX="0" >
-                <Button textAlignment="CENTER" layoutX="89.333333333333" layoutY="42" text="LOG IN">
+                <Button textAlignment="CENTER" layoutX="89.333333333333" layoutY="42" text="LOG IN" onAction="#_login_onClick">
                     <font>
                         <Font name="Mako" size="40" />
                     </font>
