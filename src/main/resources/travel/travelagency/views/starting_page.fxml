@@ -22,11 +22,11 @@
                         <Font name="Poppins" size="20" />
                     </font>
                 </Text>
-                <Text fx:id="_41874403" fill="#000000" layoutX="5.3333333333333" layoutY="50" text="41874403" wrappingWidth="102">
+                <TextField fx:id="bookingID" layoutX="5.3333333333333" layoutY="50">
                     <font>
                         <Font name="Poppins" size="16" />
                     </font>
-                </Text>
+                </TextField>
             </Group>
 
                 <!-- android style --><Group fx:id="frame_7" layoutX="398" layoutY="32">
@@ -36,31 +36,24 @@
                         <Font name="Poppins" size="20" />
                     </font>
                 </Text>
-                <Text fill="#000000" layoutX="5.3333333333333" layoutY="50" text="xxx" wrappingWidth="195" fx:id="xxx">
+                <TextField fx:id="customerID" layoutX="5.3333333333333" layoutY="50">
                     <font>
                         <Font name="Poppins" size="16" />
                     </font>
-                </Text>
+                </TextField>
             </Group>
 
-                <!-- android style --><Group fx:id="frame_6" layoutX="221" layoutY="32">
-
+            <Group fx:id="frame_6" layoutX="221" layoutY="32">
                 <Text fx:id="customer_id" fill="#000000" layoutX="3.6666666666667" layoutY="20" text="Customer ID" textAlignment="CENTER" wrappingWidth="140">
                     <font>
                         <Font name="Poppins" size="20" />
                     </font>
                 </Text>
-                <Text fill="#000000" layoutX="5.3333333333333" layoutY="50" text="xxx" wrappingWidth="119" fx:id="xxx_ek1">
+                <TextField fx:id="customerName" layoutX="5.3333333333333" layoutY="50">
                     <font>
                         <Font name="Poppins" size="16" />
                     </font>
-                </Text>
-            </Group>
-
-                <!-- android style --><Group fx:id="search_button" layoutX="719" layoutY="37">
-
-                <!-- android style --><Group fx:id="frame_3" layoutX="0" layoutY="0" onMouseClicked="#frame_3_onClick" />
-
+                </TextField>
             </Group>
 
           <Button layoutX="746.0" layoutY="34.0" text="SEARCH" textAlignment="CENTER" onAction="#_search_bookings_onClick">
@@ -129,12 +122,6 @@
                 </Text>
             </Group>
 
-                <!-- android style --><Group fx:id="search_button_ek1" layoutX="719" layoutY="37">
-
-                <!-- android style --><Group fx:id="frame_3_ek1" layoutX="0" layoutY="0" onMouseClicked="#frame_3_ek1_onClick" />
-
-            </Group>
-
           <Button layoutX="746.0" layoutY="37.0" text="SEARCH" textAlignment="CENTER">
               <font>
                   <Font name="Mako" size="24" />
@@ -147,11 +134,6 @@
 
                 <Rectangle fx:id="rectangle_6" fill="#FFFFFF" height="102" layoutX="0" layoutY="0" width="1440">
                 </Rectangle>
-                <!-- android style --><Group fx:id="logout_button" layoutX="1110" layoutY="26">
-
-                <!-- android style --><Group fx:id="frame_3_ek2" layoutX="0" layoutY="0" onMouseClicked="#frame_3_ek2_onClick" />
-
-            </Group>
 
                 <ImageView fx:id="ellipse_2" fitHeight="88" fitWidth="133" layoutX="160" layoutY="7" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -170,7 +152,7 @@
                         <Font name="Poppins" size="24" />
                     </font>
                 </Text>
-                <Text fx:id="_bookings" fill="#000000" layoutX="104" layoutY="24" onMouseClicked="#_bookings_onClick" text="Bookings" textAlignment="CENTER" wrappingWidth="125">
+                <Text fx:id="_bookings" fill="#000000" layoutX="104" layoutY="24" onMouseClicked="#_all_bookings_onClick" text="Bookings" textAlignment="CENTER" wrappingWidth="125">
                     <font>
                         <Font name="Poppins" size="24" />
                     </font>

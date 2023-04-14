@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 
+import javafx.scene.control.TextField;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
@@ -18,11 +19,11 @@ public class StartingPageController {
 
     @FXML private Rectangle _bg__starting_page;
     @FXML private Text order_no_;
-    @FXML private Text _41874403;
+    @FXML private TextField bookingID;
     @FXML private Text customer_name;
-    @FXML private Text xxx;
+    @FXML private TextField customerID;
     @FXML private Text customer_id;
-    @FXML private Text xxx_ek1;
+    @FXML private TextField customerName;
     @FXML private Text search;
     @FXML private Text search_for_an_existing_trip;
     @FXML private ImageView david_vives_elf8m_ywrty_unsplash_1;
@@ -71,7 +72,7 @@ public class StartingPageController {
     }
 
     @FXML
-    private void _bookings_onClick() throws IOException {
+    private void _all_bookings_onClick() throws IOException {
         TravelAgencyServiceApplication.setRoot(BookingsController.VIEW_NAME);
     }
 
