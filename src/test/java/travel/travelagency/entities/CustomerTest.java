@@ -20,43 +20,37 @@ public class CustomerTest {
     nullCustomer = null;
     emptyCustomer = new Customer();
     customer = new Customer(
-        123,
         "DE19582919875254589658745236512589",
         new PersonalData(
-            43,
             "Merkel",
             "Angela",
             "Dorothea",
-            LocalDate.of(1954, 07, 17),
-            new Address(4, "Street", "18", "93726", "Town", "Country")
+            LocalDate.of(1954, 7, 17),
+            new Address("Street", "18", "93726", "Town", "Country")
         ),
-        new Address(175,"Street","101a","19824","My Town","Disneyland" )
+        new Address("Street","101a","19824","My Town","Disneyland" )
     );
     copyCustomer = new Customer(
-        123,
         "DE19582919875254589658745236512589",
         new PersonalData(
-            43,
             "Merkel",
             "Angela",
             "Dorothea",
-            LocalDate.of(1954, 07, 17),
-            new Address(4, "Street", "18", "93726", "Town", "Country")
+            LocalDate.of(1954, 7, 17),
+            new Address("Street", "18", "93726", "Town", "Country")
         ),
-        new Address(175,"Street","101a","19824","My Town","Disneyland" )
+        new Address("Street","101a","19824","My Town","Disneyland" )
     );
     differentCustomer = new Customer(
-        497,
         "DE12457886135615487659132658132548",
         new PersonalData(
-            98,
             "Scholz",
             "Olaf",
             "",
             LocalDate.of(1987, 11, 17),
-            new Address(7, "Way", "9", "65958", "Stadt", "Osmanien")
+            new Address("Way", "9", "65958", "Stadt", "Osmanien")
         ),
-        new Address(7, "Dwy", "18b", "HKL21", "Town", "Ivy")
+        new Address("Dwy", "18b", "HKL21", "Town", "Ivy")
     );
   }
 
@@ -95,24 +89,21 @@ public class CustomerTest {
   @Test
   public void testToStringMethod() {
     Customer peterLustig = new Customer(
-        123,
         "DE19582919875254589658745236512589",
         new PersonalData(
-            43,
             "Lustig",
             "Peter",
             "Fritz Willi",
             LocalDate.of(1937, 10, 20),
-            new Address(19, "Street", "101a", "19824", "My Town", "Disneyland")
+            new Address("Street", "101a", "19824", "My Town", "Disneyland")
         ),
-        new Address(98,"Billing Street","69b","98425","Cash Town","Cashhausen" )
+        new Address("Billing Street","69b","98425","Cash Town","Cashhausen" )
     );
 
     assertEquals("""
         Peter Fritz Willi Lustig, 1937-10-20
         Street 101a, 19824 My Town, Disneyland
         DE19582919875254589658745236512589
-        Customer Number: 123
         Billing Address: Billing Street 69b, 98425 Cash Town, Cashhausen""",
         peterLustig.toString()
     );

@@ -1,14 +1,4 @@
-2023-03-22 20:25:26,531 DEBUG t.t.HelloApplication [main] Logger
-2023-03-22 20:25:26,547 INFO t.t.HelloApplication [main] info
-2023-03-22 20:25:26,547 DEBUG t.t.HelloApplication [main] Logger
-2023-03-22 20:25:26,547 INFO t.t.HelloApplication [main] info
-2023-03-22 20:25:26,547 DEBUG t.t.HelloApplication [main] Logger
-2023-03-22 20:25:26,547 INFO t.t.HelloApplication [main] info
-2023-03-22 20:25:26,548 DEBUG t.t.HelloApplication [main] Logger
-2023-03-22 20:25:26,548 INFO t.t.HelloApplication [main] info
-2023-03-22 20:25:26,548 DEBUG t.t.HelloApplication [main] Logger
-2023-03-22 20:25:26,548 INFO t.t.HelloApplication [main] info
-2023-03-22 20:25:26,548 DEBUG t.t.HelloApplication [main] Logger
-2023-03-22 20:25:26,548 INFO t.t.HelloApplication [main] info
-2023-03-22 20:25:26,558 DEBUG t.t.HelloApplication [main] Logger
-2023-03-22 20:25:26,558 INFO t.t.HelloApplication [main] info
+2023-04-12 20:38:51,878 ERROR t.t.e.Flight [main] date, time, and time zone have not all been initialized yet for method getArrivalTimestamp()
+2023-04-12 20:38:51,927 ERROR t.t.e.Flight [main] date, time, and time zone have not all been initialized yet for method getFlightDurationTimestamp()
+2023-04-12 20:38:51,937 ERROR t.t.e.Flight [main] date, time, and time zone have not all been initialized yet for method getDepartureTimestamp()
+2023-04-12 20:38:51,937 ERROR t.t.e.Flight [main] date, time, and time zone have not all been initialized yet for method getDepartureTimestamp()

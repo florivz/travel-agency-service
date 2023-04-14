@@ -33,57 +33,48 @@ public class BookingTest {
 
   public static void initializeCustomers() {
     customer = new Customer(
-        123,
         "DE19582919875254589658745236512589",
         new PersonalData(
-            43,
             "Merkel",
             "Angela",
             "Dorothea",
-            LocalDate.of(1954, 07, 17),
-            new Address(4, "Street", "18", "93726", "Town", "Country")
+            LocalDate.of(1954, 7, 17),
+            new Address("Street", "18", "93726", "Town", "Country")
         ),
-        new Address(175,"Street","101a","19824","My Town","Disneyland" )
+        new Address("Street","101a","19824","My Town","Disneyland" )
     );
     copyCustomer = new Customer(
-        123,
         "DE19582919875254589658745236512589",
         new PersonalData(
-            43,
             "Merkel",
             "Angela",
             "Dorothea",
-            LocalDate.of(1954, 07, 17),
-            new Address(4, "Street", "18", "93726", "Town", "Country")
+            LocalDate.of(1954, 7, 17),
+            new Address("Street", "18", "93726", "Town", "Country")
         ),
-        new Address(175,"Street","101a","19824","My Town","Disneyland" )
+        new Address("Street","101a","19824","My Town","Disneyland" )
     );
     differentCustomer = new Customer(
-        497,
         "DE12457886135615487659132658132548",
         new PersonalData(
-            98,
             "Scholz",
             "Olaf",
             "",
             LocalDate.of(1987, 11, 17),
-            new Address(7, "Way", "9", "65958", "Stadt", "Osmanien")
+            new Address("Way", "9", "65958", "Stadt", "Osmanien")
         ),
-        new Address(7, "Dwy", "18b", "HKL21", "Town", "Ivy")
+        new Address("Dwy", "18b", "HKL21", "Town", "Ivy")
     );
   }
 
   public static void initializeHotelBookingSets() {
     hotelBookingSet = new HashSet<>();
     hotelBookingSet.add(new HotelBooking(
-        123,
         new Hotel(
-            8398,
             "Luxor Deluxe",
             20000.01,
             "GIB",
             new Address(
-                43,
                 "Meerenge von Gibraltar",
                 "1",
                 "00001",
@@ -91,29 +82,26 @@ public class BookingTest {
                 "Mittelmeer"
             )
         ),
-        204
+        204,
+        12
     ));
     hotelBookingSet.add(new HotelBooking(
-        136,
         new Hotel(
-            1,
             "Excelsior Hotel Ernst",
             500.00,
             "EUR",
-            new Address(1, "Trankgasse", "1-5", "50667", "Köln", "Deutschland")
+            new Address("Trankgasse", "1-5", "50667", "Köln", "Deutschland")
         ),
-        15
+        15,
+        3
     ));
     copyHotelBookingSet = new HashSet<>();
     copyHotelBookingSet.add(new HotelBooking(
-        123,
         new Hotel(
-            8398,
             "Luxor Deluxe",
             20000.01,
             "GIB",
             new Address(
-                43,
                 "Meerenge von Gibraltar",
                 "1",
                 "00001",
@@ -121,29 +109,26 @@ public class BookingTest {
                 "Mittelmeer"
             )
         ),
-        204
+        204,
+        12
     ));
     copyHotelBookingSet.add(new HotelBooking(
-        136,
         new Hotel(
-            1,
             "Excelsior Hotel Ernst",
             500.00,
             "EUR",
-            new Address(1, "Trankgasse", "1-5", "50667", "Köln", "Deutschland")
+            new Address("Trankgasse", "1-5", "50667", "Köln", "Deutschland")
         ),
-        15
+        15,
+        3
     ));
     differentHotelBookingSet = new HashSet<>();
     differentHotelBookingSet.add(new HotelBooking(
-        938,
         new Hotel(
-            8398,
             "Billig Hotel",
             1.99,
             "EUR",
             new Address(
-                99,
                 "Reeperbahn",
                 "69",
                 "12345",
@@ -151,32 +136,30 @@ public class BookingTest {
                 "Deutschland"
             )
         ),
-        29
+        29,
+        1
     ));
     differentHotelBookingSet.add(new HotelBooking(
-        136,
         new Hotel(
-            1,
             "Excelsior Hotel Ernst",
             500.00,
             "EUR",
-            new Address(1, "Trankgasse", "1-5", "50667", "Köln", "Deutschland")
+            new Address("Trankgasse", "1-5", "50667", "Köln", "Deutschland")
         ),
-        15
+        15,
+        12
     ));
   }
 
   public static void initializeFlightBookingSets() {
     flightBookingSet = new HashSet<>();
     flightBookingSet.add(new FlightBooking(
-        123,
         new Flight(
-            1,
-            new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
-            LocalDate.of(2023, 05, 14),
+            new FlightConnection("DL", "0015", "FRA", "ATL"),
+            LocalDate.of(2023, 5, 14),
             LocalTime.of(11, 30, 20),
             "UTC+02:00",
-            LocalDate.of(2023, 05, 14),
+            LocalDate.of(2023, 5, 14),
             LocalTime.of(16, 15),
             "UTC-05:00",
             299.99,
@@ -185,14 +168,12 @@ public class BookingTest {
         36
     ));
     flightBookingSet.add(new FlightBooking(
-        136,
         new Flight(
-            1,
-            new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
-            LocalDate.of(2023, 05, 14),
+            new FlightConnection("DL", "0015", "FRA", "ATL"),
+            LocalDate.of(2023, 5, 14),
             LocalTime.of(11, 30, 20),
             "UTC+02:00",
-            LocalDate.of(2023, 05, 14),
+            LocalDate.of(2023, 5, 14),
             LocalTime.of(16, 15),
             "UTC-05:00",
             299.99,
@@ -202,14 +183,12 @@ public class BookingTest {
     ));
     copyFlightBookingSet = new HashSet<>();
     copyFlightBookingSet.add(new FlightBooking(
-        123,
         new Flight(
-            1,
-            new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
-            LocalDate.of(2023, 05, 14),
+            new FlightConnection("DL", "0015", "FRA", "ATL"),
+            LocalDate.of(2023, 5, 14),
             LocalTime.of(11, 30, 20),
             "UTC+02:00",
-            LocalDate.of(2023, 05, 14),
+            LocalDate.of(2023, 5, 14),
             LocalTime.of(16, 15),
             "UTC-05:00",
             299.99,
@@ -218,14 +197,12 @@ public class BookingTest {
         36
     ));
     copyFlightBookingSet.add(new FlightBooking(
-        136,
         new Flight(
-            1,
-            new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
-            LocalDate.of(2023, 05, 14),
+            new FlightConnection("DL", "0015", "FRA", "ATL"),
+            LocalDate.of(2023, 5, 14),
             LocalTime.of(11, 30, 20),
             "UTC+02:00",
-            LocalDate.of(2023, 05, 14),
+            LocalDate.of(2023, 5, 14),
             LocalTime.of(16, 15),
             "UTC-05:00",
             299.99,
@@ -235,14 +212,12 @@ public class BookingTest {
     ));
     differentFlightBookingSet = new HashSet<>();
     differentFlightBookingSet.add(new FlightBooking(
-        82,
         new Flight(
-            1,
-            new FlightConnection(13, "DL", "0016", "ATL", "FRA"),
-            LocalDate.of(2023, 07, 30),
+            new FlightConnection("DL", "0016", "ATL", "FRA"),
+            LocalDate.of(2023, 7, 30),
             LocalTime.of(15, 5),
             "UTC-05:00",
-            LocalDate.of(2023, 07, 31),
+            LocalDate.of(2023, 7, 31),
             LocalTime.of(7, 30, 38),
             "UTC+02:00",
             599.99,
@@ -251,14 +226,12 @@ public class BookingTest {
         4
     ));
     differentFlightBookingSet.add(new FlightBooking(
-        136,
         new Flight(
-            1,
-            new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
-            LocalDate.of(2023, 05, 14),
+            new FlightConnection("DL", "0015", "FRA", "ATL"),
+            LocalDate.of(2023, 5, 14),
             LocalTime.of(11, 30, 20),
             "UTC+02:00",
-            LocalDate.of(2023, 05, 14),
+            LocalDate.of(2023, 5, 14),
             LocalTime.of(16, 15),
             "UTC-05:00",
             299.99,
@@ -270,19 +243,19 @@ public class BookingTest {
 
   public static void initializeTripSets() {
     tripSet = new HashSet<>();
-    tripSet.add(new Trip(1, hotelBookingSet, flightBookingSet));
+    tripSet.add(new Trip(hotelBookingSet, flightBookingSet));
     copyTripSet = new HashSet<>();
-    copyTripSet.add(new Trip(1, copyHotelBookingSet, copyFlightBookingSet));
+    copyTripSet.add(new Trip(copyHotelBookingSet, copyFlightBookingSet));
     differentTripSet = new HashSet<>();
-    differentTripSet.add(new Trip(3, differentHotelBookingSet, differentFlightBookingSet));
+    differentTripSet.add(new Trip(differentHotelBookingSet, differentFlightBookingSet));
   }
 
   public static void initializeBookings() {
     nullBooking = null;
     emptyBooking = new Booking();
-    booking = new Booking(1, new Customer(), tripSet);
-    copyBooking = new Booking(1, new Customer(), copyTripSet);
-    differentBooking = new Booking(12, new Customer(), differentTripSet);
+    booking = new Booking(customer, tripSet);
+    copyBooking = new Booking(copyCustomer, copyTripSet);
+    differentBooking = new Booking(differentCustomer, differentTripSet);
   }
 
   @Test()
@@ -319,14 +292,13 @@ public class BookingTest {
 
   @Test
   public void testToStringMethod() {
-    Booking testedBooking = new Booking(1234, customer, tripSet);
+    Booking testedBooking = new Booking(customer, tripSet);
 
     String expectedResult =
-        "Booking no. : 1234\n" +
-        "Customer:\n" +
-            customer.toString() + '\n' +
-        "Trips:\n" +
-            tripSet.toString();
+      "Customer:\n" +
+          customer.toString() + '\n' +
+      "Trips:\n" +
+          tripSet.toString();
 
     assertEquals(expectedResult, testedBooking.toString());
   }

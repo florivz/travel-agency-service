@@ -1,6 +1,4 @@
-target/surefire-reports/
-
-/.idea/*
-/.idea/
-
+/target/
+/src/main/resources/META-INF/
 /logs/
+/.idea/

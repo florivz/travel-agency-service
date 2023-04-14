@@ -32,19 +32,13 @@ public class Trip {
 
   }
 
-  public Trip(Integer id, Set<HotelBooking> hotelBookingSet,
-      Set<FlightBooking> flightBookingSet) {
-    this.id = id;
+  public Trip(Set<HotelBooking> hotelBookingSet, Set<FlightBooking> flightBookingSet) {
     this.hotelBookingSet = hotelBookingSet;
     this.flightBookingSet = flightBookingSet;
   }
 
   public Integer getId() {
     return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
   }
 
   public Set<HotelBooking> getHotelBookingSet() {
@@ -65,6 +59,18 @@ public class Trip {
     this.flightBookingSet = flightBookingList;
   }
 
+  public double getTotalPrice() {
+    return getTotalHotelPrice() + getTotalFlightPrice();
+  }
+
+  public double getTotalHotelPrice() {
+    return hotelBookingSet.stream().mapToDouble(HotelBooking::getTotalPrice).sum();
+  }
+
+  public double getTotalFlightPrice() {
+    return flightBookingSet.stream().mapToDouble(FlightBooking::getTotalPrice).sum();
+  }
+
   @Override
   public boolean equals(Object obj) {
     if(obj != null && obj.getClass().equals(this.getClass())) {
@@ -83,8 +89,8 @@ public class Trip {
   public String toString() {
     return
         (id != null ? "Trip no. : " + id + '\n' : "")
-      + (hotelBookingSet != null  ? "Hotel Bookings:\n" + hotelBookingSet.toString() + '\n' : "" )
-      + (flightBookingSet != null ? "Flight Bookings:\n" + flightBookingSet.toString() : "" );
+      + (hotelBookingSet != null  ? "Hotel Bookings:\n" + hotelBookingSet + '\n' : "" )
+      + (flightBookingSet != null ? "Flight Bookings:\n" + flightBookingSet : "" );
   }
 
   @Override

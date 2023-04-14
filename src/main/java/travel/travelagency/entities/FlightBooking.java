@@ -29,8 +29,7 @@ public class FlightBooking {
 
   }
 
-  public FlightBooking(Integer id, Flight flight, Integer numberOfPassengers) {
-    this.id = id;
+  public FlightBooking(Flight flight, Integer numberOfPassengers) {
     this.flight = flight;
     this.numberOfPassengers = numberOfPassengers;
   }
@@ -72,11 +71,15 @@ public class FlightBooking {
     return false;
   }
 
+  public double getTotalPrice() {
+    return numberOfPassengers * flight.getPricePerPerson();
+  }
+
   @Override
   public String toString() {
     return
         (flight != null             ? flight.toString() + '\n'                       : "" )
-      + (numberOfPassengers != null ? "Passengers: " + numberOfPassengers.toString() : "" );
+      + (numberOfPassengers != null ? "Passengers: " + numberOfPassengers : "" );
   }
 
   @Override

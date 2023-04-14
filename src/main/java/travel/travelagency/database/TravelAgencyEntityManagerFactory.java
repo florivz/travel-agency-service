@@ -7,23 +7,35 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.simple.SimpleLoggerContextFactory;
-import travel.travelagency.HelloApplication;
 
+/**
+ * This class creates <code>EntityManager</code> connected to the database.
+ * @author I551381
+ * @version 1.0
+ */
 public class TravelAgencyEntityManagerFactory {
 
   static final Logger logger = LogManager.getLogger(TravelAgencyEntityManagerFactory.class);
 
-  private EntityManagerFactory entityManagerFactory;
+  /**
+   * private <code>EntityManagerFactory</code> used to create <code>EntityManager</code> objects.
+   */
+  private final EntityManagerFactory entityManagerFactory;
 
-  public TravelAgencyEntityManagerFactory() {
-    Properties p = this.getDBAccessProperties();
+  /**
+   * This constructor reads the provided database properties file and creates an <code>EntityManagerFactory</code>
+   * object which creates <code>EntityManager</code> objects.
+   * @param dbPropertiesPath this '.properties' file must contain the name of the persistence unit as a
+   *                         property named 'persistence_unit'.
+   */
+  public TravelAgencyEntityManagerFactory(String dbPropertiesPath) {
+    Properties p = this.getDBAccessProperties(dbPropertiesPath);
     try {
       String persistenceUnit = p.getProperty("persistence_unit");
       if(persistenceUnit != null)
         entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnit);
       else {
-        final String msg = "\'persistence_unit\' property not found in database properties";
+        final String msg = "'persistence_unit' property not found in database properties";
         throw new RuntimeException(msg);
       }
     } catch (Exception e) {
@@ -33,14 +45,18 @@ public class TravelAgencyEntityManagerFactory {
     }
   }
 
+  /**
+   * This method is used to create an <code>EntityManager</code> object that can persist, read, update, and delete
+   * Entities in the database connected to the peristence unit specified in the constructor.
+   * @return <code>EntityManager</code> object connected to the database
+   */
   public EntityManager createEntityManager() {
     return entityManagerFactory.createEntityManager();
   }
 
-  private Properties getDBAccessProperties() {
+  private Properties getDBAccessProperties(String dbPropertiesPath) {
     Properties dbAccessProperties;
-    try(InputStream is = getClass().getClassLoader().getResourceAsStream(
-        "db.properties")) {
+    try(InputStream is = getClass().getClassLoader().getResourceAsStream(dbPropertiesPath)) {
       dbAccessProperties = new Properties();
       dbAccessProperties.load( is );
     } catch (Exception e) {

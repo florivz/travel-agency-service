@@ -20,14 +20,12 @@ public class FlightBookingTest {
     nullBooking = null;
     emptyBooking = new FlightBooking();
     booking = new FlightBooking(
-        123,
         new Flight(
-          1,
-          new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
-          LocalDate.of(2023, 05, 14),
+          new FlightConnection("DL", "0015", "FRA", "ATL"),
+          LocalDate.of(2023, 5, 14),
           LocalTime.of(11, 30, 20),
           "UTC+02:00",
-          LocalDate.of(2023, 05, 14),
+          LocalDate.of(2023, 5, 14),
           LocalTime.of(16, 15),
           "UTC-05:00",
           299.99,
@@ -36,14 +34,12 @@ public class FlightBookingTest {
         36
     );
     copyBooking = new FlightBooking(
-        123,
         new Flight(
-            1,
-            new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
-            LocalDate.of(2023, 05, 14),
+            new FlightConnection("DL", "0015", "FRA", "ATL"),
+            LocalDate.of(2023, 5, 14),
             LocalTime.of(11, 30, 20),
             "UTC+02:00",
-            LocalDate.of(2023, 05, 14),
+            LocalDate.of(2023, 5, 14),
             LocalTime.of(16, 15),
             "UTC-05:00",
             299.99,
@@ -52,14 +48,12 @@ public class FlightBookingTest {
         36
     );
     differentBooking = new FlightBooking(
-        82,
         new Flight(
-            1,
-            new FlightConnection(13, "DL", "0016", "ATL", "FRA"),
-            LocalDate.of(2023, 07, 30),
+            new FlightConnection("DL", "0016", "ATL", "FRA"),
+            LocalDate.of(2023, 7, 30),
             LocalTime.of(15, 5),
             "UTC-05:00",
-            LocalDate.of(2023, 07, 31),
+            LocalDate.of(2023, 7, 31),
             LocalTime.of(7, 30, 38),
             "UTC+02:00",
             599.99,
@@ -67,6 +61,22 @@ public class FlightBookingTest {
         ),
         4
     );
+  }
+
+  @Test
+  public void testGetTotalPrice() {
+    double expectedPrice = 200.0;
+
+    Flight flight = new Flight();
+    flight.setPricePerPerson(50.0);
+
+    FlightBooking flightBooking = new FlightBooking();
+    flightBooking.setFlight(flight);
+    flightBooking.setNumberOfPassengers(4);
+
+    double actualPrice = flightBooking.getTotalPrice();
+
+    assertEquals(expectedPrice, actualPrice);
   }
 
   @Test()
@@ -104,14 +114,12 @@ public class FlightBookingTest {
   @Test
   public void testToStringMethod() {
     FlightBooking testedFlightBooking = new FlightBooking(
-      136,
       new Flight(
-        1,
-        new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
-        LocalDate.of(2023, 05, 14),
+        new FlightConnection("DL", "0015", "FRA", "ATL"),
+        LocalDate.of(2023, 5, 14),
         LocalTime.of(11, 30, 20),
         "UTC+02:00",
-        LocalDate.of(2023, 05, 14),
+        LocalDate.of(2023, 5, 14),
         LocalTime.of(16, 15),
         "UTC-05:00",
         299.99,

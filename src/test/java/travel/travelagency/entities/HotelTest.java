@@ -18,12 +18,10 @@ public class HotelTest {
     nullHotel = null;
     emptyHotel = new Hotel();
     hotel = new Hotel(
-        8398,
         "Luxor Deluxe",
         20000.01,
         "GIB",
         new Address(
-            43,
             "Meerenge von Gibraltar",
             "1",
             "00001",
@@ -32,12 +30,10 @@ public class HotelTest {
         )
     );
     copyHotel = new Hotel(
-        8398,
         "Luxor Deluxe",
         20000.01,
         "GIB",
         new Address(
-            43,
             "Meerenge von Gibraltar",
             "1",
             "00001",
@@ -46,12 +42,10 @@ public class HotelTest {
         )
     );
     differentHotel = new Hotel(
-        8398,
         "Billig Hotel",
         1.99,
         "EUR",
         new Address(
-            99,
             "Reeperbahn",
             "69",
             "12345",
@@ -96,11 +90,10 @@ public class HotelTest {
   @Test
   public void testToStringMethod() {
     Hotel excelsior = new Hotel(
-        1,
         "Excelsior Hotel Ernst",
         500.00,
         "EUR",
-        new Address(1, "Trankgasse", "1-5", "50667", "Köln", "Deutschland")
+        new Address("Trankgasse", "1-5", "50667", "Köln", "Deutschland")
     );
 
     assertEquals("""

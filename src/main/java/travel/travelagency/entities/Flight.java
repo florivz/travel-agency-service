@@ -63,11 +63,10 @@ public class Flight {
 
   }
 
-  public Flight(Integer id, FlightConnection flightConnection, LocalDate dateOfDeparture,
+  public Flight(FlightConnection flightConnection, LocalDate dateOfDeparture,
       LocalTime timeOfDeparture, String timeZoneOfDeparture, LocalDate dateOfArrival,
       LocalTime timeOfArrival, String timeZoneOfArrival, Double pricePerPerson,
       String currencyKey) {
-    this.id = id;
     this.flightConnection = flightConnection;
     this.dateOfDeparture = dateOfDeparture;
     this.timeOfDeparture = timeOfDeparture;
@@ -185,10 +184,10 @@ public class Flight {
         arrivalTimestamp    = this.getArrivalTimestamp();
     return
         (flightConnection != null ? flightConnection.toString() + '\n' : "")
-            + (departureTimestamp != null ? "Departure: " + departureTimestamp.toString() + '\n' : "")
-            + (arrivalTimestamp != null   ? "Arrival  : " + arrivalTimestamp.toString() + '\n' : "")
+            + (departureTimestamp != null ? "Departure: " + departureTimestamp + '\n' : "")
+            + (arrivalTimestamp != null   ? "Arrival  : " + arrivalTimestamp + '\n' : "")
             + (pricePerPerson != null && currencyKey != null ?
-                  "Price    : " + pricePerPerson.toString() + " " + currencyKey.toString() : "");
+                  "Price    : " + pricePerPerson + " " + currencyKey : "");
   }
 
   @Override
