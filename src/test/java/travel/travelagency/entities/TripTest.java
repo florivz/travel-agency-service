@@ -118,10 +118,10 @@ public class TripTest {
     flightBookingSet.add(new FlightBooking(
       new Flight(
         new FlightConnection("DL", "0015", "FRA", "ATL"),
-        LocalDate.of(2023, 05, 14),
+        LocalDate.of(2023, 5, 14),
         LocalTime.of(11, 30, 20),
         "UTC+02:00",
-        LocalDate.of(2023, 05, 14),
+        LocalDate.of(2023, 5, 14),
         LocalTime.of(16, 15),
         "UTC-05:00",
         299.99,
@@ -132,10 +132,10 @@ public class TripTest {
     flightBookingSet.add(new FlightBooking(
       new Flight(
         new FlightConnection("DL", "0015", "FRA", "ATL"),
-        LocalDate.of(2023, 05, 14),
+        LocalDate.of(2023, 5, 14),
         LocalTime.of(11, 30, 20),
         "UTC+02:00",
-        LocalDate.of(2023, 05, 14),
+        LocalDate.of(2023, 5, 14),
         LocalTime.of(16, 15),
         "UTC-05:00",
         299.99,
@@ -147,10 +147,10 @@ public class TripTest {
     copyFlightBookingSet.add(new FlightBooking(
         new Flight(
             new FlightConnection("DL", "0015", "FRA", "ATL"),
-            LocalDate.of(2023, 05, 14),
+            LocalDate.of(2023, 5, 14),
             LocalTime.of(11, 30, 20),
             "UTC+02:00",
-            LocalDate.of(2023, 05, 14),
+            LocalDate.of(2023, 5, 14),
             LocalTime.of(16, 15),
             "UTC-05:00",
             299.99,
@@ -161,10 +161,10 @@ public class TripTest {
     copyFlightBookingSet.add(new FlightBooking(
       new Flight(
         new FlightConnection("DL", "0015", "FRA", "ATL"),
-        LocalDate.of(2023, 05, 14),
+        LocalDate.of(2023, 5, 14),
         LocalTime.of(11, 30, 20),
         "UTC+02:00",
-        LocalDate.of(2023, 05, 14),
+        LocalDate.of(2023, 5, 14),
         LocalTime.of(16, 15),
         "UTC-05:00",
         299.99,
@@ -176,10 +176,10 @@ public class TripTest {
     differentFlightBookingSet.add(new FlightBooking(
       new Flight(
         new FlightConnection("DL", "0016", "ATL", "FRA"),
-        LocalDate.of(2023, 07, 30),
+        LocalDate.of(2023, 7, 30),
         LocalTime.of(15, 5),
         "UTC-05:00",
-        LocalDate.of(2023, 07, 31),
+        LocalDate.of(2023, 7, 31),
         LocalTime.of(7, 30, 38),
         "UTC+02:00",
         599.99,
@@ -190,10 +190,10 @@ public class TripTest {
     differentFlightBookingSet.add(new FlightBooking(
       new Flight(
         new FlightConnection("DL", "0015", "FRA", "ATL"),
-        LocalDate.of(2023, 05, 14),
+        LocalDate.of(2023, 5, 14),
         LocalTime.of(11, 30, 20),
         "UTC+02:00",
-        LocalDate.of(2023, 05, 14),
+        LocalDate.of(2023, 5, 14),
         LocalTime.of(16, 15),
         "UTC-05:00",
         299.99,

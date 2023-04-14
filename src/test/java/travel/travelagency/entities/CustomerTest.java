@@ -25,7 +25,7 @@ public class CustomerTest {
             "Merkel",
             "Angela",
             "Dorothea",
-            LocalDate.of(1954, 07, 17),
+            LocalDate.of(1954, 7, 17),
             new Address("Street", "18", "93726", "Town", "Country")
         ),
         new Address("Street","101a","19824","My Town","Disneyland" )
@@ -36,7 +36,7 @@ public class CustomerTest {
             "Merkel",
             "Angela",
             "Dorothea",
-            LocalDate.of(1954, 07, 17),
+            LocalDate.of(1954, 7, 17),
             new Address("Street", "18", "93726", "Town", "Country")
         ),
         new Address("Street","101a","19824","My Town","Disneyland" )

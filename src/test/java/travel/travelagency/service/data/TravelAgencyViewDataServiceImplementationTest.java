@@ -1,12 +1,10 @@
 package travel.travelagency.service.data;
 
-import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.TypedQuery;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

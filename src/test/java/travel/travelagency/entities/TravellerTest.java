@@ -26,7 +26,7 @@ public class TravellerTest {
             "Merkel",
             "Angela",
             "Dorothea",
-            LocalDate.of(1954, 07, 17),
+            LocalDate.of(1954, 7, 17),
             new Address("Street", "18", "93726", "Town", "Country")
         )
     );
@@ -37,7 +37,7 @@ public class TravellerTest {
             "Merkel",
             "Angela",
             "Dorothea",
-            LocalDate.of(1954, 07, 17),
+            LocalDate.of(1954, 7, 17),
             new Address("Street", "18", "93726", "Town", "Country")
         )
     );

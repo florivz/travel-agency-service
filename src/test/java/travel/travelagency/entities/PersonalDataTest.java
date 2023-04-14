@@ -24,14 +24,14 @@ public class PersonalDataTest {
         "Merkel",
         "Angela",
         "Dorothea",
-        LocalDate.of(1954, 07, 17),
+        LocalDate.of(1954, 7, 17),
         new Address("Street", "18", "93726", "Town", "Country")
     );
     copyPersonalData = new PersonalData(
         "Merkel",
         "Angela",
         "Dorothea",
-        LocalDate.of(1954, 07, 17),
+        LocalDate.of(1954, 7, 17),
         new Address("Street", "18", "93726", "Town", "Country")
     );
     differentPersonalData = new PersonalData(
