@@ -17,9 +17,9 @@ public class AddressTest {
   public static void initializeAddresses() {
     nullAddress = null;
     emptyAddress = new Address();
-    address = new Address(4, "Street", "18", "93726", "Town", "Country");
-    copyAddress = new Address(4, "Street", "18", "93726", "Town", "Country");
-    differentAddress = new Address(6, "Strasse", "94a", "89454", "Stadt", "Land");
+    address = new Address("Street", "18", "93726", "Town", "Country");
+    copyAddress = new Address("Street", "18", "93726", "Town", "Country");
+    differentAddress = new Address("Strasse", "94a", "89454", "Stadt", "Land");
   }
 
   @Test()
@@ -57,7 +57,6 @@ public class AddressTest {
   @Test
   public void testToStringMethod() {
     Address address = new Address(
-      175,
       "Street",
       "101a",
       "19824",

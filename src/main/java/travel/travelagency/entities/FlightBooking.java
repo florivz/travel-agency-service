@@ -29,8 +29,7 @@ public class FlightBooking {
 
   }
 
-  public FlightBooking(Integer id, Flight flight, Integer numberOfPassengers) {
-    this.id = id;
+  public FlightBooking(Flight flight, Integer numberOfPassengers) {
     this.flight = flight;
     this.numberOfPassengers = numberOfPassengers;
   }

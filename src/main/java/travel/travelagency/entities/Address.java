@@ -69,8 +69,7 @@ public class Address {
    * @param town town name
    * @param country country of residence
    */
-  public Address(Integer id, String street, String number, String zipCode, String town, String country) {
-    this.id = id;
+  public Address(String street, String number, String zipCode, String town, String country) {
     this.street = street;
     this.number = number;
     this.zipCode = zipCode;

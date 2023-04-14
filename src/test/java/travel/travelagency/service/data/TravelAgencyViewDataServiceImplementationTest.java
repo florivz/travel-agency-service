@@ -1,8 +1,5 @@
 package travel.travelagency.service.data;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -18,6 +15,8 @@ import org.mockito.Mockito;
 import travel.travelagency.entities.*;
 import java.util.List;
 import java.util.LinkedList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TravelAgencyViewDataServiceImplementationTest {
 
@@ -68,9 +67,9 @@ public class TravelAgencyViewDataServiceImplementationTest {
 
   private List<Booking> createBookingList(Integer bookingID, Integer customerID, String customerName) {
     List<Booking> bookingList = new LinkedList<>();
-    bookingList.add(new Booking(1, getCustomer(1), new HashSet<>()));
-    bookingList.add(new Booking(2, getCustomer(1), new HashSet<>()));
-    bookingList.add(new Booking(3, getCustomer(2), new HashSet<>()));
+    bookingList.add(new Booking(getCustomer(1), new HashSet<>()));
+    bookingList.add(new Booking(getCustomer(1), new HashSet<>()));
+    bookingList.add(new Booking(getCustomer(2), new HashSet<>()));
     for(int i = 0; i < bookingList.size(); i++) {
       if(
         bookingID != null && !bookingID.equals(bookingList.get(i).getId())
@@ -85,29 +84,33 @@ public class TravelAgencyViewDataServiceImplementationTest {
 
   private Customer getCustomer(int customerID) {
     return switch (customerID) {
-      case 1 -> new Customer(customerID, "DE19582919875254589658745236512589",
+      case 1 -> new Customer("DE19582919875254589658745236512589",
           new PersonalData(
-              43,
               "Merkel",
               "Angela",
               "Dorothea",
               LocalDate.of(1954, 7, 17),
-              new Address(4, "Street", "18", "93726", "Town", "Country")
+              new Address("Street", "18", "93726", "Town", "Country")
           ),
-          new Address(175,"Street","101a","19824","My Town","Disneyland" ));
-      case 2 -> new Customer(
-          497,
-          "DE12457886135615487659132658132548",
+          new Address("Street","101a","19824","My Town","Disneyland" ));
+      case 2 -> new Customer("DE12457886135615487659132658132548",
           new PersonalData(
-              98,
               "Scholz",
               "Olaf",
               "",
               LocalDate.of(1987, 11, 17),
-              new Address(7, "Way", "9", "65958", "Stadt", "Osmanien")
+              new Address("Way", "9", "65958", "Stadt", "Osmanien")
           ),
-          new Address(7, "Dwy", "18b", "HKL21", "Town", "Ivy")
+          new Address("Dwy", "18b", "HKL21", "Town", "Ivy")
       );
+      default -> null;
+    };
+  }
+
+  private Trip getTrip(int tripID) {
+    return switch(tripID) {
+      case 1 -> new Trip(Set.of(getHotelBooking(1)), Set.of(getFlightBooking(1)));
+      case 2 -> new Trip(Set.of(getHotelBooking(2)), Set.of(getFlightBooking(2)));
       default -> null;
     };
   }
@@ -115,14 +118,11 @@ public class TravelAgencyViewDataServiceImplementationTest {
   private HotelBooking getHotelBooking(int hotelBookingID) {
     return switch(hotelBookingID) {
       case 1 -> new HotelBooking(
-        123,
         new Hotel(
-          8398,
           "Luxor Deluxe",
           20000.01,
           "GIB",
           new Address(
-            43,
             "Meerenge von Gibraltar",
             "1",
             "00001",
@@ -134,14 +134,11 @@ public class TravelAgencyViewDataServiceImplementationTest {
         12
       );
       case 2 -> new HotelBooking(
-        938,
         new Hotel(
-          8398,
           "Billig Hotel",
           1.99,
           "EUR",
           new Address(
-            99,
             "Reeperbahn",
             "69",
             "12345",
@@ -159,10 +156,8 @@ public class TravelAgencyViewDataServiceImplementationTest {
   private FlightBooking getFlightBooking(int flightBookingID) {
     return switch (flightBookingID) {
       case 1 -> new FlightBooking(
-        123,
         new Flight(
-          1,
-          new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
+          new FlightConnection("DL", "0015", "FRA", "ATL"),
           LocalDate.of(2023, 5, 14),
           LocalTime.of(11, 30, 20),
           "UTC+02:00",
@@ -175,10 +170,8 @@ public class TravelAgencyViewDataServiceImplementationTest {
         36
       );
       case 2 -> new FlightBooking(
-        82,
         new Flight(
-          1,
-          new FlightConnection(13, "DL", "0016", "ATL", "FRA"),
+          new FlightConnection("DL", "0016", "ATL", "FRA"),
           LocalDate.of(2023, 7, 30),
           LocalTime.of(15, 5),
           "UTC-05:00",
@@ -282,7 +275,19 @@ public class TravelAgencyViewDataServiceImplementationTest {
    */
   @Test
   public void testGetTripsWithTripSet() {
-    fail();
+    List<Trip> expectedTripList = List.of(this.getTrip(1), this.getTrip(2));
+
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(this.EM);
+    List<Trip> actualTripList = service.getTrips(new Booking(
+        getCustomer(1),
+        Set.of(getTrip(1), getTrip(2))
+    ));
+
+    assertTrue(
+      expectedTripList.size() == actualTripList.size() &&
+      actualTripList.containsAll(expectedTripList) &&
+      expectedTripList.containsAll(actualTripList)
+    );
   }
 
   /**
@@ -330,10 +335,14 @@ public class TravelAgencyViewDataServiceImplementationTest {
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(this.EM);
     List<HotelBooking> actualHotelBookingList = service.getHotelBookings(
-        new Trip(293, Set.of(this.getHotelBooking(1), this.getHotelBooking(2)), null)
+        new Trip(Set.of(this.getHotelBooking(1), this.getHotelBooking(2)), null)
     );
 
-    Assertions.assertEquals(Set.of(expectedHotelBookingList), Set.of(actualHotelBookingList));
+    assertTrue(
+      expectedHotelBookingList.size() == actualHotelBookingList.size() &&
+      actualHotelBookingList.containsAll(expectedHotelBookingList)&&
+      expectedHotelBookingList.containsAll(actualHotelBookingList)
+    );
   }
 
   /**
@@ -381,10 +390,14 @@ public class TravelAgencyViewDataServiceImplementationTest {
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(this.EM);
     List<FlightBooking> actualFlightBookingList = service.getFlightBookings(
-        new Trip(293, null, Set.of(this.getFlightBooking(1), this.getFlightBooking(2)))
+        new Trip(null, Set.of(this.getFlightBooking(1), this.getFlightBooking(2)))
     );
 
-    Assertions.assertEquals(Set.of(expectedFlightBookingList), Set.of(actualFlightBookingList));
+    assertTrue(
+      expectedFlightBookingList.size() == actualFlightBookingList.size() &&
+      actualFlightBookingList.containsAll(expectedFlightBookingList)&&
+      expectedFlightBookingList.containsAll(actualFlightBookingList)
+    );
   }
 
 }

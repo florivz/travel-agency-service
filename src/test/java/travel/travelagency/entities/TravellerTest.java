@@ -23,36 +23,33 @@ public class TravellerTest {
         "C12345678",
         "Berlin",
         new PersonalData(
-            43,
             "Merkel",
             "Angela",
             "Dorothea",
             LocalDate.of(1954, 07, 17),
-            new Address(4, "Street", "18", "93726", "Town", "Country")
+            new Address("Street", "18", "93726", "Town", "Country")
         )
     );
     copyTraveller = new Traveller(
         "C12345678",
         "Berlin",
         new PersonalData(
-            43,
             "Merkel",
             "Angela",
             "Dorothea",
             LocalDate.of(1954, 07, 17),
-            new Address(4, "Street", "18", "93726", "Town", "Country")
+            new Address("Street", "18", "93726", "Town", "Country")
         )
     );
     differentTraveller = new Traveller(
         "D01928345",
         "Hamburg",
         new PersonalData(
-            98,
             "Scholz",
             "Olaf",
             "",
             LocalDate.of(1987, 11, 17),
-            new Address(7, "Way", "9", "65958", "Stadt", "Osmanien")
+            new Address("Way", "9", "65958", "Stadt", "Osmanien")
         )
     );
   }
@@ -95,12 +92,11 @@ public class TravellerTest {
         "C98765432",
         "Bärstadt",
         new PersonalData(
-            43,
             "Lustig",
             "Peter",
             "Fritz Willi",
             LocalDate.of(1937, 10, 20),
-            new Address(19, "Street", "101a", "19824", "My Town", "Disneyland")
+            new Address("Street", "101a", "19824", "My Town", "Disneyland")
         )
     );
 

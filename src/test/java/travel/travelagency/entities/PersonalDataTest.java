@@ -21,28 +21,25 @@ public class PersonalDataTest {
     nullPersonalData = null;
     emptyPersonalData = new PersonalData();
     personalData = new PersonalData(
-        43,
         "Merkel",
         "Angela",
         "Dorothea",
         LocalDate.of(1954, 07, 17),
-        new Address(4, "Street", "18", "93726", "Town", "Country")
+        new Address("Street", "18", "93726", "Town", "Country")
     );
     copyPersonalData = new PersonalData(
-        43,
         "Merkel",
         "Angela",
         "Dorothea",
         LocalDate.of(1954, 07, 17),
-        new Address(4, "Street", "18", "93726", "Town", "Country")
+        new Address("Street", "18", "93726", "Town", "Country")
     );
     differentPersonalData = new PersonalData(
-        98,
         "Scholz",
         "Olaf",
         "",
         LocalDate.of(1987, 11, 17),
-        new Address(7, "Way", "9", "65958", "Stadt", "Osmanien")
+        new Address("Way", "9", "65958", "Stadt", "Osmanien")
     );
   }
 
@@ -81,13 +78,11 @@ public class PersonalDataTest {
   @Test
   public void testToStringMethod() {
     PersonalData personalData = new PersonalData(
-      11,
       "Lustig",
       "Peter",
       "Fritz Willi",
       LocalDate.of(1937, 10, 20),
       new Address(
-        175,
         "Street",
         "101a",
         "19824",

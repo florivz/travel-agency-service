@@ -63,11 +63,10 @@ public class Flight {
 
   }
 
-  public Flight(Integer id, FlightConnection flightConnection, LocalDate dateOfDeparture,
+  public Flight(FlightConnection flightConnection, LocalDate dateOfDeparture,
       LocalTime timeOfDeparture, String timeZoneOfDeparture, LocalDate dateOfArrival,
       LocalTime timeOfArrival, String timeZoneOfArrival, Double pricePerPerson,
       String currencyKey) {
-    this.id = id;
     this.flightConnection = flightConnection;
     this.dateOfDeparture = dateOfDeparture;
     this.timeOfDeparture = timeOfDeparture;

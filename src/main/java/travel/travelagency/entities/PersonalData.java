@@ -74,8 +74,7 @@ public class PersonalData {
    * @param dateOfBirth date of birth
    * @param address home address
    */
-  public PersonalData(Integer id, String lastName, String firstName, String middleNames, LocalDate dateOfBirth, Address address) {
-    this.id = id;
+  public PersonalData(String lastName, String firstName, String middleNames, LocalDate dateOfBirth, Address address) {
     this.lastName = lastName;
     this.firstName = firstName;
     this.middleNames = middleNames;

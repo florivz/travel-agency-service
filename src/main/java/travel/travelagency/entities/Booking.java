@@ -60,18 +60,13 @@ public class Booking {
 
   }
 
-  public Booking(Integer id, Customer customer, Set<Trip> tripSet) {
-    this.id = id;
+  public Booking(Customer customer, Set<Trip> tripSet) {
     this.customer = customer;
     this.tripSet = tripSet;
   }
 
   public Integer getId() {
     return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
   }
 
   public Customer getCustomer() {

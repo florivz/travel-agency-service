@@ -59,8 +59,7 @@ public class Customer {
    * @param personalData personal data record of the customer
    * @param billingAddress billing address (may be identical with the home address)
    */
-  public Customer(Integer id, String iban, PersonalData personalData, Address billingAddress) {
-    this.id = id;
+  public Customer(String iban, PersonalData personalData, Address billingAddress) {
     this.iban = iban;
     this.personalData = personalData;
     this.billingAddress = billingAddress;

@@ -64,10 +64,7 @@ public class FlightConnection {
    * @param departureAirport three character airport code of the airport of departure
    * @param arrivalAirport three character airport code of the airport of arrival
    */
-  public FlightConnection(Integer id, String carrierID, String connectionID,
-      String departureAirport,
-      String arrivalAirport) {
-    this.id = id;
+  public FlightConnection(String carrierID, String connectionID, String departureAirport, String arrivalAirport) {
     this.carrierID = carrierID;
     this.connectionID = connectionID;
     this.departureAirport = departureAirport;

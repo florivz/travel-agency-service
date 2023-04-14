@@ -23,8 +23,7 @@ public class FlightTest {
     nullFlight = null;
     emptyFlight = new Flight();
     flight = new Flight(
-        1,
-        new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
+        new FlightConnection("DL", "0015", "FRA", "ATL"),
         LocalDate.of(2023, 05, 14),
         LocalTime.of(11, 30, 20),
         "UTC+02:00",
@@ -35,8 +34,7 @@ public class FlightTest {
         "EUR"
     );
     copyFlight = new Flight(
-        1,
-        new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
+        new FlightConnection("DL", "0015", "FRA", "ATL"),
         LocalDate.of(2023, 05, 14),
         LocalTime.of(11, 30, 20),
         "UTC+02:00",
@@ -47,8 +45,7 @@ public class FlightTest {
         "EUR"
     );
     differentFlight = new Flight(
-        1,
-        new FlightConnection(13, "DL", "0016", "ATL", "FRA"),
+        new FlightConnection("DL", "0016", "ATL", "FRA"),
         LocalDate.of(2023, 07, 30),
         LocalTime.of(15, 5),
         "UTC-05:00",
@@ -169,8 +166,7 @@ public class FlightTest {
   @Test
   public void testToStringMethod() {
     Flight testedFlight = new Flight(
-        1,
-        new FlightConnection(12, "DL", "0015", "FRA", "ATL"),
+        new FlightConnection("DL", "0015", "FRA", "ATL"),
         LocalDate.of(2023, 05, 14),
         LocalTime.of(11, 30, 20),
         "UTC+02:00",

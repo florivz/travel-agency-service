@@ -67,8 +67,7 @@ public class Hotel {
    * @param currencyKey three character currency key to the <code>pricePerPerson</code>
    * @param address hotel address
    */
-  public Hotel(int id, String name, double pricePerPerson, String currencyKey, Address address) {
-    this.id = id;
+  public Hotel(String name, double pricePerPerson, String currencyKey, Address address) {
     this.name = name;
     this.pricePerPerson = pricePerPerson;
     this.currencyKey = currencyKey;

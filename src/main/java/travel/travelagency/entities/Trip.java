@@ -32,19 +32,13 @@ public class Trip {
 
   }
 
-  public Trip(Integer id, Set<HotelBooking> hotelBookingSet,
-      Set<FlightBooking> flightBookingSet) {
-    this.id = id;
+  public Trip(Set<HotelBooking> hotelBookingSet, Set<FlightBooking> flightBookingSet) {
     this.hotelBookingSet = hotelBookingSet;
     this.flightBookingSet = flightBookingSet;
   }
 
   public Integer getId() {
     return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
   }
 
   public Set<HotelBooking> getHotelBookingSet() {

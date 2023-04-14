@@ -18,14 +18,11 @@ public class HotelBookingTest {
     nullBooking = null;
     emptyBooking = new HotelBooking();
     booking = new HotelBooking(
-      123,
       new Hotel(
-      8398,
       "Luxor Deluxe",
       20000.01,
       "GIB",
         new Address(
-          43,
           "Meerenge von Gibraltar",
           "1",
           "00001",
@@ -37,14 +34,11 @@ public class HotelBookingTest {
       12
     );
     copyBooking = new HotelBooking(
-        123,
         new Hotel(
-            8398,
             "Luxor Deluxe",
             20000.01,
             "GIB",
             new Address(
-                43,
                 "Meerenge von Gibraltar",
                 "1",
                 "00001",
@@ -56,14 +50,11 @@ public class HotelBookingTest {
         12
     );
     differentBooking = new HotelBooking(
-        938,
         new Hotel(
-        8398,
         "Billig Hotel",
         1.99,
         "EUR",
           new Address(
-              99,
               "Reeperbahn",
               "69",
               "12345",
@@ -128,13 +119,11 @@ public class HotelBookingTest {
   @Test
   public void testToStringMethod() {
     HotelBooking testedHotelBooking = new HotelBooking(
-      136,
       new Hotel(
-      1,
       "Excelsior Hotel Ernst",
       500.00,
       "EUR",
-        new Address(1, "Trankgasse", "1-5", "50667", "Köln", "Deutschland")
+        new Address("Trankgasse", "1-5", "50667", "Köln", "Deutschland")
       ),
       15,
       3

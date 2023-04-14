@@ -17,9 +17,9 @@ public class FlightConnectionTest {
   public static void initializeConnections() {
     nullConnection = null;
     emptyConnection = new FlightConnection();
-    connection = new FlightConnection(12, "LH", "1234", "CGN", "DUB");
-    copyConnection = new FlightConnection(12, "LH", "1234", "CGN", "DUB");
-    differentConnection = new FlightConnection(1, "DL", "0005", "QKL", "LAX");
+    connection = new FlightConnection("LH", "1234", "CGN", "DUB");
+    copyConnection = new FlightConnection("LH", "1234", "CGN", "DUB");
+    differentConnection = new FlightConnection("DL", "0005", "QKL", "LAX");
   }
 
   @Test()
@@ -57,17 +57,17 @@ public class FlightConnectionTest {
   @Test
   public void testToStringMethod() {
     FlightConnection fullConnection =
-        new FlightConnection(1, "DL", "0015", "FRA", "ATL");
+        new FlightConnection("DL", "0015", "FRA", "ATL");
     FlightConnection noConnConnection =
-        new FlightConnection(1, "DL", null, "FRA", "ATL");
+        new FlightConnection("DL", null, "FRA", "ATL");
     FlightConnection noCarrConnection =
-        new FlightConnection(1, null, "0015", "FRA", "ATL");
+        new FlightConnection(null, "0015", "FRA", "ATL");
     FlightConnection noDepConnection =
-        new FlightConnection(1, "DL", "0015", null, "ATL");
+        new FlightConnection("DL", "0015", null, "ATL");
     FlightConnection noArrConnection =
-        new FlightConnection(1, "DL", "0015", "FRA", null);
+        new FlightConnection("DL", "0015", "FRA", null);
     FlightConnection noDepAndArrConnection =
-        new FlightConnection(1, "DL", "0015", null, null);
+        new FlightConnection("DL", "0015", null, null);
 
     assertEquals("DL0015 from FRA to ATL", fullConnection.toString());
     assertEquals("DL____ from FRA to ATL", noConnConnection.toString());

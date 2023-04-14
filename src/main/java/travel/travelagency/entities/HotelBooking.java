@@ -32,8 +32,7 @@ public class HotelBooking {
 
   }
 
-  public HotelBooking(Integer id, Hotel hotel, Integer numberOfGuests, Integer numberOfNights) {
-    this.id = id;
+  public HotelBooking(Hotel hotel, Integer numberOfGuests, Integer numberOfNights) {
     this.hotel = hotel;
     this.numberOfGuests = numberOfGuests;
     this.numberOfNights = numberOfNights;
