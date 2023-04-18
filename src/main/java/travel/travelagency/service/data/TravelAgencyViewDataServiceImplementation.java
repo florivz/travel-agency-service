@@ -38,7 +38,6 @@ public class TravelAgencyViewDataServiceImplementation implements TravelAgencyVi
     return tripList;
   }
 
-
   @Override
   public List<HotelBooking> getHotelBookings(Trip trip) {
     List<HotelBooking> hotelBookingList;
