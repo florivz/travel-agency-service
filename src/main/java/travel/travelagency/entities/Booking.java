@@ -1,5 +1,6 @@
 package travel.travelagency.entities;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -52,6 +53,9 @@ public class Booking {
   @JoinColumn(name = "CUSTOMER_ID")
   private Customer customer;
 
+  @Column(name = "DATE")
+  private LocalDate date;
+
   @OneToMany
   @JoinColumn(name = "BOOKING_ID")
   private Set<Trip> tripSet;
@@ -60,7 +64,8 @@ public class Booking {
 
   }
 
-  public Booking(Customer customer, Set<Trip> tripSet) {
+  public Booking(Customer customer, LocalDate date, Set<Trip> tripSet) {
+    this.date = date;
     this.customer = customer;
     this.tripSet = tripSet;
   }
@@ -106,7 +111,8 @@ public class Booking {
   @Override
   public String toString() {
     return
-        (id != null ? "Booking no. : " + id + '\n' : "")
+        "Booking ID: " + id + '\n'
+      + (date != null ? "Date: " + date + '\n' : "")
       + (customer != null ? "Customer:\n" + customer + '\n' : "" )
       + (tripSet != null  ? "Trips:\n" + tripSet : "" );
   }
