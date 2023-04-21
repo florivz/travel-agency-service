@@ -25,10 +25,9 @@ public class TravelAgencyEntityManagerFactory {
   /**
    * This constructor reads the provided database properties file and creates an <code>EntityManagerFactory</code>
    * object which creates <code>EntityManager</code> objects.
-   * @param dbPropertiesPath this '.properties' file must contain the name of the persistence unit as a
-   *                         property named 'persistence_unit'.
    */
-  public TravelAgencyEntityManagerFactory(String dbPropertiesPath) {
+  public TravelAgencyEntityManagerFactory() {
+    String dbPropertiesPath = "db.properties";
     Properties p = this.getDBAccessProperties(dbPropertiesPath);
     try {
       String persistenceUnit = p.getProperty("persistence_unit");

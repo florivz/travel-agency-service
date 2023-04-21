@@ -7,17 +7,15 @@ import org.junit.jupiter.api.Test;
 
 public class TravelAgencyEntityManagerFactoryTest {
 
-  private final static String DB_PROPERTIES_PATH = "db.properties";
-
   @Test
   public void testConstructor() {
-    assertDoesNotThrow(() -> new TravelAgencyEntityManagerFactory(DB_PROPERTIES_PATH));
+    assertDoesNotThrow(TravelAgencyEntityManagerFactory::new);
   }
 
   @Test
   public void testCreateEntityManager() {
-    assertDoesNotThrow(() -> new TravelAgencyEntityManagerFactory(DB_PROPERTIES_PATH).createEntityManager());
-    assertNotEquals(null, new TravelAgencyEntityManagerFactory(DB_PROPERTIES_PATH).createEntityManager());
+    assertDoesNotThrow(() -> new TravelAgencyEntityManagerFactory().createEntityManager());
+    assertNotEquals(null, new TravelAgencyEntityManagerFactory().createEntityManager());
   }
 
 }
