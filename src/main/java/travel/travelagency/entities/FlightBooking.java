@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class FlightBooking {
 
   /**
-   * Unique identifier for each flight record (primary key in the database).
+   * Unique identifier for each flight booking record (primary key in the database).
    * This value will be generated automatically.
    */
   @Id
@@ -36,7 +36,7 @@ public class FlightBooking {
   private Flight flight;
 
   /**
-   * Number of passengers included in this booking
+   * Number of passengers included in this flight booking
    */
   @Column(name = "number_of_passengers")
   private Integer numberOfPassengers;
@@ -50,8 +50,8 @@ public class FlightBooking {
 
   /**
    * Constructor creates a <code>FlightBooking</code> object with specified attributes
-   * @param flight flight associated with this booking
-   * @param numberOfPassengers number of passengers included in this booking
+   * @param flight flight associated with this flight booking
+   * @param numberOfPassengers number of passengers included in this flight booking
    */
   public FlightBooking(Flight flight, Integer numberOfPassengers) {
     this.flight = flight;
@@ -68,7 +68,7 @@ public class FlightBooking {
 
   /**
    * Getter-method for the <code>flight</code> attribute.
-   * @return flight associated with this booking
+   * @return flight associated with this flight booking
    */
   public Flight getFlight() {
     return flight;
@@ -76,7 +76,7 @@ public class FlightBooking {
 
   /**
    * Setter-method for the <code>flight</code> attribute.
-   * @param flight new flight associated with this booking
+   * @param flight new flight associated with this flight booking
    */
   public void setFlight(Flight flight) {
     this.flight = flight;
@@ -84,7 +84,7 @@ public class FlightBooking {
 
   /**
    * Getter-method for the <code>numberOfPassengers</code> attribute.
-   * @return number of passengers included in this booking
+   * @return number of passengers included in this flight booking
    */
   public Integer getNumberOfPassengers() {
     return numberOfPassengers;
@@ -92,7 +92,7 @@ public class FlightBooking {
 
   /**
    * Setter-method for the <code>numberOfPassengers</code> attribute.
-   * @param numberOfPassengers new number of passengers included in this booking
+   * @param numberOfPassengers new number of passengers included in this flight booking
    */
   public void setNumberOfPassengers(Integer numberOfPassengers) {
     this.numberOfPassengers = numberOfPassengers;
@@ -100,8 +100,8 @@ public class FlightBooking {
 
   /**
    * This method returns the total price of this single flight booking based on the number of passengers
-   * and the price per person of the flight associated with this booking.
-   * @return total price of this booking
+   * and the price per person of the flight associated with this flight booking.
+   * @return total price of this flight booking
    */
   public double getTotalPrice() {
     return numberOfPassengers * flight.getPricePerPerson();
