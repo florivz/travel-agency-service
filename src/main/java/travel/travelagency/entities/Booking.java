@@ -39,20 +39,34 @@ import javax.persistence.Table;
 })
 public class Booking {
 
-  public static final String
-      /**
-       * This constant represents the name of a named query returning all bookings
-       */
-      FIND_ALL = "Booking.findAll",
+  /**
+   * This constant represents the name of a named query returning all bookings.
+   */
+  public static final String FIND_ALL = "Booking.findAll";
 
-      /**
-       * This constant represents the name of a named query returning all bookings filtered by
-       * bookingID, customerID, and lastName of the customer
-       */
-      FIND_WITH_FILTERS = "Booking.findWithFilters",
-      BOOKING_ID = "bookingID",
-      CUSTOMER_ID = "customerID",
-      CUSTOMER_NAME = "customerName";
+  /**
+   * This constant represents the name of a named query returning all bookings filtered by
+   * bookingID, customerID, and lastName of the customer.
+   */
+  public static final String FIND_WITH_FILTERS = "Booking.findWithFilters";
+
+  /**
+   * This constant represents the name of the parameter to filter by booking ID in the named query
+   * 'Booking.findWithFilters'.
+   */
+  public static final String BOOKING_ID = "bookingID";
+
+  /**
+   * This constant represents the name of the parameter to filter by customer ID in the named query
+   * 'Booking.findWithFilters'.
+   */
+  public static final String CUSTOMER_ID = "customerID";
+
+  /**
+   * This constant represents the name of the parameter to filter by customer's last name in the named query
+   * 'Booking.findWithFilters'.
+   */
+  public static final String CUSTOMER_NAME = "customerName";
 
   /**
    * Unique identifier for each booking record (primary key in the database).
