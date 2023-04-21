@@ -101,7 +101,7 @@ public class FlightBooking {
   /**
    * This method returns the total price of this single flight booking based on the number of passengers
    * and the price per person of the flight associated with this booking.
-   * @return
+   * @return total price of this booking
    */
   public double getTotalPrice() {
     return numberOfPassengers * flight.getPricePerPerson();
