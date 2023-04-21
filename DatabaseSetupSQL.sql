@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `personal_data` (
     `personal_data_id` INT(11) NOT NULL COMMENT 'personal_data''s unique identification number',
     `last_name` VARCHAR(40) COMMENT 'last name',
     `first_name` VARCHAR(40) COMMENT 'first name',
-    `middle_names` VARCHAR(200) COMMENT 'middle names',
+    `middle_name` VARCHAR(200) COMMENT 'middle name',
     `date_of_birth` DATE COMMENT 'date of birth',
     `address_id` INT(11) COMMENT 'country',
 PRIMARY KEY (`personal_data_id`),
@@ -64,7 +64,7 @@ GRANT SELECT ON `personal_data` TO `DEMO_USER`;
 
 -- export data of table travel-agency-service_db.personal_data: 6 rows
 DELETE FROM `personal_data`;
-INSERT INTO `personal_data` (`personal_data_id`, `last_name`, `first_name`, `middle_names`, `date_of_birth`, `address_id`) VALUES
+INSERT INTO `personal_data` (`personal_data_id`, `last_name`, `first_name`, `middle_name`, `date_of_birth`, `address_id`) VALUES
 	(1, 'Köln', '1. FC', '', '1948-02-13', 1),
 	(2, 'Hopp', 'Dietmar', '', '1940-04-26', 2),
 	(3, 'Plattner', 'Hasso', '', '1944-01-21', 2),
@@ -253,6 +253,7 @@ INSERT INTO `flight` (`flight_id`, `flight_connection_id`, `departure_date`, `de
 CREATE TABLE IF NOT EXISTS `booking` (
     `booking_id` INT(11) NOT NULL COMMENT 'trip''s unique identification number',
     `customer_id` INT(11) NOT NULL COMMENT 'booking associated with this trip',
+    `date` DATE NOT NULL COMMENT 'date of the booking',
     PRIMARY KEY (`booking_id`),
     CONSTRAINT `fk_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='registered bookings';
@@ -296,6 +297,7 @@ CREATE TABLE IF NOT EXISTS `hotel_booking` (
     `trip_id` INT(11) NOT NULL COMMENT 'trip associated with the hotel booking',
     `hotel_id` INT(11) NOT NULL COMMENT 'hotel associated with the booking',
     `number_of_guests` SMALLINT NOT NULL COMMENT 'number of hotel guests',
+    `number_of_nights` SMALLINT NOT NULL COMMENT 'number of nights spent at the hotel',
     PRIMARY KEY (`hotel_booking_id`),
     CONSTRAINT `fk_hotel_trip_id` FOREIGN KEY (`trip_id`) REFERENCES `trip` (`trip_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `fk_hotel_id` FOREIGN KEY (`hotel_id`) REFERENCES `hotel` (`hotel_id`) ON DELETE NO ACTION ON UPDATE NO ACTION

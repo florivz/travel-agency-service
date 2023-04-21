@@ -58,6 +58,10 @@ public class FlightBooking {
     this.numberOfPassengers = numberOfPassengers;
   }
 
+  public double getTotalPrice() {
+    return numberOfPassengers * flight.getPricePerPerson();
+  }
+
   @Override
   public boolean equals(Object obj) {
     if(obj != null && obj.getClass().equals(this.getClass())) {
@@ -69,10 +73,6 @@ public class FlightBooking {
               || numberOfPassengers.equals(booking.getNumberOfPassengers()));
     }
     return false;
-  }
-
-  public double getTotalPrice() {
-    return numberOfPassengers * flight.getPricePerPerson();
   }
 
   @Override
