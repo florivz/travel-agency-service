@@ -65,9 +65,15 @@ public class TravelAgencyViewDataServiceImplementationTest {
 
   private List<Booking> createBookingList(Integer bookingID, Integer customerID, String customerName) {
     List<Booking> bookingList = new LinkedList<>();
-    bookingList.add(new Booking(getCustomer(1), new HashSet<>()));
-    bookingList.add(new Booking(getCustomer(1), new HashSet<>()));
-    bookingList.add(new Booking(getCustomer(2), new HashSet<>()));
+    bookingList.add(
+      new Booking(getCustomer(1), LocalDate.of(2023, 4, 20), new HashSet<>())
+    );
+    bookingList.add(
+      new Booking(getCustomer(1), LocalDate.of(2021, 5, 7), new HashSet<>())
+    );
+    bookingList.add(
+      new Booking(getCustomer(2), LocalDate.of(1988, 12, 6), new HashSet<>())
+    );
     for(int i = 0; i < bookingList.size(); i++) {
       if(
         bookingID != null && !bookingID.equals(bookingList.get(i).getId())
@@ -276,10 +282,13 @@ public class TravelAgencyViewDataServiceImplementationTest {
     List<Trip> expectedTripList = List.of(this.getTrip(1), this.getTrip(2));
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(this.EM);
-    List<Trip> actualTripList = service.getTrips(new Booking(
+    List<Trip> actualTripList = service.getTrips(
+      new Booking(
         getCustomer(1),
+        LocalDate.of(2023, 4, 20),
         Set.of(getTrip(1), getTrip(2))
-    ));
+      )
+    );
 
     assertTrue(
       expectedTripList.size() == actualTripList.size() &&

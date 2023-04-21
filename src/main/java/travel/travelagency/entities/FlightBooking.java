@@ -9,53 +9,102 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * This class is a jpa entity to the corresponding table 'FLIGHT_BOOKING'
+ * in the database 'travel-agency-service_db'.
+ * @author I551381
+ * @version 1.0
+ */
 @Entity
 @Table(name = "flight_booking")
 public class FlightBooking {
 
+  /**
+   * Unique identifier for each flight booking record (primary key in the database).
+   * This value will be generated automatically.
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "flight_booking_id")
   private Integer id;
 
+  /**
+   * Flight associated with this flight booking
+   */
   @ManyToOne
   @JoinColumn(name = "flight_id")
   private Flight flight;
 
+  /**
+   * Number of passengers included in this flight booking
+   */
   @Column(name = "number_of_passengers")
   private Integer numberOfPassengers;
 
+  /**
+   * Constructor creates a <code>FlightBooking</code> object with initial attributes
+   */
   public FlightBooking() {
 
   }
 
+  /**
+   * Constructor creates a <code>FlightBooking</code> object with specified attributes
+   * @param flight flight associated with this flight booking
+   * @param numberOfPassengers number of passengers included in this flight booking
+   */
   public FlightBooking(Flight flight, Integer numberOfPassengers) {
     this.flight = flight;
     this.numberOfPassengers = numberOfPassengers;
   }
 
+  /**
+   * Getter-method for the <code>id</code> attribute.
+   * @return unique identification number
+   */
   public Integer getId() {
     return id;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
+  /**
+   * Getter-method for the <code>flight</code> attribute.
+   * @return flight associated with this flight booking
+   */
   public Flight getFlight() {
     return flight;
   }
 
+  /**
+   * Setter-method for the <code>flight</code> attribute.
+   * @param flight new flight associated with this flight booking
+   */
   public void setFlight(Flight flight) {
     this.flight = flight;
   }
 
+  /**
+   * Getter-method for the <code>numberOfPassengers</code> attribute.
+   * @return number of passengers included in this flight booking
+   */
   public Integer getNumberOfPassengers() {
     return numberOfPassengers;
   }
 
+  /**
+   * Setter-method for the <code>numberOfPassengers</code> attribute.
+   * @param numberOfPassengers new number of passengers included in this flight booking
+   */
   public void setNumberOfPassengers(Integer numberOfPassengers) {
     this.numberOfPassengers = numberOfPassengers;
+  }
+
+  /**
+   * This method returns the total price of this single flight booking based on the number of passengers
+   * and the price per person of the flight associated with this flight booking.
+   * @return total price of this flight booking
+   */
+  public double getTotalPrice() {
+    return numberOfPassengers * flight.getPricePerPerson();
   }
 
   @Override
@@ -69,10 +118,6 @@ public class FlightBooking {
               || numberOfPassengers.equals(booking.getNumberOfPassengers()));
     }
     return false;
-  }
-
-  public double getTotalPrice() {
-    return numberOfPassengers * flight.getPricePerPerson();
   }
 
   @Override

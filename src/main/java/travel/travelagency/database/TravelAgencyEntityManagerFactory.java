@@ -34,8 +34,8 @@ public class TravelAgencyEntityManagerFactory {
       if(persistenceUnit != null)
         entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnit);
       else {
-        final String msg = "'persistence_unit' property not found in database properties";
-        throw new RuntimeException(msg);
+        final String MSG = "'persistence_unit' property not found in database properties";
+        throw new RuntimeException(MSG);
       }
     } catch (Exception e) {
       final String MSG = "Unable to create EntityManagerFactory";
