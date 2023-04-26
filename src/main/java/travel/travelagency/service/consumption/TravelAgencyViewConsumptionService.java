@@ -1,13 +1,11 @@
 package travel.travelagency.service.consumption;
 
-import travel.travelagency.entities.Booking;
-
 import java.util.List;
 
 /**
  * This is an interface for a consumption service providing several methods to retrieve consumable objects from a data service.
  * The consumable objects are simplifications of jpa entities containing all the data necessary to the ui.
- * A service implementation should not be connected to the data base directly, but use a data service instead.
+ * A service implementation should not be connected to the database directly, but use a data service instead.
  * @author I551381
  * @version 1.0
  */

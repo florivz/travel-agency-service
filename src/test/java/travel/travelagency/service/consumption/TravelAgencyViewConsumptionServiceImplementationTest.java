@@ -93,6 +93,15 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
             return PRICE;
         }
 
+        @Override
+        public boolean equals(Object obj) {
+            if(! this.getClass().equals(obj.getClass())) {
+                TestBooking booking = (TestBooking) obj;
+                return this.getID().equals(booking.getID());
+            }
+            return false;
+        }
+
     }
 
     private TravelAgencyViewDataService createDataService(
@@ -123,21 +132,9 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
         return dataService;
     }
 
-    private TravelAgencyViewDataService createTripDataService(List<Trip> resultList, int bookingID) {
+    private TravelAgencyViewDataService createTripDataService(Trip resultTrip, int tripID) {
         TravelAgencyViewDataService dataService = Mockito.mock(TravelAgencyViewDataService.class);
-        Mockito.when(dataService.getTrips(bookingID)).thenReturn(resultList);
-        return dataService;
-    }
-
-    private TravelAgencyViewDataService createHotelDataService(List<HotelBooking> resultList, int tripID) {
-        TravelAgencyViewDataService dataService = Mockito.mock(TravelAgencyViewDataService.class);
-        Mockito.when(dataService.getHotelBookings(tripID)).thenReturn(resultList);
-        return dataService;
-    }
-
-    private TravelAgencyViewDataService createFlightDataService(List<FlightBooking> resultList, int tripID) {
-        TravelAgencyViewDataService dataService = Mockito.mock(TravelAgencyViewDataService.class);
-        Mockito.when(dataService.getFlightBookings(tripID)).thenReturn(resultList);
+        Mockito.when(dataService.getTrip(tripID)).thenReturn(resultTrip);
         return dataService;
     }
 
@@ -157,28 +154,20 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
         );
     }
 
-    private Set<Trip> createTripSet(int n) {
-        return switch(n) {
-            case 1 -> Set.of(
-                new TestTrip(1, 5, 7, 99.99),
-                new TestTrip(3, 0, 1, 29.99),
-                new TestTrip(5, 4, 0, 129.99)
-            );
-            case 2 -> new HashSet<>();
-            default -> null;
-        };
+    private Set<Trip> createTripSet() {
+        return Set.of(
+            new TestTrip(1, 5, 7, 99.99),
+            new TestTrip(3, 0, 1, 29.99),
+            new TestTrip(5, 4, 0, 129.99)
+        );
     }
 
-    private List<TripConsumable> createTripConsumableList(int n) {
-        return switch(n) {
-            case 1 -> List.of(
-                    new TripConsumable(1, 5, 7, 99.99),
-                    new TripConsumable(3, 0, 1, 29.99),
-                    new TripConsumable(5, 4, 0, 129.99)
-            );
-            case 2 -> new LinkedList<>();
-            default -> null;
-        };
+    private List<TripConsumable> createTripConsumableList() {
+        return List.of(
+            new TripConsumable(1, 5, 7, 99.99),
+            new TripConsumable(3, 0, 1, 29.99),
+            new TripConsumable(5, 4, 0, 129.99)
+        );
     }
 
     /**
@@ -256,7 +245,7 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
      */
     @Test
     public void testGetBookingMethodWithInvalidCustomerName() {
-        String customerName = "Jürgen";
+        String customerName = "Jurgen";
 
         List<BookingConsumable> expectedBookingConsumables = new LinkedList<>();
 
@@ -300,7 +289,7 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
 
     /**
      * This method tests the <code>getBookings(String customerID, customerName)</code> method
-     * with a combination of customer id and an customer's last name
+     * with a combination of customer id and a customer's last name
      * to which no corresponding <code>Booking</code> object is provided by the data service.
      */
     @Test
@@ -523,9 +512,9 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
     public void testGetTripsMethodWithValidID() {
         int bookingID = 1;
 
-        List<TripConsumable> expectedTripConsumables = createTripConsumableList(bookingID);
+        List<TripConsumable> expectedTripConsumables = createTripConsumableList();
 
-        Booking resultBooking = new TestBooking(bookingID, createTripSet(bookingID));
+        Booking resultBooking = new TestBooking(bookingID, createTripSet());
 
         TravelAgencyViewDataService dataService = createDataService(resultBooking, bookingID, null, null);
 
@@ -547,7 +536,7 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
 
         List<TripConsumable> expectedTripConsumables = new LinkedList<>();
 
-        Booking resultBooking = new TestBooking(bookingID, createTripSet(bookingID));
+        Booking resultBooking = new TestBooking(bookingID, new HashSet<>());
 
         TravelAgencyViewDataService dataService = createDataService(resultBooking, bookingID, null, null);
 
@@ -555,8 +544,7 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
 
         List<TripConsumable> actualTripConsumables = service.getTrips(bookingID);
 
-        assertTrue(expectedTripConsumables.containsAll(actualTripConsumables)
-            && actualTripConsumables.containsAll(expectedTripConsumables));
+        assertEquals(expectedTripConsumables, actualTripConsumables);
     }
 
     /**

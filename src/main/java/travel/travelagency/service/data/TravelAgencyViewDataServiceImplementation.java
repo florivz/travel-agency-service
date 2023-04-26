@@ -1,6 +1,5 @@
 package travel.travelagency.service.data;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,8 +9,6 @@ import javax.persistence.TypedQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import travel.travelagency.entities.Booking;
-import travel.travelagency.entities.FlightBooking;
-import travel.travelagency.entities.HotelBooking;
 import travel.travelagency.entities.Trip;
 
 public class TravelAgencyViewDataServiceImplementation implements TravelAgencyViewDataService {
@@ -167,38 +164,9 @@ public class TravelAgencyViewDataServiceImplementation implements TravelAgencyVi
   }
 
   @Override
-  public List<Trip> getTrips(int bookingID) {
+  public Trip getTrip(int tripID) {
     try {
-      Booking booking = getSingleBooking(bookingID);
-      if (booking.getTripSet() == null)
-        return new LinkedList<>();
-      return booking.getTripSet().stream().toList();
-    } catch (RuntimeException e) {
-      logger.info(e.getMessage());
-      return null;
-    }
-  }
-
-  @Override
-  public List<HotelBooking> getHotelBookings(int tripID) {
-    try {
-      Trip trip = getSingleTrip(tripID);
-      if (trip.getHotelBookingSet() == null)
-        return new LinkedList<>();
-      return trip.getHotelBookingSet().stream().toList();
-    } catch (RuntimeException e) {
-      logger.info(e.getMessage());
-      return null;
-    }
-  }
-
-  @Override
-  public List<FlightBooking> getFlightBookings(int tripID) {
-    try {
-      Trip trip = getSingleTrip(tripID);
-      if (trip.getFlightBookingSet() == null)
-        return new LinkedList<>();
-      return trip.getFlightBookingSet().stream().toList();
+      return getSingleTrip(tripID);
     } catch (RuntimeException e) {
       logger.info(e.getMessage());
       return null;

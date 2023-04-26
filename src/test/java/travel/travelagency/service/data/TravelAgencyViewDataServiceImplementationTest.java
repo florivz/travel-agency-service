@@ -223,34 +223,28 @@ public class TravelAgencyViewDataServiceImplementationTest {
   }
 
   /**
-   * This private method creates a mocked <code>EntityManager</code> object that mocked the method
+   * This private method creates a mocked <code>EntityManager</code> object that mocks the method
    * <code>find(Booking.class, bookingID) : Booking</code> for the booking id provided.
-   * @param allBookings initial list of all bookings known to the entity manager
-   * @param bookingID booking that can be found
+   * @param resultBooking booking to be returned on the specified method call
+   * @param bookingID booking id to be searched for
    * @return mocked <code>EntityManager</code> object
    */
-  private EntityManager createBookingEntityManager(List<Booking> allBookings, Integer bookingID) {
+  private EntityManager createBookingEntityManager(Booking resultBooking, Integer bookingID) {
     EntityManager entityManager = Mockito.mock(EntityManager.class);
-    for(Booking booking : allBookings) {
-      if(booking.getID().equals(bookingID))
-        Mockito.when(entityManager.find(Booking.class, bookingID)).thenReturn(booking);
-    }
+    Mockito.when(entityManager.find(Booking.class, bookingID)).thenReturn(resultBooking);
     return entityManager;
   }
 
   /**
-   * This private method creates a mocked <code>EntityManager</code> object that mocked the method
-   * <code>find(Trip.class, tripID) : Trip</code> for the booking id provided.
-   * @param allTrips initial list of all trips known to the entity manager
-   * @param tripID trip that can be found
+   * This private method creates a mocked <code>EntityManager</code> object that mocks the method
+   * <code>find(Trip.class, tripID) : Trip</code> for the trip id provided.
+   * @param resultTrip to be returned on the specified method call
+   * @param tripID trip id to be searched for
    * @return mocked <code>EntityManager</code> object
    */
-  private EntityManager createTripEntityManager(List<Trip> allTrips, Integer tripID) {
+  private EntityManager createTripEntityManager(Trip resultTrip, Integer tripID) {
     EntityManager entityManager = Mockito.mock(EntityManager.class);
-    for(Trip trip : allTrips) {
-      if(trip.getID().equals(tripID))
-        Mockito.when(entityManager.find(Trip.class, tripID)).thenReturn(trip);
-    }
+    Mockito.when(entityManager.find(Trip.class, tripID)).thenReturn(resultTrip);
     return entityManager;
   }
 
@@ -338,13 +332,15 @@ public class TravelAgencyViewDataServiceImplementationTest {
   public void testGetBookingMethodWithValidId() {
     int bookingID = 1;
 
-    List<Booking> allBookings = createBookingsList();
-
-    Booking expectedBooking = allBookings.stream().filter(
-        e -> e.getID().equals(bookingID)
+    Booking resultBooking = createBookingsList().stream().filter(
+      e -> e.getID().equals(bookingID)
     ).toList().get(0);
 
-    EntityManager entityManager = createBookingEntityManager(allBookings, bookingID);
+    Booking expectedBooking = createBookingsList().stream().filter(
+      e -> e.getID().equals(bookingID)
+    ).toList().get(0);
+
+    EntityManager entityManager = createBookingEntityManager(resultBooking, bookingID);
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
 
@@ -361,9 +357,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
   public void testGetBookingMethodWithInvalidId() {
     int bookingID = 0;
 
-    List<Booking> allBookings = createBookingsList();
-
-    EntityManager entityManager = createBookingEntityManager(allBookings, bookingID);
+    EntityManager entityManager = createBookingEntityManager(null, bookingID);
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
 
@@ -380,13 +374,15 @@ public class TravelAgencyViewDataServiceImplementationTest {
     int bookingID = 2;
     int customerID = 1;
 
-    List<Booking> allBookings = createBookingsList();
-
-    Booking expectedBooking = allBookings.stream().filter(
+    Booking resultBooking = createBookingsList().stream().filter(
             e -> e.getID().equals(bookingID) && e.getCustomer().getID().equals(customerID)
     ).toList().get(0);
 
-    EntityManager entityManager = createBookingEntityManager(allBookings, bookingID);
+    Booking expectedBooking = createBookingsList().stream().filter(
+            e -> e.getID().equals(bookingID) && e.getCustomer().getID().equals(customerID)
+    ).toList().get(0);
+
+    EntityManager entityManager = createBookingEntityManager(resultBooking, bookingID);
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
 
@@ -405,9 +401,11 @@ public class TravelAgencyViewDataServiceImplementationTest {
     int bookingID = 2;
     int customerID = 2;
 
-    List<Booking> allBookings = createBookingsList();
+    Booking resultBooking = createBookingsList().stream().filter(
+        e -> e.getID().equals(bookingID)
+    ).toList().get(0);
 
-    EntityManager entityManager = createBookingEntityManager(allBookings, bookingID);
+    EntityManager entityManager = createBookingEntityManager(resultBooking, bookingID);
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
 
@@ -425,13 +423,17 @@ public class TravelAgencyViewDataServiceImplementationTest {
     int bookingID = 5;
     String customerName = "Schmitz";
 
-    List<Booking> allBookings = createBookingsList();
-
-    Booking expectedBooking = allBookings.stream().filter(
-            e -> e.getID().equals(bookingID) && e.getCustomer().getPersonalData().getLastName().equals(customerName)
+    Booking resultBooking = createBookingsList().stream().filter(
+            e -> e.getID().equals(bookingID) &&
+                    e.getCustomer().getPersonalData().getLastName().equals(customerName)
     ).toList().get(0);
 
-    EntityManager entityManager = createBookingEntityManager(allBookings, bookingID);
+    Booking expectedBooking = createBookingsList().stream().filter(
+            e -> e.getID().equals(bookingID)
+                    && e.getCustomer().getPersonalData().getLastName().equals(customerName)
+    ).toList().get(0);
+
+    EntityManager entityManager = createBookingEntityManager(resultBooking, bookingID);
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
 
@@ -450,9 +452,11 @@ public class TravelAgencyViewDataServiceImplementationTest {
     int bookingID = 6;
     String customerName = "Maier";
 
-    List<Booking> allBookings = createBookingsList();
+    Booking resultBooking = createBookingsList().stream().filter(
+            e -> e.getID().equals(bookingID)
+    ).toList().get(0);
 
-    EntityManager entityManager = createBookingEntityManager(allBookings, bookingID);
+    EntityManager entityManager = createBookingEntityManager(resultBooking, bookingID);
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
 
@@ -471,15 +475,19 @@ public class TravelAgencyViewDataServiceImplementationTest {
     int customerID = 4;
     String customerName = "Weiß";
 
-    List<Booking> allBookings = createBookingsList();
-
-    Booking expectedBooking = allBookings.stream().filter(
-            e -> e.getID().equals(bookingID)
-                    && e.getCustomer().getID().equals(customerID)
-                    && e.getCustomer().getPersonalData().getLastName().equals(customerName)
+    Booking resultBooking = createBookingsList().stream().filter(
+      e -> e.getID().equals(bookingID)
+              && e.getCustomer().getID().equals(customerID)
+              && e.getCustomer().getPersonalData().getLastName().equals(customerName)
     ).toList().get(0);
 
-    EntityManager entityManager = createBookingEntityManager(allBookings, bookingID);
+    Booking expectedBooking = createBookingsList().stream().filter(
+      e -> e.getID().equals(bookingID)
+              && e.getCustomer().getID().equals(customerID)
+              && e.getCustomer().getPersonalData().getLastName().equals(customerName)
+    ).toList().get(0);
+
+    EntityManager entityManager = createBookingEntityManager(resultBooking, bookingID);
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
 
@@ -501,9 +509,11 @@ public class TravelAgencyViewDataServiceImplementationTest {
     String validCustomerName = "Boden";
     String invalidCustomerName = "Weiß";
 
-    List<Booking> allBookings = createBookingsList();
+    Booking resultBooking = createBookingsList().stream().filter(
+        e -> e.getID().equals(bookingID)
+    ).toList().get(0);
 
-    EntityManager entityManager = createBookingEntityManager(allBookings, bookingID);
+    EntityManager entityManager = createBookingEntityManager(resultBooking, bookingID);
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
 
@@ -522,22 +532,18 @@ public class TravelAgencyViewDataServiceImplementationTest {
    * corresponding booking that has at least one trip allocated.
    */
   @Test
-  public void testGetTripsMethodWithValidId() {
-    int bookingID = 9;
+  public void testGetTripMethodWithValidId() {
+    int tripID = 1;
 
-    List<Booking> allBookings = createBookingsList();
+    Trip expectedTrip = createTripList().get(tripID);
 
-    List<Trip> expectedTrips = allBookings.stream().filter(
-      e -> e.getID().equals(bookingID)
-    ).toList().get(0).getTripSet().stream().toList();
-
-    EntityManager entityManager = createBookingEntityManager(allBookings, bookingID);
+    EntityManager entityManager = createTripEntityManager(createTripList().get(tripID), tripID);
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
 
-    List<Trip> actualTrips = service.getTrips(bookingID);
+    Trip actualTrip = service.getTrip(tripID);
 
-    assertEquals(expectedTrips, actualTrips);
+    assertEquals(expectedTrip, actualTrip);
   }
 
   /**
@@ -546,158 +552,13 @@ public class TravelAgencyViewDataServiceImplementationTest {
    */
   @Test
   public void testGetTripsMethodWithInvalidId() {
-    int bookingID = 0;
-
-    List<Booking> allBookings = createBookingsList();
-
-    EntityManager entityManager = createBookingEntityManager(allBookings, bookingID);
-
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
-
-    assertNull(service.getTrips(bookingID));
-  }
-
-  /**
-   * This method tests the <code>getTrips(int bookingID)</code> method with a valid booking ID and a
-   * corresponding booking that has no trips allocated.
-   */
-  @Test
-  public void testGetTripsMethodWithoutTrips() {
-    int bookingID = 1;
-
-    List<Booking> allBookings = createBookingsList();
-
-    List<Trip> expectedTrips = new LinkedList<>();
-
-    EntityManager entityManager = createBookingEntityManager(allBookings, bookingID);
-
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
-
-    List<Trip> actualTrips = service.getTrips(bookingID);
-
-    assertEquals(expectedTrips, actualTrips);
-  }
-
-  /**
-   * This method tests the <code>getHotelBookings(int tripID)</code> method with a valid trip ID and a
-   * corresponding trip that has at least one hotel booking allocated.
-   */
-  @Test
-  public void testGetHotelBookingsMethodWithValidId() {
-    int tripID = 1;
-
-    List<Trip> allTrips = createTripList();
-
-    List<HotelBooking> expectedHotelBookings = allTrips.stream().filter(
-            e -> e.getID().equals(tripID)
-    ).toList().get(0).getHotelBookingSet().stream().toList();
-
-    EntityManager entityManager = createTripEntityManager(allTrips, tripID);
-
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
-
-    List<HotelBooking> actualHotelBookings = service.getHotelBookings(tripID);
-
-    assertEquals(expectedHotelBookings, actualHotelBookings);
-  }
-
-  /**
-   * This method tests the <code>getHotelBookings(int tripID)</code> method with an invalid trip ID
-   * to which no trip is known to the entity manager.
-   */
-  @Test
-  public void testGetHotelBookingsMethodWithInvalidId() {
     int tripID = 0;
 
-    List<Trip> allTrips = createTripList();
-
-    EntityManager entityManager = createTripEntityManager(allTrips, tripID);
+    EntityManager entityManager = createTripEntityManager(null, tripID);
 
     TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
 
-    assertNull(service.getHotelBookings(tripID));
-  }
-
-  /**
-   * This method tests the <code>getHotelBookings(int tripID)</code> method with a valid trip ID and a
-   * corresponding trip that has no hotel bookings allocated.
-   */
-  @Test
-  public void testGetHotelBookingsMethodWithoutHotelBookings() {
-    int tripID = 3;
-
-    List<Trip> allTrips = createTripList();
-
-    List<HotelBooking> expectedHotelBookings = new LinkedList<>();
-
-    EntityManager entityManager = createTripEntityManager(allTrips, tripID);
-
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
-
-    List<HotelBooking> actualHotelBookings = service.getHotelBookings(tripID);
-
-    assertEquals(expectedHotelBookings, actualHotelBookings);
-  }
-
-  /**
-   * This method tests the <code>getFlightBookings(int tripID)</code> method with a valid trip ID and a
-   * corresponding trip that has at least one flight booking allocated.
-   */
-  @Test
-  public void testGetFlightBookingsMethodWithValidId() {
-    int tripID = 1;
-
-    List<Trip> allTrips = createTripList();
-
-    List<FlightBooking> expectedFlightBookings = allTrips.stream().filter(
-            e -> e.getID().equals(tripID)
-    ).toList().get(0).getFlightBookingSet().stream().toList();
-
-    EntityManager entityManager = createTripEntityManager(allTrips, tripID);
-
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
-
-    List<FlightBooking> actualFlightBookings = service.getFlightBookings(tripID);
-
-    assertEquals(expectedFlightBookings, actualFlightBookings);
-  }
-
-  /**
-   * This method tests the <code>getFlightBookings(int tripID)</code> method with an invalid trip ID
-   * to which no trip is known to the entity manager.
-   */
-  @Test
-  public void testGetFlightBookingsMethodWithInvalidId() {
-    int tripID = 0;
-
-    List<Trip> allTrips = createTripList();
-
-    EntityManager entityManager = createTripEntityManager(allTrips, tripID);
-
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
-
-    assertNull(service.getFlightBookings(tripID));
-  }
-
-  /**
-   * This method tests the <code>getFlightBookings(int tripID)</code> method with a valid trip ID and a
-   * corresponding trip that has no flight bookings allocated.
-   */
-  @Test
-  public void testGetFlightBookingsMethodWithoutHotelBookings() {
-    int tripID = 3;
-
-    List<Trip> allTrips = createTripList();
-
-    List<FlightBooking> expectedFlightBookings = new LinkedList<>();
-
-    EntityManager entityManager = createTripEntityManager(allTrips, tripID);
-
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
-
-    List<FlightBooking> actualFlightBookings = service.getFlightBookings(tripID);
-
-    assertEquals(expectedFlightBookings, actualFlightBookings);
+    assertNull(service.getTrip(tripID));
   }
 
 }

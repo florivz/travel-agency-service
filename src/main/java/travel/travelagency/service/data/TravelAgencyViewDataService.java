@@ -4,8 +4,6 @@ import java.util.List;
 
 import travel.travelagency.entities.Booking;
 import travel.travelagency.entities.Trip;
-import travel.travelagency.entities.HotelBooking;
-import travel.travelagency.entities.FlightBooking;
 
 public interface TravelAgencyViewDataService {
 
@@ -93,48 +91,11 @@ public interface TravelAgencyViewDataService {
   Booking getBooking(int bookingID);
 
   /**
-   * This method returns all trips included in the booking with the provided booking ID.
-   * If no <code>Booking</code> object with the provided booking ID is found,
-   * this method shall return <code>null</code>.
-   * If the <code>Booking</code> object with the provided booking ID does not contain any trips,
-   * this method shall return an empty <code>List</code> object.
-   * @param bookingID An <code>int</code> of the booking ID to be filtered by.
-   * @return A <code>List</code> object containing all trips included in the booking with the provided booking ID
-   *                If no <code>Booking</code> object with the provided booking ID is found,
-   *                this method shall return <code>null</code>.
-   *                If the <code>Booking</code> object with the provided booking ID does not contain any trips,
-   *                this method shall return an empty <code>List</code> object.
-   */
-  List<Trip> getTrips(int bookingID);
-
-  /**
-   * This method returns all hotel bookings included in the trip with the provided trip ID.
-   * If no <code>Trip</code> object with the provided trip ID is found,
-   * this method shall return <code>null</code>.
-   * If the <code>Trip</code> object with the provided trip ID does not contain any hotel bookings,
-   * this method shall return an empty <code>List</code> object.
+   * This method returns the trip with the specified trip ID.
+   * If no corresponding trip is found, this method shall return <code>null</code>.
    * @param tripID An <code>int</code> of the trip ID to be filtered by.
-   * @return A <code>List</code> object containing all hotel bookings included in the trip with the provided trip ID
-   *         If no <code>Trip</code> object with the provided trip ID is found,
-   *         this method shall return <code>null</code>.
-   *         If the <code>Trip</code> object with the provided trip ID does not contain any hotel bookings,
-   *         this method shall return an empty <code>List</code> object.
+   * @return A <code>Trip</code> object of the trip from the database.
    */
-  List<HotelBooking> getHotelBookings(int tripID);
-
-  /**
-   * This method returns all flight bookings included in the trip with the provided trip ID.
-   * If no <code>Trip</code> object with the provided trip ID is found,
-   * this method shall return <code>null</code>.
-   * If the <code>Trip</code> object with the provided trip ID does not contain any flight bookings,
-   * this method shall return an empty <code>List</code> object.
-   * @param tripID An <code>int</code> of the trip ID to be filtered by.
-   * @return A <code>List</code> object containing all flight bookings included in the trip with the provided trip ID
-   *         If no <code>Trip</code> object with the provided trip ID is found,
-   *         this method shall return <code>null</code>.
-   *         If the <code>Trip</code> object with the provided trip ID does not contain any flight bookings,
-   *         this method shall return an empty <code>List</code> object.
-   */
-  List<FlightBooking> getFlightBookings(int tripID);
+  Trip getTrip(int tripID);
 
 }
