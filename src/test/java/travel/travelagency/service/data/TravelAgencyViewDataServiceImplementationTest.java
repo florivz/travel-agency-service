@@ -20,25 +20,23 @@ public class TravelAgencyViewDataServiceImplementationTest {
    */
   private static class TestCustomer extends Customer {
 
-    private Integer id;
+    private final Integer ID;
 
     public TestCustomer(Integer id, String lastName) {
       this.setPersonalData(new PersonalData());
       this.getPersonalData().setLastName(lastName);
-      this.setId(id);
+      this.ID = id;
     }
 
-    public void setId(Integer id) { this.id = id; }
-
     @Override
-    public Integer getId() { return id; }
+    public Integer getID() { return ID; }
 
     @Override
     public boolean equals(Object obj) {
       if(! this.getClass().equals(obj.getClass()))
         return false;
       Customer customer = (Customer) obj;
-      return id.equals(customer.getId()) && getPersonalData().equals(customer.getPersonalData());
+      return ID.equals(customer.getID()) && getPersonalData().equals(customer.getPersonalData());
     }
 
   }
@@ -49,7 +47,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
    */
   private static class TestBooking extends Booking {
 
-    private Integer ID;
+    private final Integer ID;
 
     public TestBooking(Integer id, Integer customerID, String lastName, Set<Trip> trips) {
       this.ID = id;
@@ -82,7 +80,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
    */
   private static class TestTrip extends Trip {
 
-    private Integer ID;
+    private final Integer ID;
 
     public TestTrip(Integer id, Set<HotelBooking> hotelBookings, Set<FlightBooking> flightBookings) {
       this.ID = id;
@@ -118,7 +116,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
    */
   private static class TestHotelBooking extends HotelBooking {
 
-    private Integer ID;
+    private final Integer ID;
 
     public TestHotelBooking(Integer id) {
       this.ID = id;
@@ -143,7 +141,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
    */
   private static class TestFlightBooking extends FlightBooking {
 
-    private Integer ID;
+    private final Integer ID;
 
     public TestFlightBooking(Integer id) {
       this.ID = id;
@@ -172,7 +170,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
    */
   private EntityManager createBookingsEntityManager(List<Booking> allBookings, Integer customerID, String customerName) {
     List<Booking> bookingsFilteredByCustomerID = allBookings.stream().filter(
-            e -> e.getCustomer().getId().equals(customerID) || customerID == null
+            e -> e.getCustomer().getID().equals(customerID) || customerID == null
     ).toList();
 
     List<Booking> bookingsFilteredByCustomerIDAndCustomerName = bookingsFilteredByCustomerID.stream().filter(
@@ -279,7 +277,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
 
     List<Booking> allBookings = createBookingsList();
 
-    List<Booking> expectedBookings = allBookings.stream().filter(e -> e.getCustomer().getId().equals(customerID)).toList();
+    List<Booking> expectedBookings = allBookings.stream().filter(e -> e.getCustomer().getID().equals(customerID)).toList();
 
     EntityManager entityManager = createBookingsEntityManager(allBookings, customerID, null);
 
@@ -318,7 +316,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
     List<Booking> allBookings = createBookingsList();
 
     List<Booking> expectedBookings = allBookings.stream().filter(
-            e ->  e.getCustomer().getId().equals(customerID) &&
+            e ->  e.getCustomer().getID().equals(customerID) &&
                   e.getCustomer().getPersonalData().getLastName().equals(customerName)
     ).toList();
 
@@ -385,7 +383,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
     List<Booking> allBookings = createBookingsList();
 
     Booking expectedBooking = allBookings.stream().filter(
-            e -> e.getID().equals(bookingID) && e.getCustomer().getId().equals(customerID)
+            e -> e.getID().equals(bookingID) && e.getCustomer().getID().equals(customerID)
     ).toList().get(0);
 
     EntityManager entityManager = createBookingEntityManager(allBookings, bookingID);
@@ -477,7 +475,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
 
     Booking expectedBooking = allBookings.stream().filter(
             e -> e.getID().equals(bookingID)
-                    && e.getCustomer().getId().equals(customerID)
+                    && e.getCustomer().getID().equals(customerID)
                     && e.getCustomer().getPersonalData().getLastName().equals(customerName)
     ).toList().get(0);
 

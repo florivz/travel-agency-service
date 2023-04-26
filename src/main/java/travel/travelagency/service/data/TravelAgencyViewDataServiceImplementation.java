@@ -124,7 +124,7 @@ public class TravelAgencyViewDataServiceImplementation implements TravelAgencyVi
   public Booking getBooking(int bookingID, int customerID) throws RuntimeException {
     try {
       Booking booking = getSingleBooking(bookingID);
-      if (customerID != booking.getCustomer().getId()) {
+      if (customerID != booking.getCustomer().getID()) {
         final String MSG = String.format(MSG_ENTITY_NOT_FOUND, "Booking", "customerID", customerID);
         logger.info(MSG);
         return null;

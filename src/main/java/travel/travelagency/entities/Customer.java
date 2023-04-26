@@ -69,7 +69,7 @@ public class Customer {
    * Getter-method for the <code>id</code> attribute.
    * @return unique identification number
    */
-  public Integer getId() {
+  public Integer getID() {
     return id;
   }
 
@@ -126,7 +126,7 @@ public class Customer {
     if(obj != null && obj.getClass().equals(this.getClass())) {
       Customer customer = (Customer) obj;
       return
-          ((id == null && customer.getId() == null) || id.equals(customer.getId())) &&
+          ((id == null && customer.getID() == null) || id.equals(customer.getID())) &&
           ((iban == null && customer.getIban() == null) || iban.equals(customer.getIban())) &&
           ((personalData == null && customer.getPersonalData() == null)
               || personalData.equals(customer.getPersonalData())) &&

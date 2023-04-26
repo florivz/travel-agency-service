@@ -19,7 +19,7 @@ public class TravelAgencyViewConsumptionServiceImplementation implements TravelA
         for (Booking booking : bookings) {
             bookingConsumables.add(new BookingConsumable(
                 booking.getID(),
-                booking.getCustomer().getId(),
+                booking.getCustomer().getID(),
                 booking.getCustomer().getPersonalData().getLastName(),
                 booking.getDate(),
                 booking.getTotalPrice(),

@@ -22,16 +22,16 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
      */
     private static class TestCustomer extends Customer {
 
-        private Integer id;
+        private final Integer ID;
 
         public TestCustomer(Integer id, String lastName) {
             this.setPersonalData(new PersonalData());
             this.getPersonalData().setLastName(lastName);
-            this.id = id;
+            this.ID = id;
         }
 
         @Override
-        public Integer getId() { return id; }
+        public Integer getID() { return ID; }
 
     }
 
@@ -118,7 +118,7 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
         ).toList();
 
         List<Booking> resultBookings = createBookingList().stream().filter(
-                e -> e.getCustomer().getId().equals(customerID)
+                e -> e.getCustomer().getID().equals(customerID)
         ).toList();
 
         TravelAgencyViewDataService dataService = createDataService(resultBookings, customerID, null);
@@ -209,15 +209,15 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
         ).toList();
 
         List<Booking> resultBookings = createBookingList().stream().filter(
-                e -> e.getCustomer().getId().equals(customerID) &&
+                e -> e.getCustomer().getID().equals(customerID) &&
                     e.getCustomer().getPersonalData().getLastName().equals(customerName)
         ).toList();
 
-        TravelAgencyViewDataService dataService = createDataService(resultBookings, null, customerName);
+        TravelAgencyViewDataService dataService = createDataService(resultBookings, customerID, customerName);
 
         TravelAgencyViewConsumptionService service = new TravelAgencyViewConsumptionServiceImplementation(dataService);
 
-        List<BookingConsumable> actualBookingConsumables = service.getBookings(customerName);
+        List<BookingConsumable> actualBookingConsumables = service.getBookings(customerID, customerName);
 
         assertEquals(expectedBookingConsumables, actualBookingConsumables);
     }
@@ -234,11 +234,11 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
 
         List<BookingConsumable> expectedBookingConsumables = new LinkedList<>();
 
-        TravelAgencyViewDataService dataService = createDataService(null, null, customerName);
+        TravelAgencyViewDataService dataService = createDataService(null, customerID, customerName);
 
         TravelAgencyViewConsumptionService service = new TravelAgencyViewConsumptionServiceImplementation(dataService);
 
-        List<BookingConsumable> actualBookingConsumables = service.getBookings(customerName);
+        List<BookingConsumable> actualBookingConsumables = service.getBookings(customerID, customerName);
 
         assertEquals(expectedBookingConsumables, actualBookingConsumables);
     }
@@ -303,7 +303,7 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
 
         Booking resultBooking = createBookingList().stream().filter(
                 e -> e.getID().equals(bookingID) &&
-                        e.getCustomer().getId().equals(customerID)
+                        e.getCustomer().getID().equals(customerID)
         ).toList().get(0);
 
         TravelAgencyViewDataService dataService = createDataService(resultBooking, bookingID, customerID, null);
@@ -404,7 +404,7 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
 
         Booking resultBooking = createBookingList().stream().filter(
                 e -> e.getID().equals(bookingID) &&
-                        e.getCustomer().getId().equals(customerID) &&
+                        e.getCustomer().getID().equals(customerID) &&
                         e.getCustomer().getPersonalData().getLastName().equals(customerName)
         ).toList().get(0);
 
