@@ -3,6 +3,7 @@ package travel.travelagency.service.consumption;
 import travel.travelagency.entities.Booking;
 import travel.travelagency.service.data.TravelAgencyViewDataService;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class TravelAgencyViewConsumptionServiceImplementation implements TravelAgencyViewConsumptionService {
@@ -13,40 +14,61 @@ public class TravelAgencyViewConsumptionServiceImplementation implements TravelA
         this.dataService = dataService;
     }
 
+    private List<BookingConsumable> convertBookingEntityToConsumable(List<Booking> bookings) {
+        List<BookingConsumable> bookingConsumables = new LinkedList<>();
+        for (Booking booking : bookings) {
+            bookingConsumables.add(new BookingConsumable(
+                booking.getId(),
+                booking.getCustomer().getId(),
+                booking.getCustomer().getPersonalData().getLastName(),
+                booking.getDate(),
+                booking.getTotalPrice(),
+                "EUR"
+            ));
+        }
+        return bookingConsumables;
+    }
 
     @Override
     public List<BookingConsumable> getBookings(int customerID, String customerLastName) {
-        return null;
+        List<Booking> bookingList = dataService.getBookings(customerID, customerLastName);
+        return bookingList == null ? new LinkedList<>() : convertBookingEntityToConsumable(bookingList);
     }
 
     @Override
     public List<BookingConsumable> getBookings(int customerID) {
-        return null;
+        List<Booking> bookingList = dataService.getBookings(customerID);
+        return bookingList == null ? new LinkedList<>() : convertBookingEntityToConsumable(bookingList);
     }
 
     @Override
     public List<BookingConsumable> getBookings(String customerLastName) {
-        return null;
+        List<Booking> bookingList = dataService.getBookings(customerLastName);
+        return bookingList == null ? new LinkedList<>() : convertBookingEntityToConsumable(bookingList);
     }
 
     @Override
     public List<BookingConsumable> getBooking(int bookingID, int customerID, String customerLastName) {
-        return null;
+        Booking booking = dataService.getBooking(bookingID, customerID, customerLastName);
+        return booking == null ? new LinkedList<>() : convertBookingEntityToConsumable(List.of(booking));
     }
 
     @Override
     public List<BookingConsumable> getBooking(int bookingID, int customerID) {
-        return null;
+        Booking booking = dataService.getBooking(bookingID, customerID);
+        return booking == null ? new LinkedList<>() : convertBookingEntityToConsumable(List.of(booking));
     }
 
     @Override
     public List<BookingConsumable> getBooking(int bookingID, String customerLastName) {
-        return null;
+        Booking booking = dataService.getBooking(bookingID, customerLastName);
+        return booking == null ? new LinkedList<>() : convertBookingEntityToConsumable(List.of(booking));
     }
 
     @Override
     public List<BookingConsumable> getBooking(int bookingID) {
-        return null;
+        Booking booking = dataService.getBooking(bookingID);
+        return booking == null ? new LinkedList<>() : convertBookingEntityToConsumable(List.of(booking));
     }
 
     @Override

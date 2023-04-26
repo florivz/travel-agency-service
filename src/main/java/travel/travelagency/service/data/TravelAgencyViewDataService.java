@@ -50,8 +50,7 @@ public interface TravelAgencyViewDataService {
 
   /**
    * This method returns the booking with the specified booking ID, customer ID, and customer's last name.
-   * If no corresponding booking is found, this method shall throw a RuntimeException.
-   * If more than one booking is found, this method shall throw a RuntimeException.
+   * If no corresponding booking is found, this method shall return <code>null</code>.
    * @param bookingID An <code>int</code> of the booking ID to be filtered by.
    * @param customerID An <code>int</code> of the customer ID to be filtered by.
    * @param customerLastName A <code>String</code> of the customer's last name to be filtered by.
@@ -65,8 +64,7 @@ public interface TravelAgencyViewDataService {
 
   /**
    * This method returns the booking with the specified booking ID, and customer ID.
-   * If no corresponding booking is found, this method shall throw a RuntimeException.
-   * If more than one booking is found, this method shall throw a RuntimeException.
+   * If no corresponding booking is found, this method shall return <code>null</code>.
    * @param bookingID An <code>int</code> of the booking ID to be filtered by.
    * @param customerID An <code>int</code> of the customer ID to be filtered by.
    * @return A <code>Booking</code> object of the booking from the database.
@@ -75,8 +73,7 @@ public interface TravelAgencyViewDataService {
 
   /**
    * This method returns the booking with the specified booking ID, and customer's last name.
-   * If no corresponding booking is found, this method shall throw a RuntimeException.
-   * If more than one booking is found, this method shall throw a RuntimeException.
+   * If no corresponding booking is found, this method shall return <code>null</code>.
    * @param bookingID An <code>int</code> of the booking ID to be filtered by.
    * @param customerLastName A <code>String</code> of the customer's last name to be filtered by.
    *                     If this parameter is not equal to <code>null</code>,
@@ -89,8 +86,7 @@ public interface TravelAgencyViewDataService {
 
   /**
    * This method returns the booking with the specified booking ID.
-   * If no corresponding booking is found, this method shall throw a RuntimeException.
-   * If more than one booking is found, this method shall throw a RuntimeException.
+   * If no corresponding booking is found, this method shall return <code>null</code>.
    * @param bookingID An <code>int</code> of the booking ID to be filtered by.
    * @return A <code>Booking</code> object of the booking from the database.
    */

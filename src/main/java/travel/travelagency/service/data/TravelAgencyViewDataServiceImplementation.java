@@ -24,7 +24,7 @@ public class TravelAgencyViewDataServiceImplementation implements TravelAgencyVi
       "Cannot filter by customerLastName = 'null'";
 
   private static final String MSG_ENTITY_NOT_FOUND =
-      "Could not retrieve %s with ID = %s so null was returned.";
+      "Could not retrieve %s with %s = %s so null was returned.";
 
   public TravelAgencyViewDataServiceImplementation(EntityManager entityManager) {
     this.EM = entityManager;
@@ -48,28 +48,32 @@ public class TravelAgencyViewDataServiceImplementation implements TravelAgencyVi
   /**
    * Private method returning a <code>Booking</code> object with the provided booking ID.
    * If no corresponding <code>Booking</code> object is found,
-   * this method throws a <code>RuntimeException</code>.
+   * this method returns <code>null</code>.
    * @param bookingID booking ID to be filtered by.
    * @return The <code>Booking</code> object to the corresponding booking ID.
    */
   private Booking getSingleBooking(int bookingID) {
     Booking booking = EM.find(Booking.class, bookingID);
-    if(booking == null)
-      logger.info(String.format(MSG_ENTITY_NOT_FOUND, "Booking", bookingID));
+    if(booking == null) {
+      final String MSG = String.format(MSG_ENTITY_NOT_FOUND, "Booking", "ID", bookingID);
+      throw new RuntimeException(MSG);
+    }
     return booking;
   }
 
   /**
    * Private method returning a <code>Trip</code> object with the provided trip ID.
    * If no corresponding <code>Trip</code> object is found,
-   * this method throws a <code>RuntimeException</code>.
+   * this method returns <code>null</code>.
    * @param tripID trip ID to be filtered by.
    * @return The <code>Trip</code> object to the corresponding trip ID.
    */
   private Trip getSingleTrip(int tripID) {
     Trip trip = EM.find(Trip.class, tripID);
-    if(trip == null)
-      logger.info(String.format(MSG_ENTITY_NOT_FOUND, "Trip", trip));
+    if(trip == null) {
+      final String MSG = String.format(MSG_ENTITY_NOT_FOUND, "Trip", "ID", trip);
+      throw new RuntimeException(MSG);
+    }
     return trip;
   }
 
@@ -102,24 +106,34 @@ public class TravelAgencyViewDataServiceImplementation implements TravelAgencyVi
       logger.warn(MSG_CUSTOMER_LASTNAME_NULL);
       throw new RuntimeException(MSG_CUSTOMER_LASTNAME_NULL);
     }
-    Booking booking = getBooking(bookingID, customerID);
-    if(! customerLastName.equals(booking.getCustomer().getPersonalData().getLastName())) {
-      final String MSG = String.format(MSG_ENTITY_NOT_FOUND, "customerLastName", customerLastName);
-      logger.warn(MSG);
-      throw new RuntimeException(MSG);
+    try {
+      Booking booking = getBooking(bookingID, customerID);
+      if(! customerLastName.equals(booking.getCustomer().getPersonalData().getLastName())) {
+        final String MSG = String.format(MSG_ENTITY_NOT_FOUND, "Booking", "customerLastName", customerLastName);
+        logger.info(MSG);
+        return null;
+      }
+      return booking;
+    } catch (RuntimeException e) {
+      logger.info(e.getMessage());
+      return null;
     }
-    return booking;
   }
 
   @Override
   public Booking getBooking(int bookingID, int customerID) throws RuntimeException {
-    Booking booking = getSingleBooking(bookingID);
-    if(customerID != booking.getCustomer().getId()) {
-      final String MSG = String.format(MSG_ENTITY_NOT_FOUND, "customerID", customerID);
-      logger.warn(MSG);
-      throw new RuntimeException(MSG);
+    try {
+      Booking booking = getSingleBooking(bookingID);
+      if (customerID != booking.getCustomer().getId()) {
+        final String MSG = String.format(MSG_ENTITY_NOT_FOUND, "Booking", "customerID", customerID);
+        logger.info(MSG);
+        return null;
+      }
+      return booking;
+    } catch (RuntimeException e) {
+      logger.info(e.getMessage());
+      return null;
     }
-    return booking;
   }
 
   @Override
@@ -128,48 +142,67 @@ public class TravelAgencyViewDataServiceImplementation implements TravelAgencyVi
       logger.warn(MSG_CUSTOMER_LASTNAME_NULL);
       throw new RuntimeException(MSG_CUSTOMER_LASTNAME_NULL);
     }
-    Booking booking = getSingleBooking(bookingID);
-    if(! customerLastName.equals(booking.getCustomer().getPersonalData().getLastName())) {
-      final String MSG = String.format(MSG_ENTITY_NOT_FOUND, "customerLastName", customerLastName);
-      logger.warn(MSG);
-      throw new RuntimeException(MSG);
+    try {
+      Booking booking = getSingleBooking(bookingID);
+      if (!customerLastName.equals(booking.getCustomer().getPersonalData().getLastName())) {
+        final String MSG = String.format(MSG_ENTITY_NOT_FOUND, "Booking", "customerLastName", customerLastName);
+        logger.info(MSG);
+        return null;
+      }
+      return booking;
+    } catch (RuntimeException e) {
+      logger.info(e.getMessage());
+      return null;
     }
-    return booking;
   }
 
   @Override
   public Booking getBooking(int bookingID) {
-    return getSingleBooking(bookingID);
+    try {
+      return getSingleBooking(bookingID);
+    } catch (RuntimeException e) {
+      logger.info(e.getMessage());
+      return null;
+    }
   }
 
   @Override
   public List<Trip> getTrips(int bookingID) {
-    Booking booking = getSingleBooking(bookingID);
-    if(booking == null)
+    try {
+      Booking booking = getSingleBooking(bookingID);
+      if (booking.getTripSet() == null)
+        return new LinkedList<>();
+      return booking.getTripSet().stream().toList();
+    } catch (RuntimeException e) {
+      logger.info(e.getMessage());
       return null;
-    if(booking.getTripSet() == null)
-      return new LinkedList<>();
-    return booking.getTripSet().stream().toList();
+    }
   }
 
   @Override
   public List<HotelBooking> getHotelBookings(int tripID) {
-    Trip trip = getSingleTrip(tripID);
-    if(trip == null)
+    try {
+      Trip trip = getSingleTrip(tripID);
+      if (trip.getHotelBookingSet() == null)
+        return new LinkedList<>();
+      return trip.getHotelBookingSet().stream().toList();
+    } catch (RuntimeException e) {
+      logger.info(e.getMessage());
       return null;
-    if(trip.getHotelBookingSet() == null)
-      return new LinkedList<>();
-    return trip.getHotelBookingSet().stream().toList();
+    }
   }
 
   @Override
   public List<FlightBooking> getFlightBookings(int tripID) {
-    Trip trip = getSingleTrip(tripID);
-    if(trip == null)
+    try {
+      Trip trip = getSingleTrip(tripID);
+      if (trip.getFlightBookingSet() == null)
+        return new LinkedList<>();
+      return trip.getFlightBookingSet().stream().toList();
+    } catch (RuntimeException e) {
+      logger.info(e.getMessage());
       return null;
-    if(trip.getFlightBookingSet() == null)
-      return new LinkedList<>();
-    return trip.getFlightBookingSet().stream().toList();
+    }
   }
 
 }
