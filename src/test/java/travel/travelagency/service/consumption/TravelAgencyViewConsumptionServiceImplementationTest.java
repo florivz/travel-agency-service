@@ -194,6 +194,56 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
     }
 
     /**
+     * This method tests the <code>getBookings(String customerID, customerName)</code> method
+     * with a combination of customer id and customer's last name
+     * to which a corresponding <code>Booking</code> object is provided by the data service.
+     */
+    @Test
+    public void testGetBookingsMethodWithCustomerIdAndName() {
+        int customerID = 1;
+        String customerName = "Maier";
+
+        List<BookingConsumable> expectedBookingConsumables = createBookingConsumableList().stream().filter(
+                e -> e.customerID().equals(customerID) &&
+                        e.customerName().equals(customerName)
+        ).toList();
+
+        List<Booking> resultBookings = createBookingList().stream().filter(
+                e -> e.getCustomer().getId().equals(customerID) &&
+                    e.getCustomer().getPersonalData().getLastName().equals(customerName)
+        ).toList();
+
+        TravelAgencyViewDataService dataService = createDataService(resultBookings, null, customerName);
+
+        TravelAgencyViewConsumptionService service = new TravelAgencyViewConsumptionServiceImplementation(dataService);
+
+        List<BookingConsumable> actualBookingConsumables = service.getBookings(customerName);
+
+        assertEquals(expectedBookingConsumables, actualBookingConsumables);
+    }
+
+    /**
+     * This method tests the <code>getBookings(String customerID, customerName)</code> method
+     * with a combination of customer id and an customer's last name
+     * to which no corresponding <code>Booking</code> object is provided by the data service.
+     */
+    @Test
+    public void testGetBookingMethodWithCustomerIdAndInvalidName() {
+        int customerID = 1;
+        String customerName = "Weiß";
+
+        List<BookingConsumable> expectedBookingConsumables = new LinkedList<>();
+
+        TravelAgencyViewDataService dataService = createDataService(null, null, customerName);
+
+        TravelAgencyViewConsumptionService service = new TravelAgencyViewConsumptionServiceImplementation(dataService);
+
+        List<BookingConsumable> actualBookingConsumables = service.getBookings(customerName);
+
+        assertEquals(expectedBookingConsumables, actualBookingConsumables);
+    }
+
+    /**
      * This method tests the <code>getBooking(int bookingID)</code> method with a valid booking ID to which a
      * corresponding <code>Booking</code> object is provided by the data service.
      */
@@ -233,6 +283,158 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
         TravelAgencyViewConsumptionService service = new TravelAgencyViewConsumptionServiceImplementation(dataService);
 
         List<BookingConsumable> actualBookingConsumables = service.getBooking(bookingID);
+
+        assertEquals(expectedBookingConsumables, actualBookingConsumables);
+    }
+
+    /**
+     * This method tests the <code>getBooking(String bookingID, customerID)</code> method
+     * with a combination of booking id and customer id
+     * to which a corresponding <code>Booking</code> object is provided by the data service.
+     */
+    @Test
+    public void testGetBookingMethodWithBookingAndCustomerID() {
+        int bookingID = 2;
+        int customerID = 1;
+
+        List<BookingConsumable> expectedBookingConsumables = createBookingConsumableList().stream().filter(
+                e -> e.bookingID().equals(bookingID) && e.customerID().equals(customerID)
+        ).toList();
+
+        Booking resultBooking = createBookingList().stream().filter(
+                e -> e.getID().equals(bookingID) &&
+                        e.getCustomer().getId().equals(customerID)
+        ).toList().get(0);
+
+        TravelAgencyViewDataService dataService = createDataService(resultBooking, bookingID, customerID, null);
+
+        TravelAgencyViewConsumptionService service = new TravelAgencyViewConsumptionServiceImplementation(dataService);
+
+        List<BookingConsumable> actualBookingConsumables = service.getBooking(bookingID, customerID);
+
+        assertEquals(expectedBookingConsumables, actualBookingConsumables);
+    }
+
+    /**
+     * This method tests the <code>getBooking(String bookingID, customerID)</code> method
+     * with a combination of booking id and customer id
+     * to which no corresponding <code>Booking</code> object is provided by the data service.
+     */
+    @Test
+    public void testGetBookingMethodWithInvalidBookingAndCustomerID() {
+        int bookingID = 1;
+        int customerID = 3;
+
+        List<BookingConsumable> expectedBookingConsumables = new LinkedList<>();
+
+        TravelAgencyViewDataService dataService = createDataService(null, bookingID, customerID, null);
+
+        TravelAgencyViewConsumptionService service = new TravelAgencyViewConsumptionServiceImplementation(dataService);
+
+        List<BookingConsumable> actualBookingConsumables = service.getBooking(bookingID,customerID);
+
+        assertEquals(expectedBookingConsumables, actualBookingConsumables);
+    }
+
+    /**
+     * This method tests the <code>getBooking(String bookingID, customerName)</code> method
+     * with a combination of booking id and customer's last name
+     * to which a corresponding <code>Booking</code> object is provided by the data service.
+     */
+    @Test
+    public void testGetBookingMethodWithBookingIDAndCustomerName() {
+        int bookingID = 3;
+        String customerName = "Weiß";
+
+        List<BookingConsumable> expectedBookingConsumables = createBookingConsumableList().stream().filter(
+                e -> e.bookingID().equals(bookingID) && e.customerName().equals(customerName)
+        ).toList();
+
+        Booking resultBooking = createBookingList().stream().filter(
+                e -> e.getID().equals(bookingID) &&
+                        e.getCustomer().getPersonalData().getLastName().equals(customerName)
+        ).toList().get(0);
+
+        TravelAgencyViewDataService dataService = createDataService(resultBooking, bookingID, null, customerName);
+
+        TravelAgencyViewConsumptionService service = new TravelAgencyViewConsumptionServiceImplementation(dataService);
+
+        List<BookingConsumable> actualBookingConsumables = service.getBooking(bookingID, customerName);
+
+        assertEquals(expectedBookingConsumables, actualBookingConsumables);
+    }
+
+    /**
+     * This method tests the <code>getBooking(String bookingID, customerName)</code> method
+     * with a combination of booking id and customer's last name
+     * to which no corresponding <code>Booking</code> object is provided by the data service.
+     */
+    @Test
+    public void testGetBookingMethodWithInvalidBookingIDAndCustomerName() {
+        int bookingID = 3;
+        String customerName = "Maier";
+
+        List<BookingConsumable> expectedBookingConsumables = new LinkedList<>();
+
+        TravelAgencyViewDataService dataService = createDataService(null, bookingID, null, customerName);
+
+        TravelAgencyViewConsumptionService service = new TravelAgencyViewConsumptionServiceImplementation(dataService);
+
+        List<BookingConsumable> actualBookingConsumables = service.getBooking(bookingID, customerName);
+
+        assertEquals(expectedBookingConsumables, actualBookingConsumables);
+    }
+
+    /**
+     * This method tests the <code>getBooking(String bookingID, customerID, customerName)</code> method
+     * with a combination of booking id, customer id, and customer's last name
+     * to which a corresponding <code>Booking</code> object is provided by the data service.
+     */
+    @Test
+    public void testGetBookingMethodWithBookingIDCustomerIDAndName() {
+        int bookingID = 3;
+        int customerID = 2;
+        String customerName = "Weiß";
+
+        List<BookingConsumable> expectedBookingConsumables = createBookingConsumableList().stream().filter(
+                e -> e.bookingID().equals(bookingID) &&
+                        e.customerID().equals(customerID) &&
+                        e.customerName().equals(customerName)
+        ).toList();
+
+        Booking resultBooking = createBookingList().stream().filter(
+                e -> e.getID().equals(bookingID) &&
+                        e.getCustomer().getId().equals(customerID) &&
+                        e.getCustomer().getPersonalData().getLastName().equals(customerName)
+        ).toList().get(0);
+
+        TravelAgencyViewDataService dataService = createDataService(resultBooking, bookingID, customerID, customerName);
+
+        TravelAgencyViewConsumptionService service = new TravelAgencyViewConsumptionServiceImplementation(dataService);
+
+        List<BookingConsumable> actualBookingConsumables = service.getBooking(bookingID, customerID, customerName);
+
+        assertEquals(expectedBookingConsumables, actualBookingConsumables);
+    }
+
+    /**
+     * This method tests the <code>getBooking(String bookingID, customerID, customerName)</code> method
+     * with a combination of booking id, customer id, and customer's last name
+     * to which no corresponding <code>Booking</code> object is provided by the data service.
+     */
+    @Test
+    public void testGetBookingMethodWithInvalidBookingIDCustomerIDAndName() {
+        int bookingID = 3;
+        int customerID = 1;
+        String customerName = "Weiß";
+
+        List<BookingConsumable> expectedBookingConsumables = new LinkedList<>();
+
+        TravelAgencyViewDataService dataService = createDataService(null, bookingID, customerID, customerName);
+
+        TravelAgencyViewConsumptionService service = new TravelAgencyViewConsumptionServiceImplementation(dataService);
+
+        List<BookingConsumable> actualBookingConsumables = service.getBooking(bookingID, customerID, customerName);
 
         assertEquals(expectedBookingConsumables, actualBookingConsumables);
     }
