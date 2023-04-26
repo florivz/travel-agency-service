@@ -61,10 +61,6 @@ public class TravelAgencyViewDataServiceImplementationTest {
       this(id, customerID, lastName, null);
     }
 
-    public void setId(int id) {
-      this.id = id;
-    }
-
     @Override
     public Integer getId() { return id; }
 
@@ -98,10 +94,6 @@ public class TravelAgencyViewDataServiceImplementationTest {
       this(id, null, null);
     }
 
-    public void setId(int id) {
-      this.id = id;
-    }
-
     @Override
     public Integer getId() { return id; }
 
@@ -132,10 +124,6 @@ public class TravelAgencyViewDataServiceImplementationTest {
       this.id = id;
     }
 
-    public void setId(int id) {
-      this.id = id;
-    }
-
     @Override
     public Integer getId() { return id; }
 
@@ -158,10 +146,6 @@ public class TravelAgencyViewDataServiceImplementationTest {
     private Integer id;
 
     public TestFlightBooking(Integer id) {
-      this.id = id;
-    }
-
-    public void setId(int id) {
       this.id = id;
     }
 
@@ -295,7 +279,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
 
     List<Booking> allBookings = createBookingsList();
 
-    List<Booking> expectedBookings = allBookings.stream().filter(e -> e.getCustomer().getId() == customerID).toList();
+    List<Booking> expectedBookings = allBookings.stream().filter(e -> e.getCustomer().getId().equals(customerID)).toList();
 
     EntityManager entityManager = createBookingEntityManager(allBookings, customerID, null);
 
@@ -328,7 +312,7 @@ public class TravelAgencyViewDataServiceImplementationTest {
 
   @Test
   public void testGetBookingsMethodWithCustomerIdAndLastName() {
-    Integer customerID = 4;
+    int customerID = 4;
     String customerName = "Weiß";
 
     List<Booking> allBookings = createBookingsList();

@@ -50,12 +50,6 @@ public class Booking {
   public static final String FIND_WITH_FILTERS = "Booking.findWithFilters";
 
   /**
-   * This constant represents the name of the parameter to filter by booking ID in the named query
-   * 'Booking.findWithFilters'.
-   */
-  public static final String BOOKING_ID = "bookingID";
-
-  /**
    * This constant represents the name of the parameter to filter by customer ID in the named query
    * 'Booking.findWithFilters'.
    */

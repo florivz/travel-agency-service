@@ -2,7 +2,6 @@ package travel.travelagency.service.consumption;
 
 import travel.travelagency.entities.Booking;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**

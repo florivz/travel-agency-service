@@ -22,7 +22,7 @@ public interface TravelAgencyViewDataService {
    *         If no booking with the selected criteria is found,
    *         an empty <code>List</code> object shall be returned.
    */
-  List<Booking> getBookings(int customerID, String customerLastNameName) throws RuntimeException;
+  List<Booking> getBookings(int customerID, String customerLastName) throws RuntimeException;
 
   /**
    * This method returns all bookings filtered customer ID.

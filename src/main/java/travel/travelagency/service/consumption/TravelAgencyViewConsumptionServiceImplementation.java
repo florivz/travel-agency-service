@@ -3,7 +3,6 @@ package travel.travelagency.service.consumption;
 import travel.travelagency.entities.Booking;
 import travel.travelagency.service.data.TravelAgencyViewDataService;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class TravelAgencyViewConsumptionServiceImplementation implements TravelAgencyViewConsumptionService {

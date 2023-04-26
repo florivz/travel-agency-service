@@ -2,7 +2,6 @@ package travel.travelagency.service.consumption;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -29,6 +28,8 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
 
     @Test
     public void testGetBookingsMethodWithCustomerID() {
+        int customerID = 1;
+
         List<BookingConsumable> allBookings = createBookingsList();
 
         List<BookingConsumable> expectedBookings = null;
@@ -37,9 +38,9 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
 
         TravelAgencyViewConsumptionService service = new TravelAgencyViewConsumptionServiceImplementation(dataService);
 
-        //List<BookingConsumable> actualBookings = service.getBookings();
+        List<BookingConsumable> actualBookings = service.getBookings(customerID);
 
-        //assertEquals(expectedBookings, actualBookings);
+        assertEquals(expectedBookings, actualBookings);
     }
 
 
