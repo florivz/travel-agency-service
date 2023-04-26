@@ -107,10 +107,45 @@ public interface TravelAgencyViewConsumptionService {
    */
   List<BookingConsumable> getBooking(int bookingID);
 
-  List<TripConsumable> getTrips(Booking bookingID);
+  /**
+   * This method returns a <code>List<TripConsumable></code> object containing all trips
+   * associated with the booking whose booking id is provided as a parameter.
+   * If no corresponding booking is found, this method shall throw a <code>RuntimeException</code>.
+   * If the corresponding booking does not contain any trips,
+   * this method shall return an empty <code>List</code> object.
+   * @param bookingID An <code>int</code> identifying the booking whose trips shall be returned.
+   * @return A <code>List</code> object containing all corresponding <code>TripConsumption</code> objects
+   *         associated with the booking in question.
+   *         If the booking does not contain any trips, an empty <code>List</code> object shall be returned.
+   */
+  List<TripConsumable> getTrips(int bookingID);
 
-  List<HotelBookingConsumable> getHotelBookings(Integer tripID);
+  /**
+   * This method returns a <code>List<HotelBookingConsumption></code> object containing all hotel bookings
+   * associated with the trip whose trip id is provided as a parameter.
+   * If no corresponding trip is found, this method shall throw a <code>RuntimeException</code>.
+   * If the corresponding trip does not contain any hotel bookings,
+   * this method shall return an empty <code>List</code> object.
+   * @param tripID An <code>int</code> identifying the trip whose hotel bookings shall be returned.
+   * @return A <code>List</code> object containing all corresponding <code>HotelBookingConsumption</code>
+   *         objects associated with the trip in question.
+   *         If the trip does not contain any hotel bookings,
+   *         an empty <code>List</code> object shall be returned.
+   */
+  List<HotelBookingConsumable> getHotelBookings(int tripID);
 
-  List<FlightBookingConsumable> getFlightBookings(Integer tripID);
+  /**
+   * This method returns a <code>List<HotelBookingConsumption></code> object containing all flight bookings
+   * associated with the trip whose trip id is provided as a parameter.
+   * If no corresponding trip is found, this method shall throw a <code>RuntimeException</code>.
+   * If the corresponding trip does not contain any flight bookings,
+   * this method shall return an empty <code>List</code> object.
+   * @param tripID An <code>int</code> identifying the trip whose flight bookings shall be returned.
+   * @return A <code>List</code> object containing all corresponding <code>FlightBookingConsumption</code>
+   *         objects associated with the trip in question.
+   *         If the trip does not contain any flight bookings,
+   *         an empty <code>List</code> object shall be returned.
+   */
+  List<FlightBookingConsumable> getFlightBookings(int tripID);
 
 }
