@@ -1,410 +1,491 @@
 package travel.travelagency.service.data;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import javax.persistence.TypedQuery;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
+
 import org.mockito.Mockito;
 import travel.travelagency.entities.*;
-import java.util.List;
-import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TravelAgencyViewDataServiceImplementationTest {
 
-  private EntityManager EM;
+  /**
+   * This private inner class is used to set an id for a <code>Customer</code> object.
+   * This class is only necessary for unit testing purposes.
+   */
+  private static class TestCustomer extends Customer {
 
-  @BeforeEach
-  public void createMockedEntityManager() {
-    //Default typed query without filters
-    TypedQuery<Booking> allBookings = getTypedQuery(createBookingList(null, null, null));
+    private Integer id;
 
-    //Typed query after filtering by parameter 'bookingID'
-    TypedQuery<Booking> byId1Bookings = getTypedQuery(createBookingList(1, null, null));
-    Mockito.when(allBookings.setParameter(Booking.BOOKING_ID, 1)).
-        thenReturn(byId1Bookings);
+    public TestCustomer(Integer id, String lastName) {
+      this.setPersonalData(new PersonalData());
+      this.getPersonalData().setLastName(lastName);
+      this.setId(id);
+    }
 
-    TypedQuery<Booking> byCustomerId1Bookings = getTypedQuery(createBookingList(null, 1, null));
-    Mockito.when(allBookings.setParameter(Booking.CUSTOMER_ID, 1)).
-        thenReturn(byCustomerId1Bookings);
+    public void setId(Integer id) { this.id = id; }
 
-    TypedQuery<Booking> byCustomerNameBookings = getTypedQuery(createBookingList(null, null, "Merkel"));
-    Mockito.when(allBookings.setParameter(Booking.CUSTOMER_NAME, "Merkel")).
-        thenReturn(byCustomerNameBookings);
+    @Override
+    public Integer getId() { return id; }
 
-    TypedQuery<Booking> byId3Bookings = getTypedQuery(createBookingList(3, null, null));
-    TypedQuery<Booking> byIdAndCustomerId2Bookings = getTypedQuery(createBookingList(3, 2, null));
-    TypedQuery<Booking> byIdAndCIDAndCNameBookings = getTypedQuery(createBookingList(3,2, "Scholz"));
-    Mockito.when(byIdAndCustomerId2Bookings.setParameter(Booking.CUSTOMER_NAME, "Scholz"))
-        .thenReturn(byIdAndCIDAndCNameBookings);
-    Mockito.when(byId3Bookings.setParameter(Booking.CUSTOMER_ID, 2))
-        .thenReturn(byIdAndCustomerId2Bookings);
-    Mockito.when(allBookings.setParameter(Booking.BOOKING_ID, 3))
-        .thenReturn(byId3Bookings);
+    @Override
+    public boolean equals(Object obj) {
+      if(! this.getClass().equals(obj.getClass()))
+        return false;
+      Customer customer = (Customer) obj;
+      return id.equals(customer.getId()) && getPersonalData().equals(customer.getPersonalData());
+    }
 
-
-    EM = Mockito.mock(EntityManager.class);
-    Mockito.when(EM.createNamedQuery(Booking.FIND_WITH_FILTERS, Booking.class))
-        .thenReturn(allBookings);
   }
 
-  private TypedQuery<Booking> getTypedQuery(List<Booking> resultList) {
+  /**
+   * This private inner class is used to set an id for a <code>Booking</code> object.
+   * This class is only necessary for unit testing purposes.
+   */
+  private static class TestBooking extends Booking {
+
+    private Integer id;
+
+    public TestBooking(Integer id, Integer customerID, String lastName, Set<Trip> trips) {
+      this.id = id;
+      this.setCustomer(new TestCustomer(customerID, lastName));
+      this.setTripSet(trips);
+    }
+
+    public TestBooking(Integer id, Integer customerID, String lastName) {
+      this(id, customerID, lastName, null);
+    }
+
+    public void setId(int id) {
+      this.id = id;
+    }
+
+    @Override
+    public Integer getId() { return id; }
+
+    @Override
+    public boolean equals(Object obj) {
+      if(! this.getClass().equals(obj.getClass()))
+        return false;
+      Booking booking = (Booking) obj;
+      return
+        this.getId().equals(booking.getId()) &&
+        this.getCustomer().equals(booking.getCustomer());
+    }
+
+  }
+
+  /**
+   * This private inner class is used to set an id for a <code>Trip</code> object.
+   * This class is only necessary for unit testing purposes.
+   */
+  private static class TestTrip extends Trip {
+
+    private Integer id;
+
+    public TestTrip(Integer id, Set<HotelBooking> hotelBookings, Set<FlightBooking> flightBookings) {
+      this.id = id;
+      this.setHotelBookingSet(hotelBookings);
+      this.setFlightBookingSet(flightBookings);
+    }
+
+    public TestTrip(Integer id) {
+      this(id, null, null);
+    }
+
+    public void setId(int id) {
+      this.id = id;
+    }
+
+    @Override
+    public Integer getId() { return id; }
+
+    @Override
+    public boolean equals(Object obj) {
+      if(! this.getClass().equals(obj.getClass()))
+        return false;
+      Trip trip = (Trip) obj;
+      return
+          this.getId().equals(trip.getId()) &&
+          ((this.getHotelBookingSet() == null && trip.getHotelBookingSet() == null)
+              || this.getHotelBookingSet().equals(trip.getHotelBookingSet())) &&
+          ((this.getFlightBookingSet() == null && trip.getFlightBookingSet() == null)
+              || this.getFlightBookingSet().equals(trip.getFlightBookingSet()));
+    }
+
+  }
+
+  /**
+   * This private inner class is used to set an id for a <code>HotelBooking</code> object.
+   * This class is only necessary for unit testing purposes.
+   */
+  private static class TestHotelBooking extends HotelBooking {
+
+    private Integer id;
+
+    public TestHotelBooking(Integer id) {
+      this.id = id;
+    }
+
+    public void setId(int id) {
+      this.id = id;
+    }
+
+    @Override
+    public Integer getId() { return id; }
+
+    @Override
+    public boolean equals(Object obj) {
+      if(! this.getClass().equals(obj.getClass()))
+        return false;
+      HotelBooking trip = (HotelBooking) obj;
+      return this.getId().equals(trip.getId());
+    }
+
+  }
+
+  /**
+   * This private inner class is used to set an id for a <code>FlightBooking</code> object.
+   * This class is only necessary for unit testing purposes.
+   */
+  private static class TestFlightBooking extends FlightBooking {
+
+    private Integer id;
+
+    public TestFlightBooking(Integer id) {
+      this.id = id;
+    }
+
+    public void setId(int id) {
+      this.id = id;
+    }
+
+    @Override
+    public Integer getId() { return id; }
+
+    @Override
+    public boolean equals(Object obj) {
+      if(! this.getClass().equals(obj.getClass()))
+        return false;
+      FlightBooking trip = (FlightBooking) obj;
+      return this.getId().equals(trip.getId());
+    }
+
+  }
+
+  /**
+   * This private method creates a mocked <code>EntityManager</code> object that can be used for testing the
+   * <code>getBookings(...) : List<Booking></code> method.
+   * @param allBookings initial list of all bookings known to the entity manager
+   * @param customerID customer that can be filtered by
+   * @param customerName customer that can be filtered by
+   * @return mocked <code>EntityManager</code> object
+   */
+  private EntityManager createBookingEntityManager(List<Booking> allBookings, Integer customerID, String customerName) {
+    List<Booking> bookingsFilteredByCustomerID = allBookings.stream().filter(
+            e -> e.getCustomer().getId().equals(customerID) || customerID == null
+    ).toList();
+
+    List<Booking> bookingsFilteredByCustomerIDAndCustomerName = bookingsFilteredByCustomerID.stream().filter(
+            e -> e.getCustomer().getPersonalData().getLastName().equals(customerName) || customerName == null
+    ).toList();
+
+    TypedQuery<Booking> customerNameQuery = createBookingQuery(bookingsFilteredByCustomerIDAndCustomerName);
+
+    TypedQuery<Booking> customerIdQuery = createBookingQuery(bookingsFilteredByCustomerID);
+    Mockito.when(customerIdQuery.setParameter(Booking.CUSTOMER_LASTNAME, customerName)).thenReturn(customerNameQuery);
+
+    TypedQuery<Booking> allBookingsQuery = createBookingQuery(allBookings);
+    Mockito.when(allBookingsQuery.setParameter(Booking.CUSTOMER_ID, customerID)).thenReturn(customerIdQuery);
+
+    EntityManager entityManager = Mockito.mock(EntityManager.class);
+    Mockito.when(entityManager.createNamedQuery(Booking.FIND_WITH_FILTERS, Booking.class))
+            .thenReturn(allBookingsQuery);
+
+    return entityManager;
+  }
+
+  private TypedQuery<Booking> createBookingQuery(List<Booking> resultList) {
     TypedQuery<Booking> typedQuery = Mockito.mock(TypedQuery.class);
-    Mockito.when(typedQuery.getResultList()).thenReturn(resultList);
-    Mockito.when(typedQuery.setParameter(Booking.BOOKING_ID, null)).thenReturn(typedQuery);
     Mockito.when(typedQuery.setParameter(Booking.CUSTOMER_ID, null)).thenReturn(typedQuery);
-    Mockito.when(typedQuery.setParameter(Booking.CUSTOMER_NAME, null)).thenReturn((typedQuery));
+    Mockito.when(typedQuery.setParameter(Booking.CUSTOMER_LASTNAME, null)).thenReturn(typedQuery);
+    Mockito.when(typedQuery.getResultList()).thenReturn(resultList);
     return typedQuery;
   }
 
-  private List<Booking> createBookingList(Integer bookingID, Integer customerID, String customerName) {
-    List<Booking> bookingList = new LinkedList<>();
-    bookingList.add(
-      new Booking(getCustomer(1), LocalDate.of(2023, 4, 20), new HashSet<>())
+  private List<Booking> createBookingsList() {
+    return List.of(
+      new TestBooking(1, 1, "Maier"),
+      new TestBooking(2, 1, "Maier"),
+      new TestBooking(3, 1, "Maier"),
+      new TestBooking(4, 2, "Schmitz"),
+      new TestBooking(5, 2, "Schmitz"),
+      new TestBooking(6, 3, "Boden"),
+      new TestBooking(7,4,"Weiß"),
+      new TestBooking(8,4,"Weiß"),
+      new TestBooking(9, 5, "Veitz", Set.of(
+          new TestTrip(1), new TestTrip(2), new TestTrip(3)
+      )),
+      new TestBooking(10, 5, "Veitz", Set.of(
+          new TestTrip(4), new TestTrip(5)
+      )),
+      new TestBooking(11, 5, "Veitz", Set.of(
+          new TestTrip(2), new TestTrip(4)
+      ))
     );
-    bookingList.add(
-      new Booking(getCustomer(1), LocalDate.of(2021, 5, 7), new HashSet<>())
-    );
-    bookingList.add(
-      new Booking(getCustomer(2), LocalDate.of(1988, 12, 6), new HashSet<>())
-    );
-    for(int i = 0; i < bookingList.size(); i++) {
-      if(
-        bookingID != null && !bookingID.equals(bookingList.get(i).getId())
-        || customerID != null && !customerID.equals(bookingList.get(i).getCustomer().getId())
-        || customerName != null && !customerName.equals(bookingList.get(i).getCustomer().getPersonalData().getLastName())
-      ) {
-        bookingList.remove(i--);
-      }
+  }
+
+  /**
+   * This private method creates a mocked <code>EntityManager</code> object that mocked the method
+   * <code>find(Booking.class, bookingID) : Booking</code> for the booking id provided.
+   * @param allBookings initial list of all bookings known to the entity manager
+   * @param bookingID booking that can be found
+   * @return mocked <code>EntityManager</code> object
+   */
+  private EntityManager createTripEntityManager(List<Booking> allBookings, Integer bookingID) {
+    EntityManager entityManager = Mockito.mock(EntityManager.class);
+    for(Booking booking : allBookings) {
+      if(booking.getId().equals(bookingID))
+        Mockito.when(entityManager.find(Booking.class, bookingID)).thenReturn(booking);
     }
-    return bookingList;
-  }
-
-  private Customer getCustomer(int customerID) {
-    return switch (customerID) {
-      case 1 -> new Customer("DE19582919875254589658745236512589",
-          new PersonalData(
-              "Merkel",
-              "Angela",
-              "Dorothea",
-              LocalDate.of(1954, 7, 17),
-              new Address("Street", "18", "93726", "Town", "Country")
-          ),
-          new Address("Street","101a","19824","My Town","Disneyland" ));
-      case 2 -> new Customer("DE12457886135615487659132658132548",
-          new PersonalData(
-              "Scholz",
-              "Olaf",
-              "",
-              LocalDate.of(1987, 11, 17),
-              new Address("Way", "9", "65958", "Stadt", "Osmanien")
-          ),
-          new Address("Dwy", "18b", "HKL21", "Town", "Ivy")
-      );
-      default -> null;
-    };
-  }
-
-  private Trip getTrip(int tripID) {
-    return switch(tripID) {
-      case 1 -> new Trip(Set.of(getHotelBooking(1)), Set.of(getFlightBooking(1)));
-      case 2 -> new Trip(Set.of(getHotelBooking(2)), Set.of(getFlightBooking(2)));
-      default -> null;
-    };
-  }
-
-  private HotelBooking getHotelBooking(int hotelBookingID) {
-    return switch(hotelBookingID) {
-      case 1 -> new HotelBooking(
-        new Hotel(
-          "Luxor Deluxe",
-          20000.01,
-          "GIB",
-          new Address(
-            "Meerenge von Gibraltar",
-            "1",
-            "00001",
-            "Zwischen Marokko und Gibraltar",
-            "Mittelmeer"
-          )
-        ),
-        204,
-        12
-      );
-      case 2 -> new HotelBooking(
-        new Hotel(
-          "Billig Hotel",
-          1.99,
-          "EUR",
-          new Address(
-            "Reeperbahn",
-            "69",
-            "12345",
-            "Hamburg-St. Pauli",
-            "Deutschland"
-          )
-        ),
-        29,
-        3
-      );
-      default -> null;
-    };
-  }
-
-  private FlightBooking getFlightBooking(int flightBookingID) {
-    return switch (flightBookingID) {
-      case 1 -> new FlightBooking(
-        new Flight(
-          new FlightConnection("DL", "0015", "FRA", "ATL"),
-          LocalDate.of(2023, 5, 14),
-          LocalTime.of(11, 30, 20),
-          "UTC+02:00",
-          LocalDate.of(2023, 5, 14),
-          LocalTime.of(16, 15),
-          "UTC-05:00",
-          299.99,
-          "EUR"
-        ),
-        36
-      );
-      case 2 -> new FlightBooking(
-        new Flight(
-          new FlightConnection("DL", "0016", "ATL", "FRA"),
-          LocalDate.of(2023, 7, 30),
-          LocalTime.of(15, 5),
-          "UTC-05:00",
-          LocalDate.of(2023, 7, 31),
-          LocalTime.of(7, 30, 38),
-          "UTC+02:00",
-          599.99,
-          "EUR"
-        ),
-        4
-      );
-      default -> new FlightBooking();
-    };
-  }
-
-  @Test
-  public void testGetBookingsWithNull() {
-    List<Booking> expectedBookingList = createBookingList(null, null, null);
-
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
-    List<Booking> actualBookingList = service.getBookings(null, null, null);
-
-    assertEquals(expectedBookingList, actualBookingList);
-  }
-
-  @Test
-  public void testGetBookingsWithId() {
-    List<Booking> expectedBookingList = createBookingList(1, null, null);
-
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
-    List<Booking> actualBookingList = service.getBookings(1, null, null);
-
-    assertEquals(expectedBookingList, actualBookingList);
-  }
-
-  @Test
-  public void testGetBookingsWithCustomerId() {
-    List<Booking> expectedBookingList = createBookingList(null, 1, null);
-
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
-    List<Booking> actualBookingList = service.getBookings(null, 1, null);
-
-    assertEquals(expectedBookingList, actualBookingList);
-  }
-
-  @Test
-  public void testGetBookingsWithCustomerName() {
-    List<Booking> expectedBookingList = createBookingList(null, null, "Merkel");
-
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
-    List<Booking> actualBookingList = service.getBookings(null, null, "Merkel");
-
-    assertEquals(expectedBookingList, actualBookingList);
-  }
-
-  @Test
-  public void testGetBookingsWithParameters() {
-    List<Booking> expectedBookingList = createBookingList(3, 2, "Scholz");
-
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
-    List<Booking> actualBookingList = service.getBookings(3, 2, "Scholz");
-
-    assertEquals(expectedBookingList, actualBookingList);
+    return entityManager;
   }
 
   /**
-   * This method tests the <code>getTrips(Booking booking)</code> method for a booking
-   * equal to <code>null</code>.
-   * The expected <code>List</code> object shall be empty.
+   * This private method creates a mocked <code>EntityManager</code> object that mocked the method
+   * <code>find(Trip.class, tripID) : Trip</code> for the booking id provided.
+   * @param allTrips initial list of all trips known to the entity manager
+   * @param tripID trip that can be found
+   * @return mocked <code>EntityManager</code> object
    */
-  @Test
-  public void testGetTripsWithNull() {
-    List<Trip> expectedTripList = new LinkedList<>();
-
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
-    List<Trip> actualTripList = service.getTrips(null);
-
-    assertEquals(expectedTripList, actualTripList);
+  private EntityManager createHotelAndFlightBookingEntityManager(List<Trip> allTrips, Integer tripID) {
+    EntityManager entityManager = Mockito.mock(EntityManager.class);
+    for(Trip trip : allTrips) {
+      if(trip.getId().equals(tripID))
+        Mockito.when(entityManager.find(Trip.class, tripID)).thenReturn(trip);
+    }
+    return entityManager;
   }
 
-  /**
-   * This method tests the <code>getTrips(Booking booking)</code> method for a booking
-   * whose set of trips is equal to <code>null</code>.
-   * The expected <code>List</code> object shall be empty.
-   */
-  @Test
-  public void testGetTripsWithNullTripSet() {
-    List<Trip> expectedTripList = new LinkedList<>();
-
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
-    List<Trip> actualTripList = service.getTrips(new Booking());
-
-    assertEquals(expectedTripList, actualTripList);
-  }
-
-  /**
-   * This method tests the <code>getTrips(Booking booking)</code> method for a booking
-   * with at least one trip.
-   * The expected <code>List</code> object shall contain the trips
-   * belonging to the booking in question.
-   */
-  @Test
-  public void testGetTripsWithTripSet() {
-    List<Trip> expectedTripList = List.of(this.getTrip(1), this.getTrip(2));
-
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(this.EM);
-    List<Trip> actualTripList = service.getTrips(
-      new Booking(
-        getCustomer(1),
-        LocalDate.of(2023, 4, 20),
-        Set.of(getTrip(1), getTrip(2))
-      )
-    );
-
-    assertTrue(
-      expectedTripList.size() == actualTripList.size() &&
-      actualTripList.containsAll(expectedTripList) &&
-      expectedTripList.containsAll(actualTripList)
+  private List<Trip> createTripList() {
+    return List.of(
+      new TestTrip(1,
+        Set.of(new TestHotelBooking(1), new TestHotelBooking(2), new TestHotelBooking(3)),
+        Set.of(new TestFlightBooking(1), new TestFlightBooking(2))
+      ),
+      new TestTrip(2,
+              Set.of(new TestHotelBooking(4), new TestHotelBooking(5)),
+              Set.of(new TestFlightBooking(3), new TestFlightBooking(4), new TestFlightBooking(5))
+      ),
+      new TestTrip(3)
     );
   }
 
   /**
-   * This method tests the <code>getHotelBookings(Trip trip)</code> method for a trip
-   * equal to <code>null</code>.
-   * The expected <code>List</code> object shall be empty.
+   * This method tests the getBookings(int customerID) using a mocked entity manager
    */
   @Test
-  public void testGetHotelBookingsWithNull() {
-    List<HotelBooking> expectedHotelBookingList = new LinkedList<>();
+  public void testGetBookingsMethodWithValidCustomerID() {
+    Integer customerID = 1;
 
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
-    List<HotelBooking> actualFlightBookingList = service.getHotelBookings(null);
+    List<Booking> allBookings = createBookingsList();
 
-    assertEquals(expectedHotelBookingList, actualFlightBookingList);
+    List<Booking> expectedBookings = allBookings.stream().filter(e -> e.getCustomer().getId() == customerID).toList();
+
+    EntityManager entityManager = createBookingEntityManager(allBookings, customerID, null);
+
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
+
+    List<Booking> actualBookings = service.getBookings(customerID);
+
+    assertEquals(expectedBookings, actualBookings);
+  }
+
+  @Test
+  public void testGetBookingsMethodWithCustomerLastName() {
+    String customerName = "Schmitz";
+
+    List<Booking> allBookings = createBookingsList();
+
+    List<Booking> expectedBookings = allBookings.stream().filter(
+        e -> e.getCustomer().getPersonalData().getLastName().equals(customerName)
+    ).toList();
+
+    EntityManager entityManager = createBookingEntityManager(allBookings, null, customerName);
+
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
+
+    List<Booking> actualBookings = service.getBookings(customerName);
+
+    assertThrows(RuntimeException.class, () -> service.getBookings(null));
+    assertEquals(expectedBookings, actualBookings);
+  }
+
+  @Test
+  public void testGetBookingsMethodWithCustomerIdAndLastName() {
+    Integer customerID = 4;
+    String customerName = "Weiß";
+
+    List<Booking> allBookings = createBookingsList();
+
+    List<Booking> expectedBookings = allBookings.stream().filter(
+            e ->  e.getCustomer().getId().equals(customerID) &&
+                  e.getCustomer().getPersonalData().getLastName().equals(customerName)
+    ).toList();
+
+    EntityManager entityManager = createBookingEntityManager(allBookings, customerID, customerName);
+
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
+
+    List<Booking> actualBookings = service.getBookings(customerID, customerName);
+
+    assertThrows(RuntimeException.class, () -> service.getBookings(customerID, null));
+    assertEquals(expectedBookings, actualBookings);
+  }
+
+  @Test
+  public void testGetBookingMethodWithValidId() {
+    fail();
+  }
+
+  @Test
+  public void testGetBookingMethodWithInvalidId() {
+    fail();
   }
 
   /**
-   * This method tests the <code>getHotelBookings(Trip trip)</code> method for a trip
-   * whose set of hotel bookings is equal to <code>null</code>.
-   * The expected <code>List</code> object shall be empty.
+   * This method tests the <code>getTrips(int bookingID)</code> method with a valid booking ID and a
+   * corresponding booking that has at least one trip allocated.
    */
   @Test
-  public void testGetHotelBookingsWithNullHotelBookingSet() {
-    List<HotelBooking> expectedHotelBookingList = new LinkedList<>();
+  public void testGetTripsMethodWithValidId() {
+    int bookingID = 9;
 
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
-    List<HotelBooking> actualFlightBookingList = service.getHotelBookings(new Trip());
+    List<Booking> allBookings = createBookingsList();
 
-    assertEquals(expectedHotelBookingList, actualFlightBookingList);
+    List<Trip> expectedTrips = allBookings.stream().filter(
+      e -> e.getId().equals(bookingID)
+    ).toList().get(0).getTripSet().stream().toList();
+
+    EntityManager entityManager = createTripEntityManager(allBookings, bookingID);
+
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
+
+    List<Trip> actualTrips = service.getTrips(bookingID);
+
+    assertEquals(expectedTrips, actualTrips);
   }
 
   /**
-   * This method tests the <code>getHotelBookings(Trip trip)</code> method for a trip
-   * with at least one hotel booking.
-   * The expected <code>List</code> object shall contain the hotel bookings
-   * belonging to the trip in question.
+   * This method tests the <code>getTrips(int bookingID)</code> method with an invalid booking ID
+   * to which no booking is known to the entity manager.
    */
   @Test
-  public void testGetHotelBookingsWitHotelBookingSet() {
-    List<HotelBooking> expectedHotelBookingList = List.of(
-            this.getHotelBooking(1),
-            this.getHotelBooking(2)
-    );
+  public void testGetTripsMethodWithInvalidId() {
+    int bookingID = 0;
 
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(this.EM);
-    List<HotelBooking> actualHotelBookingList = service.getHotelBookings(
-        new Trip(Set.of(this.getHotelBooking(1), this.getHotelBooking(2)), null)
-    );
+    List<Booking> allBookings = createBookingsList();
 
-    assertTrue(
-      expectedHotelBookingList.size() == actualHotelBookingList.size() &&
-      actualHotelBookingList.containsAll(expectedHotelBookingList)&&
-      expectedHotelBookingList.containsAll(actualHotelBookingList)
-    );
+    List<Trip> expectedTrips = null;
+
+    EntityManager entityManager = createTripEntityManager(allBookings, bookingID);
+
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
+
+    List<Trip> actualTrips = service.getTrips(bookingID);
+
+    assertEquals(expectedTrips, actualTrips);
   }
 
   /**
-   * This method tests the <code>getFlightBookings(Trip trip)</code> method for a trip
-   * equal to <code>null</code>.
-   * The expected <code>List</code> object shall be empty.
+   * This method tests the <code>getTrips(int bookingID)</code> method with a valid booking ID and a
+   * corresponding booking that has no trips allocated.
    */
   @Test
-  public void testGetFlightBookingsWithNull() {
-    List<FlightBooking> expectedFlightBookingList = new LinkedList<>();
+  public void testGetTripsMethodWithoutTrips() {
+    int bookingID = 1;
 
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
-    List<FlightBooking> actualFlightBookingList = service.getFlightBookings(null);
+    List<Booking> allBookings = createBookingsList();
 
-    assertEquals(expectedFlightBookingList, actualFlightBookingList);
+    List<Trip> expectedTrips = new LinkedList<>();
+
+    EntityManager entityManager = createTripEntityManager(allBookings, bookingID);
+
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
+
+    List<Trip> actualTrips = service.getTrips(bookingID);
+
+    assertEquals(expectedTrips, actualTrips);
   }
 
   /**
-   * This method tests the <code>getFlightBookings(Trip trip)</code> method for a trip
-   * whose set of flight bookings is equal to <code>null</code>.
-   * The expected <code>List</code> object shall be empty.
+   * This method tests the <code>getHotelBookings(int tripID)</code> method with a valid trip ID and a
+   * corresponding trip that has at least one hotel booking allocated.
    */
   @Test
-  public void testGetFlightBookingsWithNullFlightBookingSet() {
-    List<FlightBooking> expectedFlightBookingList = new LinkedList<>();
+  public void testGetHotelBookingsMethodWithValidId() {
+    int tripID = 1;
 
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(EM);
-    List<FlightBooking> actualFlightBookingList = service.getFlightBookings(new Trip());
+    List<Trip> allTrips = createTripList();
 
-    assertEquals(expectedFlightBookingList, actualFlightBookingList);
+    List<HotelBooking> expectedTrips = allTrips.stream().filter(
+            e -> e.getId().equals(tripID)
+    ).toList().get(0).getHotelBookingSet().stream().toList();
+
+    EntityManager entityManager = createHotelAndFlightBookingEntityManager(allTrips, tripID);
+
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
+
+    List<HotelBooking> actualTrips = service.getHotelBookings(tripID);
+
+    assertEquals(expectedTrips, actualTrips);
   }
 
   /**
-   * This method tests the <code>getFlightBookings(Trip trip)</code> method for a trip
-   * with at least one flight booking.
-   * The expected <code>List</code> object shall contain the flight bookings
-   * belonging to the trip in question.
+   * This method tests the <code>getHotelBookings(int tripID)</code> method with an invalid trip ID
+   * to which no trip is known to the entity manager.
    */
   @Test
-  public void testGetFlightBookingsWithFlightBookingSet() {
-    List<FlightBooking> expectedFlightBookingList = List.of(
-        this.getFlightBooking(1),
-        this.getFlightBooking(2)
-    );
+  public void testGetHotelBookingsMethodWithInvalidId() {
+    int tripID = 0;
 
-    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(this.EM);
-    List<FlightBooking> actualFlightBookingList = service.getFlightBookings(
-        new Trip(null, Set.of(this.getFlightBooking(1), this.getFlightBooking(2)))
-    );
+    List<Trip> allTrips = createTripList();
 
-    assertTrue(
-      expectedFlightBookingList.size() == actualFlightBookingList.size() &&
-      actualFlightBookingList.containsAll(expectedFlightBookingList)&&
-      expectedFlightBookingList.containsAll(actualFlightBookingList)
-    );
+    List<HotelBooking> expectedTrips = null;
+
+    EntityManager entityManager = createHotelAndFlightBookingEntityManager(allTrips, tripID);
+
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
+
+    List<HotelBooking> actualTrips = service.getHotelBookings(tripID);
+
+    assertEquals(expectedTrips, actualTrips);
+  }
+
+  /**
+   * This method tests the <code>getHotelBookings(int tripID)</code> method with a valid trip ID and a
+   * corresponding trip that has no hotel bookings allocated.
+   */
+  @Test
+  public void testGetHotelBookingsMethodWithoutHotelBookings() {
+    int tripID = 3;
+
+    List<Trip> allTrips = createTripList();
+
+    List<HotelBooking> expectedTrips = new LinkedList<>();
+
+    EntityManager entityManager = createHotelAndFlightBookingEntityManager(allTrips, tripID);
+
+    TravelAgencyViewDataService service = new TravelAgencyViewDataServiceImplementation(entityManager);
+
+    List<HotelBooking> actualTrips = service.getHotelBookings(tripID);
+
+    assertEquals(expectedTrips, actualTrips);
   }
 
 }

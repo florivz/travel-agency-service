@@ -14,69 +14,54 @@ public class TravelAgencyViewConsumptionServiceImplementation implements TravelA
         this.dataService = dataService;
     }
 
-    @Override
-    public List<BookingConsumption> getBookings(Integer bookingID, Integer customerID, String customerName) {
-        List<Booking> bookingList = dataService.getBookings(bookingID, customerID);
-        List<BookingConsumption> bookingConsumptionList = new LinkedList<>();
-        for (Booking booking : bookingList) {
-            bookingConsumptionList.add(new BookingConsumption(
-                    booking.getId(), booking.getCustomer().getId(), null, null, 0.0
-            ));
-        }
-        return bookingConsumptionList;
-    }
 
     @Override
-    public List<TripConsumption> getTrips(Booking booking) {
+    public List<BookingConsumable> getBookings(int customerID, String customerLastName) {
         return null;
     }
 
     @Override
-    public List<HotelBookingConsumption> getHotelBookings(TripConsumption trip) {
+    public List<BookingConsumable> getBookings(int customerID) {
         return null;
     }
 
     @Override
-    public List<FlightBookingConsumption> getFlightBookings(TripConsumption trip) {
+    public List<BookingConsumable> getBookings(String customerLastName) {
         return null;
     }
-//
-//    @Override
-//    public List<TripConsumption> getTrips(Booking booking) {
-//        List<Trip> tripList = dataService.getTrips(booking.getId());
-//        List<TripConsumption> tripConsumptionList = new LinkedList<>();
-//        for (Trip trip : tripList) {
-//            tripConsumptionList.add(new TripConsumption(trip.getId(), trip.getTotalPrice()));
-//        }
-//        return tripConsumptionList;
-//    }
-//
-//    @Override
-//    public List<HotelBookingConsumption> getHotelBookings(TripConsumption trip) {
-//        List<HotelBooking> hotelBookingList = dataService.getHotelBookings(trip.tripID());
-//        List<HotelBookingConsumption> hotelBookingConsumptionList = new LinkedList<>();
-//        for (HotelBooking hotelBooking : hotelBookingList) {
-//            hotelBookingConsumptionList.add(new HotelBookingConsumption(
-//                    hotelBooking.getId(),
-//                    hotelBooking.getHotel().getName(),
-//                    hotelBooking.getTotalPrice()
-//            ));
-//        }
-//        return hotelBookingConsumptionList;
-//    }
-//
-//    @Override
-//    public List<FlightBookingConsumption> getFlightBookings(TripConsumption trip) {
-//        List<FlightBooking> flightBookingList = dataService.getFlightBookings(trip.tripID());
-//        List<FlightBookingConsumption> flightBookingConsumptionList = new LinkedList<>();
-//        for (FlightBooking flightBooking : flightBookingList) {
-//            flightBookingConsumptionList.add(new FlightBookingConsumption(
-//                    flightBooking.getId(),
-//                    flightBooking.getFlight().getDepartureTimestamp().toString(),
-//                    flightBooking.getFlight().getArrivalTimestamp().toString(),
-//                    flightBooking.getTotalPrice()
-//                    ));
-//        }
-//        return flightBookingConsumptionList;
-//    }
+
+    @Override
+    public List<BookingConsumable> getBooking(int bookingID, int customerID, String customerLastName) {
+        return null;
+    }
+
+    @Override
+    public List<BookingConsumable> getBooking(int bookingID, int customerID) {
+        return null;
+    }
+
+    @Override
+    public List<BookingConsumable> getBooking(int bookingID, String customerLastName) {
+        return null;
+    }
+
+    @Override
+    public List<BookingConsumable> getBooking(int bookingID) {
+        return null;
+    }
+
+    @Override
+    public List<TripConsumable> getTrips(Booking bookingID) {
+        return null;
+    }
+
+    @Override
+    public List<HotelBookingConsumable> getHotelBookings(Integer tripID) {
+        return null;
+    }
+
+    @Override
+    public List<FlightBookingConsumable> getFlightBookings(Integer tripID) {
+        return null;
+    }
 }

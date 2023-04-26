@@ -45,7 +45,7 @@ public class PersonalData {
   /**
    * middle name(s)
    */
-  @Column(name = "MIDDLE_NAMES")
+  @Column(name = "MIDDLE_NAME")
   private String middleName;
 
   /**

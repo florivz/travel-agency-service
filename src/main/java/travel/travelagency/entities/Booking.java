@@ -32,8 +32,7 @@ import javax.persistence.Table;
         name = Booking.FIND_WITH_FILTERS,
         query = """
             SELECT booking FROM Booking booking
-            WHERE booking.id                              = coalesce(:bookingID, booking.id)
-            AND   booking.customer.id                     = coalesce(:customerID, booking.customer.id)
+            WHERE booking.customer.id                     = coalesce(:customerID, booking.customer.id)
             AND   booking.customer.personalData.lastName  = coalesce(:customerName, booking.customer.personalData.lastName)"""
     )
 })
@@ -66,7 +65,7 @@ public class Booking {
    * This constant represents the name of the parameter to filter by customer's last name in the named query
    * 'Booking.findWithFilters'.
    */
-  public static final String CUSTOMER_NAME = "customerName";
+  public static final String CUSTOMER_LASTNAME = "customerName";
 
   /**
    * Unique identifier for each booking record (primary key in the database).
