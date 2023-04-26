@@ -1,7 +1,6 @@
 package travel.travelagency.service.consumption;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -31,8 +30,6 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
             this.id = id;
         }
 
-        public void setId(Integer id) { this.id = id; }
-
         @Override
         public Integer getId() { return id; }
 
@@ -44,23 +41,23 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
      */
     private static class TestBooking extends Booking {
 
-        private Integer id;
-        private double price;
+        private final Integer ID;
+        private final double PRICE;
 
         public TestBooking(
-            Integer id, Integer customerID, String lastName, LocalDate date, Double price, String currency
+                Integer id, Integer customerID, String lastName, LocalDate date, Double price, String currency
         ) {
-            this.id = id;
+            this.ID = id;
             this.setCustomer(new TestCustomer(customerID, lastName));
             this.setDate(date);
-            this.price = price;
+            this.PRICE = price;
         }
 
         @Override
-        public Integer getId() { return id; }
+        public Integer getID() { return ID; }
 
         @Override
-        public double getTotalPrice() { return price; }
+        public double getTotalPrice() { return PRICE; }
 
     }
 
@@ -209,7 +206,7 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
         ).toList();
 
         Booking resultBooking = createBookingList().stream().filter(
-                e -> e.getId().equals(bookingID)
+                e -> e.getID().equals(bookingID)
         ).toList().get(0);
 
         TravelAgencyViewDataService dataService = createDataService(resultBooking, bookingID, null, null);

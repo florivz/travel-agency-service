@@ -18,7 +18,7 @@ public class TravelAgencyViewConsumptionServiceImplementation implements TravelA
         List<BookingConsumable> bookingConsumables = new LinkedList<>();
         for (Booking booking : bookings) {
             bookingConsumables.add(new BookingConsumable(
-                booking.getId(),
+                booking.getID(),
                 booking.getCustomer().getId(),
                 booking.getCustomer().getPersonalData().getLastName(),
                 booking.getDate(),
