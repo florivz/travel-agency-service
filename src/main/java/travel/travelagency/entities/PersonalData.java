@@ -45,8 +45,8 @@ public class PersonalData {
   /**
    * middle name(s)
    */
-  @Column(name = "MIDDLE_NAMES")
-  private String middleNames;
+  @Column(name = "MIDDLE_NAME")
+  private String middleName;
 
   /**
    * date of birth
@@ -70,14 +70,14 @@ public class PersonalData {
    * Constructor creates a <code>PersonalData</code> object with specified attributes
    * @param lastName last name(s)
    * @param firstName first name(s)
-   * @param middleNames middle name(s)
+   * @param middleName middle name(s)
    * @param dateOfBirth date of birth
    * @param address home address
    */
-  public PersonalData(String lastName, String firstName, String middleNames, LocalDate dateOfBirth, Address address) {
+  public PersonalData(String lastName, String firstName, String middleName, LocalDate dateOfBirth, Address address) {
     this.lastName = lastName;
     this.firstName = firstName;
-    this.middleNames = middleNames;
+    this.middleName = middleName;
     this.dateOfBirth = dateOfBirth;
     this.address = address;
   }
@@ -126,16 +126,16 @@ public class PersonalData {
    * Getter-method for the <code>middleNames</code> attribute.
    * @return middle name(s)
    */
-  public String getMiddleNames() {
-    return middleNames;
+  public String getMiddleName() {
+    return middleName;
   }
 
   /**
    * Setter-method for the <code>middleNames</code> attribute.
-   * @param middleNames new middle name(s)
+   * @param middleName new middle name(s)
    */
-  public void setMiddleNames(String middleNames) {
-    this.middleNames = middleNames;
+  public void setMiddleName(String middleName) {
+    this.middleName = middleName;
   }
 
   /**
@@ -178,7 +178,7 @@ public class PersonalData {
           ((id == null && data.getId() == null) || id.equals(data.getId())) &&
           ((lastName == null && data.getLastName() == null) || lastName.equals(data.getLastName())) &&
           ((firstName == null && data.getFirstName() == null) || firstName.equals(data.getFirstName())) &&
-          ((middleNames == null && data.getMiddleNames() == null) || middleNames.equals(data.getMiddleNames())) &&
+          ((middleName == null && data.getMiddleName() == null) || middleName.equals(data.getMiddleName())) &&
           ((dateOfBirth == null && data.getDateOfBirth() == null) || dateOfBirth.equals(data.getDateOfBirth())) &&
           ((address == null && data.getAddress() == null) || address.equals(data.getAddress()));
     }
@@ -190,7 +190,7 @@ public class PersonalData {
     return
       firstName +
       " " +
-      middleNames +
+              middleName +
       " " +
       lastName +
       (dateOfBirth != null ? ", " + dateOfBirth : "") +
@@ -202,7 +202,7 @@ public class PersonalData {
     String appendedHashCodes = String.valueOf(id != null ? id.hashCode() : null)
         + (lastName != null ? lastName.hashCode() : null)
         + (firstName != null ? firstName.hashCode() : null)
-        + (middleNames != null ? middleNames.hashCode() : null)
+        + (middleName != null ? middleName.hashCode() : null)
         + (dateOfBirth != null ? dateOfBirth.hashCode() : null)
         + (address != null ? address.hashCode() : null);
     return appendedHashCodes.hashCode();

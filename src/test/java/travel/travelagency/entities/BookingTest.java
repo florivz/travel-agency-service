@@ -253,9 +253,9 @@ public class BookingTest {
   public static void initializeBookings() {
     nullBooking = null;
     emptyBooking = new Booking();
-    booking = new Booking(customer, tripSet);
-    copyBooking = new Booking(copyCustomer, copyTripSet);
-    differentBooking = new Booking(differentCustomer, differentTripSet);
+    booking = new Booking(customer, LocalDate.of(2023, 4, 20), tripSet);
+    copyBooking = new Booking(copyCustomer, LocalDate.of(2023, 4, 20), copyTripSet);
+    differentBooking = new Booking(differentCustomer, LocalDate.of(2023, 8, 15), differentTripSet);
   }
 
   @Test()
@@ -292,9 +292,12 @@ public class BookingTest {
 
   @Test
   public void testToStringMethod() {
-    Booking testedBooking = new Booking(customer, tripSet);
+    LocalDate bookingDate = LocalDate.of(2023, 4, 20);
+    Booking testedBooking = new Booking(customer, bookingDate, tripSet);
 
     String expectedResult =
+      "Booking ID: null\n" +
+      "Date: " + bookingDate.toString() + '\n' +
       "Customer:\n" +
           customer.toString() + '\n' +
       "Trips:\n" +
