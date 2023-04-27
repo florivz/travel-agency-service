@@ -70,7 +70,7 @@ public class HotelBooking {
    * Getter-method for the <code>id</code> attribute.
    * @return unique identification number
    */
-  public Integer getId() {
+  public Integer getID() {
     return id;
   }
 
@@ -136,7 +136,7 @@ public class HotelBooking {
     if(obj != null && obj.getClass().equals(this.getClass())) {
       HotelBooking booking = (HotelBooking) obj;
       return
-          ((id == null && booking.getId() == null) || id.equals(booking.getId())) &&
+          ((id == null && booking.getID() == null) || id.equals(booking.getID())) &&
           ((hotel == null && booking.getHotel() == null) || hotel.equals(booking.getHotel())) &&
           ((numberOfGuests == null && booking.getNumberOfGuests() == null)
               || numberOfGuests.equals(booking.getNumberOfGuests())) &&

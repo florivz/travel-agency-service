@@ -65,7 +65,7 @@ public class Trip {
    * Getter-method for the <code>id</code> attribute.
    * @return unique identification number
    */
-  public Integer getId() {
+  public Integer getID() {
     return id;
   }
 
@@ -133,7 +133,7 @@ public class Trip {
     if(obj != null && obj.getClass().equals(this.getClass())) {
       Trip trip = (Trip) obj;
       return
-          ((id == null && trip.getId() == null) || id.equals(trip.getId())) &&
+          ((id == null && trip.getID() == null) || id.equals(trip.getID())) &&
           ((hotelBookingSet == null && trip.getHotelBookingSet() == null)
               || hotelBookingSet.equals(trip.getHotelBookingSet())) &&
           ((flightBookingSet == null && trip.getFlightBookingSet() == null)

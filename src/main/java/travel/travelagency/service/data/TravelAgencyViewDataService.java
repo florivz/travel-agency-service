@@ -4,73 +4,98 @@ import java.util.List;
 
 import travel.travelagency.entities.Booking;
 import travel.travelagency.entities.Trip;
-import travel.travelagency.entities.HotelBooking;
-import travel.travelagency.entities.FlightBooking;
 
 public interface TravelAgencyViewDataService {
 
   /**
-   * This method returns all bookings filtered by booking ID and customer ID.
-   * If no corresponding booking is found,
-   * this method shall return an empty <code>List</code> object.
-   * @param bookingID An <code>Integer</code> of the booking ID to be filtered by.
-   *                  If this parameter is not equal to <code>null</code>,
-   *                  the result shall only contain a single item.
-   *                  If this parameter is equal to <code>null</code>,
-   *                  it shall be ignored in the filter.
-   * @param customerID An <code>Integer</code> of the customer ID to be filtered by.
-   *                   If this parameter is not equal to <code>null</code>,
-   *                   the result shall contain all bookings of the corresponding customer.
-   *                   If this parameter is equal to <code>null</code>,
-   *                   it shall be ignored in the filter.
-   * @param customerName A <code>String</code> of the customer name to be filtered by.
+   * This method returns all bookings filtered customer ID, and customer's last name.
+   * If no corresponding booking is found, this method shall return an empty <code>List</code> object.
+   * @param customerID An <code>int</code> of the customer ID to be filtered by.
+   * @param customerLastName A <code>String</code> of the customer's last name to be filtered by.
    *                     If this parameter is not equal to <code>null</code>,
-   *                     the result shall contain all bookings of the corresponding customer.
+   *                     the result shall contain all bookings from corresponding customers.
    *                     If this parameter is equal to <code>null</code>,
-   *                     it shall be ignored in the filter.
+   *                     a RuntimeException shall be thrown.
    * @return A <code>List</code> object containing all corresponding bookings from the database.
    *         If no booking with the selected criteria is found,
    *         an empty <code>List</code> object shall be returned.
    */
-  List<Booking> getBookings(Integer bookingID, Integer customerID, String customerName);
+  List<Booking> getBookings(int customerID, String customerLastName) throws RuntimeException;
 
   /**
-   * This method returns all trips included in the booking provided.
-   * If the provided booking is <code>null</code> or does not contain any trips,
-   * this method shall return an empty <code>List</code> object.
-   * @param booking A <code>Booking</code> object whose trips shall be returned.
-   *                If this parameter is not equal to <code>null</code>,
-   *                the method shall work as stated above.
-   *                If this parameter is equal to <code>null</code>,
-   *                the method shall return an empty <code>List</code> object.
-   * @return A <code>List</code> object containing all trips included in this booking.
+   * This method returns all bookings filtered customer ID.
+   * If no corresponding booking is found, this method shall return an empty <code>List</code> object.
+   * @param customerID An <code>int</code> of the customer ID to be filtered by.
+   * @return A <code>List</code> object containing all corresponding bookings from the database.
+   *         If no booking with the selected criteria is found,
+   *         an empty <code>List</code> object shall be returned.
    */
-  List<Trip> getTrips(Booking booking);
+  List<Booking> getBookings(int customerID);
 
   /**
-   * This method returns all hotel bookings included in the trip provided.
-   * If the provided trip is <code>null</code> or does not contain any hotel bookings,
-   * this method shall return an empty <code>List</code> object.
-   * @param trip A <code>Trip</code> object whose hotel bookings shall be returned.
-   *             If this parameter is not equal to <code>null</code>,
-   *             the method shall work as stated above.
-   *             If this parameter is equal to <code>null</code>,
-   *             the method shall return an empty <code>List</code> object.
-   * @return A <code>List</code> object containing all hotel bookings included in this trip.
+   * This method returns all bookings filtered customer's last name.
+   * If no corresponding booking is found, this method shall return an empty <code>List</code> object.
+   * @param customerLastName A <code>String</code> of the customer's last name to be filtered by.
+   *                     If this parameter is not equal to <code>null</code>,
+   *                     the result shall contain all bookings from corresponding customers.
+   *                     If this parameter is equal to <code>null</code>,
+   *                     a RuntimeException shall be thrown.
+   * @return A <code>List</code> object containing all corresponding bookings from the database.
+   *         If no booking with the selected criteria is found,
+   *         an empty <code>List</code> object shall be returned.
    */
-  List<HotelBooking> getHotelBookings(Trip trip);
+  List<Booking> getBookings(String customerLastName) throws RuntimeException;
 
   /**
-   * This method returns all flight bookings included in the trip provided.
-   * If the provided trip is <code>null</code> or does not contain any flight bookings,
-   * this method shall return an empty <code>List</code> object.
-   * @param trip A <code>Trip</code> object whose flight bookings shall be returned.
-   *             If this parameter is not equal to <code>null</code>,
-   *             the method shall work as stated above.
-   *             If this parameter is equal to <code>null</code>,
-   *             the method shall return an empty <code>List</code> object.
-   * @return A <code>List</code> object containing all flight bookings included in this trip.
+   * This method returns the booking with the specified booking ID, customer ID, and customer's last name.
+   * If no corresponding booking is found, this method shall return <code>null</code>.
+   * @param bookingID An <code>int</code> of the booking ID to be filtered by.
+   * @param customerID An <code>int</code> of the customer ID to be filtered by.
+   * @param customerLastName A <code>String</code> of the customer's last name to be filtered by.
+   *                     If this parameter is not equal to <code>null</code>,
+   *                     the result shall contain all bookings from corresponding customers.
+   *                     If this parameter is equal to <code>null</code>,
+   *                     a RuntimeException shall be thrown.
+   * @return A <code>Booking</code> object of the booking from the database.
    */
-  List<FlightBooking> getFlightBookings(Trip trip);
+  Booking getBooking(int bookingID, int customerID, String customerLastName) throws RuntimeException;
+
+  /**
+   * This method returns the booking with the specified booking ID, and customer ID.
+   * If no corresponding booking is found, this method shall return <code>null</code>.
+   * @param bookingID An <code>int</code> of the booking ID to be filtered by.
+   * @param customerID An <code>int</code> of the customer ID to be filtered by.
+   * @return A <code>Booking</code> object of the booking from the database.
+   */
+  Booking getBooking(int bookingID, int customerID) throws RuntimeException;
+
+  /**
+   * This method returns the booking with the specified booking ID, and customer's last name.
+   * If no corresponding booking is found, this method shall return <code>null</code>.
+   * @param bookingID An <code>int</code> of the booking ID to be filtered by.
+   * @param customerLastName A <code>String</code> of the customer's last name to be filtered by.
+   *                     If this parameter is not equal to <code>null</code>,
+   *                     the result shall contain all bookings from corresponding customers.
+   *                     If this parameter is equal to <code>null</code>,
+   *                     a RuntimeException shall be thrown.
+   * @return A <code>Booking</code> object of the booking from the database.
+   */
+  Booking getBooking(int bookingID, String customerLastName) throws RuntimeException;
+
+  /**
+   * This method returns the booking with the specified booking ID.
+   * If no corresponding booking is found, this method shall return <code>null</code>.
+   * @param bookingID An <code>int</code> of the booking ID to be filtered by.
+   * @return A <code>Booking</code> object of the booking from the database.
+   */
+  Booking getBooking(int bookingID);
+
+  /**
+   * This method returns the trip with the specified trip ID.
+   * If no corresponding trip is found, this method shall return <code>null</code>.
+   * @param tripID An <code>int</code> of the trip ID to be filtered by.
+   * @return A <code>Trip</code> object of the trip from the database.
+   */
+  Trip getTrip(int tripID);
 
 }

@@ -32,8 +32,7 @@ import javax.persistence.Table;
         name = Booking.FIND_WITH_FILTERS,
         query = """
             SELECT booking FROM Booking booking
-            WHERE booking.id                              = coalesce(:bookingID, booking.id)
-            AND   booking.customer.id                     = coalesce(:customerID, booking.customer.id)
+            WHERE booking.customer.id                     = coalesce(:customerID, booking.customer.id)
             AND   booking.customer.personalData.lastName  = coalesce(:customerName, booking.customer.personalData.lastName)"""
     )
 })
@@ -51,12 +50,6 @@ public class Booking {
   public static final String FIND_WITH_FILTERS = "Booking.findWithFilters";
 
   /**
-   * This constant represents the name of the parameter to filter by booking ID in the named query
-   * 'Booking.findWithFilters'.
-   */
-  public static final String BOOKING_ID = "bookingID";
-
-  /**
    * This constant represents the name of the parameter to filter by customer ID in the named query
    * 'Booking.findWithFilters'.
    */
@@ -66,7 +59,7 @@ public class Booking {
    * This constant represents the name of the parameter to filter by customer's last name in the named query
    * 'Booking.findWithFilters'.
    */
-  public static final String CUSTOMER_NAME = "customerName";
+  public static final String CUSTOMER_LASTNAME = "customerName";
 
   /**
    * Unique identifier for each booking record (primary key in the database).
@@ -120,7 +113,7 @@ public class Booking {
    * Getter-method for the <code>id</code> attribute.
    * @return unique identification number
    */
-  public Integer getId() {
+  public Integer getID() {
     return id;
   }
 
@@ -186,7 +179,7 @@ public class Booking {
     if(obj != null && obj.getClass().equals(this.getClass())) {
       Booking booking = (Booking) obj;
       return
-          ((id == null && booking.getId() == null) || id.equals(booking.getId())) &&
+          ((id == null && booking.getID() == null) || id.equals(booking.getID())) &&
           ((customer == null && booking.getCustomer() == null)
               || customer.equals(booking.getCustomer())) &&
           ((tripSet == null && booking.getTripSet() == null)

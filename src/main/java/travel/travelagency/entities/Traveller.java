@@ -73,8 +73,8 @@ public class Traveller {
   public String toString() {
     return
         (personalData != null ? personalData.toString() + '\n' : "" )
-            + (passportID != null   ? "Passport Number: " + passportID.toString() + '\n'  : "" )
-            + (placeOfBirth != null ? "Place of Birth : " + placeOfBirth.toString()       : "" );
+            + (passportID != null   ? "Passport Number: " + passportID + '\n'  : "" )
+            + (placeOfBirth != null ? "Place of Birth : " + placeOfBirth : "" );
   }
 
   @Override
