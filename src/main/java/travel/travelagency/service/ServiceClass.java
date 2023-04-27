@@ -1,7 +1,6 @@
 package travel.travelagency.service;
 
 import travel.travelagency.database.TravelAgencyEntityManagerFactory;
-import travel.travelagency.entities.Booking;
 import travel.travelagency.service.consumption.BookingConsumable;
 import travel.travelagency.service.consumption.TravelAgencyViewConsumptionService;
 import travel.travelagency.service.consumption.TravelAgencyViewConsumptionServiceImplementation;
