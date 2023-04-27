@@ -3,7 +3,6 @@ package travel.travelagency.service.consumption;
 import java.time.*;
 import java.util.*;
 
-import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Test;
 
 
@@ -142,15 +141,12 @@ public class TravelAgencyViewConsumptionServiceImplementationTest {
 
         private final double PRICE;
 
-        private final double FLIGHT_DURATION;
-
         public TestFlightBooking(
                 String from, LocalDate depDate, LocalTime depTime,
                 String to, LocalDate arrDate, LocalTime arrTime,
                 Integer passengers, Integer duration, Double price
         ) {
             this.PRICE = price;
-            this.FLIGHT_DURATION = duration;
             this.setNumberOfPassengers(passengers);
             Flight flight = new Flight() {
                 @Override
