@@ -122,7 +122,7 @@ public class BookingsController {
 
     @FXML
     private void _home_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("starting_page");
+        TravelAgencyServiceApplication.setRoot("languages/starting_page");
     }
 
     @FXML

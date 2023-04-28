@@ -1,14 +1,13 @@
 package travel.travelagency.controllers;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.scene.control.PasswordField;
 import org.apache.logging.log4j.LogManager;
@@ -30,15 +29,10 @@ public class LandingPageController {
     @FXML public Group infoMessageGroup;
     @FXML public Text infoMessage;
     @FXML public Group loginButtonGroup;
-    @FXML public Group loginButtonFrame;
 
+    private final String LANGUAGES_DIRECTORY = "src/main/resources/languages/";
 
-    @FXML private Rectangle _bg__landing_page;
-    @FXML private Rectangle rectangle_2;
-    @FXML private ImageView ellipse_2;
-    @FXML private ImageView rectangle_3;
-    @FXML private Text log_in;
-    @FXML private Text headerMessage;
+    private final String VIEW_DIRECTORY = "landing_page/";
 
     private static class LoginThread extends Thread {
 
@@ -70,12 +64,11 @@ public class LandingPageController {
     }
 
     public void initialize() throws IOException{
-        //custom code here
-    }
-
-    @FXML
-    private void frame_3_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("starting_page");
+        Properties languageProperties = LanguagePropertiesLoader.loadProperties(
+            LANGUAGES_DIRECTORY + VIEW_DIRECTORY + TravelAgencyServiceApplication.getLanguageFile()
+        );
+        usernameTextField.setPromptText(languageProperties.getProperty("username"));
+        passwordTextField.setPromptText(languageProperties.getProperty("password"));
     }
 
     @FXML

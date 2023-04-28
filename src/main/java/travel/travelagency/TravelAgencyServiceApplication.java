@@ -15,6 +15,8 @@ public class TravelAgencyServiceApplication extends Application {
 
     private static String mainView;
 
+    private static String language_file;
+
     private static final String VIEW_DIRECTORY = "views";
 
     private static Scene scene;
@@ -23,10 +25,13 @@ public class TravelAgencyServiceApplication extends Application {
     static final Logger logger = LogManager.getLogger(TravelAgencyServiceApplication.class);
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         layout = "";
-
-        scene = new Scene(loadFXML(VIEW_DIRECTORY + layout + "/" + mainView));
+        try {
+            scene = new Scene(loadFXML(VIEW_DIRECTORY + layout + "/" + mainView));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
@@ -56,8 +61,13 @@ public class TravelAgencyServiceApplication extends Application {
         return fxmlLoader.load();
     }
 
+    public static String getLanguageFile() {
+        return language_file;
+    }
+
     public static void main(String[] args) {
         mainView = args[0];
+        language_file = args.length >= 2 ? args[1] : "en_US.properties";
         launch();
     }
 

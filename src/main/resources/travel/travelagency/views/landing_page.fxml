@@ -23,15 +23,12 @@
                            fitWidth="720" fitHeight="1024">
                     <Image url="@../../../drawable/rectangle_3.png"/>
                 </ImageView>
-                <Group fx:id="loginButtonGroup" layoutY="680" layoutX="161" >
-                    <Group fx:id="loginButtonFrame" onMouseClicked="#frame_3_onClick" >
-                        <Button textAlignment="CENTER" layoutX="89.333333333333" layoutY="42" text="LOG IN" onAction="#_login_onClick">
-                            <font>
-                                <Font name="Mako" size="40" />
-                            </font>
-                        </Button>
-                    </Group>
-                </Group>
+
+                <Text fx:id="headerMessage" textAlignment="CENTER" fill="#000000" layoutX="209.33333333333" layoutY="400" wrappingWidth="337" text="Welcome back!" >
+                    <font>
+                        <Font name="Poppins" size="40" />
+                    </font>
+                </Text>
 
                 <Group fx:id="credentialsGroup" layoutY="452" layoutX="161">
                     <Group fx:id="usernameGroup">
@@ -50,21 +47,22 @@
                         </PasswordField>
                     </Group>
 
-                    <Group fx:id="infoMessageGroup" layoutY="200">
+                    <Group fx:id="infoMessageGroup" layoutY="190">
                         <Text fx:id="infoMessage">
                             <font>
                                 <Font name="Poppins" size="32"/>
                             </font>
                         </Text>
                     </Group>
+
+                    <Group fx:id="loginButtonGroup" layoutY="220">
+                        <Button textAlignment="CENTER" text="LOG IN" onAction="#_login_onClick">
+                            <font>
+                                <Font name="Mako" size="32" />
+                            </font>
+                        </Button>
+                    </Group>
                 </Group>
-
-                <Text fx:id="headerMessage" textAlignment="CENTER" fill="#000000" layoutX="209.33333333333" layoutY="400" wrappingWidth="337" text="Welcome back!" >
-                    <font>
-                        <Font name="Poppins" size="40" />
-                    </font>
-                </Text>
-
             </children>
         </Pane>
     </content>
