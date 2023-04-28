@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -14,22 +11,20 @@
     <content>
         <Pane prefWidth="1440" prefHeight="1022" >
             <children>
-                <Rectangle  fx:id="_bg__landing_page" width="1440" height="1024"  fill="#FFFFFF" layoutX="0" layoutY="0" >
+                <Rectangle fx:id="_bg__landing_page" width="1440" height="1024" fill="#FFFFFF">
                 </Rectangle>
-                <Rectangle  fx:id="rectangle_2" width="720" height="1024"  fill="#FFFFFF" layoutX="0" layoutY="0" >
+                <Rectangle fx:id="rectangle_2" width="720" height="1024" fill="#FFFFFF">
                 </Rectangle>
-                <ImageView fx:id="ellipse_2" pickOnBounds="true" preserveRatio="true"  layoutX="209" layoutY="155"  fitWidth="301" fitHeight="185" >
-                    <image>
-                        <Image url="@../../../drawable/ellipse_2.png" />
-                    </image>
+                <ImageView fx:id="ellipse_2" pickOnBounds="true" preserveRatio="true" layoutX="209" layoutY="155"
+                           fitWidth="301" fitHeight="185">
+                    <Image url="@../../../drawable/ellipse_2.png"/>
                 </ImageView>
-                <ImageView fx:id="rectangle_3" pickOnBounds="true" preserveRatio="true"  layoutX="720" layoutY="66"  fitWidth="720" fitHeight="1024" >
-                    <image>
-                        <Image url="@../../../drawable/rectangle_3.png" />
-                    </image>
+                <ImageView fx:id="rectangle_3" pickOnBounds="true" preserveRatio="true" layoutX="720" layoutY="66"
+                           fitWidth="720" fitHeight="1024">
+                    <Image url="@../../../drawable/rectangle_3.png"/>
                 </ImageView>
-                <Group fx:id="logginButtonGroup" layoutY="680" layoutX="161" >
-                    <Group fx:id="loginButtonFrame" onMouseClicked="#frame_3_onClick" layoutY="0" layoutX="0" >
+                <Group fx:id="loginButtonGroup" layoutY="680" layoutX="161" >
+                    <Group fx:id="loginButtonFrame" onMouseClicked="#frame_3_onClick" >
                         <Button textAlignment="CENTER" layoutX="89.333333333333" layoutY="42" text="LOG IN" onAction="#_login_onClick">
                             <font>
                                 <Font name="Mako" size="40" />

@@ -25,6 +25,8 @@ public class LandingPageController {
     @FXML public Group usernameFrame;
     @FXML public Group passwordGroup;
     @FXML public Group passwordFrame;
+    @FXML public Group loginButtonGroup;
+    @FXML public Group loginButtonFrame;
 
 
     @FXML private Rectangle _bg__landing_page;
