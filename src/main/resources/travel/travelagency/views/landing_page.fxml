@@ -33,23 +33,29 @@
                     </Group>
                 </Group>
 
-                <Group fx:id="usernameGroup" layoutY="452" layoutX="161">
-                    <Group fx:id="usernameFrame">
-                        <TextField fx:id="usernameTextField" layoutX="31.666666666667" layoutY="39" promptText="Username" >
+                <Group fx:id="credentialsGroup" layoutY="452" layoutX="161">
+                    <Group fx:id="usernameGroup">
+                        <TextField fx:id="usernameTextField" promptText="Username" onAction="#_login_onClick">
                             <font>
                                 <Font name="Poppins" size="32" />
                             </font>
                         </TextField>
                     </Group>
-                </Group>
 
-                <Group fx:id="passwordGroup" layoutY="546" layoutX="161" >
-                    <Group fx:id="passwordFrame">
-                        <PasswordField fx:id="passwordTextField" layoutX="31.666666666667" layoutY="39" promptText="Password" >
+                    <Group fx:id="passwordGroup" layoutY="80">
+                        <PasswordField fx:id="passwordTextField" promptText="Password" onAction="#_login_onClick">
                             <font>
                                 <Font name="Poppins" size="32" />
                             </font>
                         </PasswordField>
+                    </Group>
+
+                    <Group fx:id="infoMessageGroup" layoutY="200">
+                        <Text fx:id="infoMessage">
+                            <font>
+                                <Font name="Poppins" size="32"/>
+                            </font>
+                        </Text>
                     </Group>
                 </Group>
 
