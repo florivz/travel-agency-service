@@ -1,6 +1,7 @@
 package travel.travelagency.database;
 
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Properties;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -26,13 +27,13 @@ public class TravelAgencyEntityManagerFactory {
    * This constructor reads the provided database properties file and creates an <code>EntityManagerFactory</code>
    * object which creates <code>EntityManager</code> objects.
    */
-  public TravelAgencyEntityManagerFactory() {
+  public TravelAgencyEntityManagerFactory(Map<String, String> loginProperties) {
     String dbPropertiesPath = "db.properties";
     Properties p = this.getDBAccessProperties(dbPropertiesPath);
     try {
       String persistenceUnit = p.getProperty("persistence_unit");
       if(persistenceUnit != null)
-        entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnit);
+        entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnit, loginProperties);
       else {
         final String MSG = "'persistence_unit' property not found in database properties";
         throw new RuntimeException(MSG);

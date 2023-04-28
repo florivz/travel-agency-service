@@ -13,13 +13,7 @@ import java.util.List;
 public class ServiceClass {
 
   public static void main(String[] args) {
-    EntityManager em = new TravelAgencyEntityManagerFactory().createEntityManager();
-    TravelAgencyViewDataService dataService = new TravelAgencyViewDataServiceImplementation(em);
-    TravelAgencyViewConsumptionService service = new TravelAgencyViewConsumptionServiceImplementation(dataService);
 
-    List<BookingConsumable> bookings = service.getBooking(1);
-
-    System.out.println(bookings.toString());
   }
 
 }

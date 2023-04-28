@@ -28,48 +28,42 @@
                         <Image url="@../../../drawable/rectangle_3.png" />
                     </image>
                 </ImageView>
-                <!-- android style --><Group fx:id="login_button"  layoutY="680" layoutX="161" >
-            <Group fx:id="frame_3" onMouseClicked="#frame_3_onClick" layoutY="0" layoutX="0" >
-                <Button textAlignment="CENTER" layoutX="89.333333333333" layoutY="42" text="LOG IN" onAction="#_login_onClick">
-                    <font>
-                        <Font name="Mako" size="40" />
-                    </font>
-                </Button>
-            </Group>
+                <Group fx:id="logginButtonGroup" layoutY="680" layoutX="161" >
+                    <Group fx:id="loginButtonFrame" onMouseClicked="#frame_3_onClick" layoutY="0" layoutX="0" >
+                        <Button textAlignment="CENTER" layoutX="89.333333333333" layoutY="42" text="LOG IN" onAction="#_login_onClick">
+                            <font>
+                                <Font name="Mako" size="40" />
+                            </font>
+                        </Button>
+                    </Group>
+                </Group>
 
-            </Group>
+                <Group fx:id="usernameGroup" layoutY="452" layoutX="161">
+                    <Group fx:id="usernameFrame">
+                        <TextField fx:id="usernameTextField" layoutX="31.666666666667" layoutY="39" promptText="Username" >
+                            <font>
+                                <Font name="Poppins" size="32" />
+                            </font>
+                        </TextField>
+                    </Group>
+                </Group>
 
-                <!-- android style --><Group fx:id="password"  layoutY="546" layoutX="161" >
+                <Group fx:id="passwordGroup" layoutY="546" layoutX="161" >
+                    <Group fx:id="passwordFrame">
+                        <PasswordField fx:id="passwordTextField" layoutX="31.666666666667" layoutY="39" promptText="Password" >
+                            <font>
+                                <Font name="Poppins" size="32" />
+                            </font>
+                        </PasswordField>
+                    </Group>
+                </Group>
 
-                <!-- android style --><Group fx:id="frame_2"  layoutY="0" layoutX="0" >
-
-                <Text fx:id="password_ek1" fill="#C9C8C8" layoutX="31.666666666667" layoutY="39" wrappingWidth="215" text="Password" >
-                    <font>
-                        <Font name="Poppins" size="32" />
-                    </font>
-                </Text>
-            </Group>
-
-            </Group>
-
-                <!-- android style --><Group fx:id="username"  layoutY="452" layoutX="161" >
-
-                <!-- android style --><Group fx:id="frame_1"  layoutY="0" layoutX="0" >
-
-                <Text fx:id="username_ek1" fill="#C9C8C8" layoutX="31.666666666667" layoutY="39" wrappingWidth="215" text="Username" >
-                    <font>
-                        <Font name="Poppins" size="32" />
-                    </font>
-                </Text>
-            </Group>
-
-            </Group>
-
-                <Text fx:id="welcome_back_" textAlignment="CENTER" fill="#000000" layoutX="209.33333333333" layoutY="400" wrappingWidth="337" text="Welcome back!" >
+                <Text fx:id="headerMessage" textAlignment="CENTER" fill="#000000" layoutX="209.33333333333" layoutY="400" wrappingWidth="337" text="Welcome back!" >
                     <font>
                         <Font name="Poppins" size="40" />
                     </font>
                 </Text>
+
             </children>
         </Pane>
     </content>
