@@ -12,11 +12,10 @@
         <Pane prefHeight="1022" prefWidth="1440">
             <children>
 
-                <Rectangle fx:id="_bg__bookings" fill="#FFFFFF" height="1024" layoutX="0" layoutY="0" width="1440">
-                </Rectangle>
-                <!-- android style --><Group fx:id="new_booking_button" layoutX="1110" layoutY="946" onMouseClicked="#new_booking_button_onClick">
+                <Rectangle fx:id="_bg__bookings" fill="#FFFFFF" height="1024" width="1440"/>
+                <Group fx:id="new_booking_button" layoutX="1110" layoutY="946" onMouseClicked="#new_booking_button_onClick">
 
-                <!-- android style --><Group fx:id="frame_3" layoutX="0" layoutY="0" onMouseClicked="#frame_3_onClick">
+                <Group fx:id="frame_3" layoutX="0" layoutY="0" onMouseClicked="#frame_3_onClick">
 
                 <Text fx:id="new_booking" fill="#FFFFFF" layoutX="-3" layoutY="31" text="NEW BOOKING" textAlignment="CENTER" wrappingWidth="211">
                     <font>
@@ -513,7 +512,7 @@
                 </Rectangle>
                 <ImageView fx:id="ellipse_2" fitHeight="88" fitWidth="133" layoutX="160" layoutY="7" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../drawable/ellipse_2.png" />
+                        <Image url="@../../../drawable/company_logo.png" />
                     </image>
                 </ImageView>
                 <!-- android style --><Group fx:id="taskbar_texts" layoutX="740" layoutY="34">

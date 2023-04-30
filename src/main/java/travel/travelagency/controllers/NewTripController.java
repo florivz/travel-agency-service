@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import travel.travelagency.TravelAgencyServiceApplication;
 
-public class NewTripController {
+public class NewTripController extends TravelAgencyController {
 
     public static final String VIEW_NAME = "new_trip.fxml";
 
@@ -42,22 +42,22 @@ public class NewTripController {
 
     @FXML
     private void frame_3_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("trip_search");
+        application.setRoot("trip_search");
     }
 
     @FXML
     private void frame_3_ek1_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("landing_page");
+        application.setRoot("landing_page");
     }
 
     @FXML
     private void _home_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("languages/starting_page");
+        application.setRoot("languages/starting_page");
     }
 
     @FXML
     private void _bookings_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("bookings");
+        application.setRoot("bookings");
     }
 
 

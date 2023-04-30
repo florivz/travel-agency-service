@@ -2,10 +2,8 @@ package travel.travelagency.controllers;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import travel.travelagency.database.TravelAgencyEntityManagerFactory;
 
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.Properties;
 
 public class LanguagePropertiesLoader {
@@ -14,8 +12,12 @@ public class LanguagePropertiesLoader {
 
     private static final String MSG_FAILED_TO_LOAD_PROPERTIES = "Loading %s failed";
 
-    public static Properties loadProperties(String propertiesPath) {
-        Properties languageProperties = new Properties();
+    private static final String DEFAULT_PROPERTIES_FILE = "en_US.properties";
+
+    public static Properties loadProperties(String directory, String propertiesFile) {
+        String propertiesPath = directory + propertiesFile;
+        Properties languageProperties = propertiesFile.equals(DEFAULT_PROPERTIES_FILE) ?
+                new Properties() : new Properties(loadProperties(directory, DEFAULT_PROPERTIES_FILE));
         try (FileInputStream is = new FileInputStream(propertiesPath)) {
             languageProperties.load(is);
         } catch (Exception e) {

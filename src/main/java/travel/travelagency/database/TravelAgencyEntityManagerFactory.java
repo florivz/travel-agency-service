@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.service.spi.ServiceException;
 
 /**
  * This class creates <code>EntityManager</code> connected to the database.
@@ -17,6 +18,13 @@ import org.apache.logging.log4j.Logger;
 public class TravelAgencyEntityManagerFactory {
 
   static final Logger logger = LogManager.getLogger(TravelAgencyEntityManagerFactory.class);
+
+  private static final String MSG_MISSING_PROPERTY =
+        "Unable to create EntityManagerFactor without property %s";
+
+  private static final String MSG_UNABLE_TO_CREATE =
+        "Unable to create EntityManagerFactory using properties %s and persistence unit %s";
+
 
   /**
    * private <code>EntityManagerFactory</code> used to create <code>EntityManager</code> objects.
@@ -28,18 +36,31 @@ public class TravelAgencyEntityManagerFactory {
    * object which creates <code>EntityManager</code> objects.
    */
   public TravelAgencyEntityManagerFactory(Map<String, String> loginProperties) {
+    //check if user property is set
+    if(! loginProperties.containsKey("javax.persistence.jdbc.user")) {
+      final String MSG = String.format(MSG_MISSING_PROPERTY, "javax.persistence.jdbc.user");
+      logger.warn(MSG);
+      throw new RuntimeException(MSG);
+    }
+    //check if password property is set
+    if(! loginProperties.containsKey("javax.persistence.jdbc.password")) {
+      final String MSG = String.format(MSG_MISSING_PROPERTY, "javax.persistence.jdbc.password");
+      logger.warn(MSG);
+      throw new RuntimeException(MSG);
+    }
     String dbPropertiesPath = "db.properties";
+    String persistenceUnit = null;
     Properties p = this.getDBAccessProperties(dbPropertiesPath);
     try {
-      String persistenceUnit = p.getProperty("persistence_unit");
-      if(persistenceUnit != null)
+      persistenceUnit = p.getProperty("persistence_unit");
+      if (persistenceUnit != null)
         entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnit, loginProperties);
       else {
         final String MSG = "'persistence_unit' property not found in database properties";
         throw new RuntimeException(MSG);
       }
     } catch (Exception e) {
-      final String MSG = "Unable to create EntityManagerFactory";
+      final String MSG = String.format(MSG_UNABLE_TO_CREATE, loginProperties.toString(), persistenceUnit);
       logger.error(MSG);
       throw new RuntimeException(MSG);
     }

@@ -9,7 +9,9 @@ import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
 import travel.travelagency.TravelAgencyServiceApplication;
 
-public class BookingsController {
+import javax.persistence.EntityManager;
+
+public class BookingsController extends TravelAgencyController {
 
     public static final String VIEW_NAME = "bookings.fxml";
 
@@ -93,51 +95,55 @@ public class BookingsController {
     @FXML private Text log_out;
     @FXML private Text life_is_short__travel_often;
 
+    private EntityManager entityManager;
+
     public void initialize() throws IOException{
 
         //custom code here
 
     }
 
+    public void setEntityManager(EntityManager entityManager) { this.entityManager = entityManager; }
+
 
     @FXML
     private void new_booking_button_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("new_trip");
+        application.setRoot("new_trip");
     }
 
     @FXML
     private void frame_3_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("new_trip");
+        application.setRoot("new_trip");
     }
 
     @FXML
     private void _image_1_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("booking_details");
+        application.setRoot("booking_details");
     }
 
     @FXML
     private void frame_3_ek2_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("bookings_filtered");
+        application.setRoot("bookings_filtered");
     }
 
     @FXML
     private void _home_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("languages/starting_page");
+        application.setRoot("languages/starting_page");
     }
 
     @FXML
     private void _new_trip_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("new_trip");
+        application.setRoot("new_trip");
     }
 
     @FXML
     private void _bookings_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("bookings");
+        application.setRoot("bookings");
     }
 
     @FXML
     private void frame_3_ek3_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("landing_page");
+        application.setRoot("landing_page");
     }
 
 

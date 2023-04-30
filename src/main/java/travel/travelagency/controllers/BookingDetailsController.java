@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
 import travel.travelagency.TravelAgencyServiceApplication;
 
-public class BookingDetailsController {
+public class BookingDetailsController extends TravelAgencyController {
 
     public static final String VIEW_NAME = "booking_details.fxml";
 
@@ -68,32 +68,32 @@ public class BookingDetailsController {
 
     @FXML
     private void back_button_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("new_trip");
+        application.setRoot("new_trip");
     }
 
     @FXML
     private void frame_3_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("bookings");
+        application.setRoot("bookings");
     }
 
     @FXML
     private void _home_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("languages/starting_page");
+        application.setRoot("languages/starting_page");
     }
 
     @FXML
     private void _new_trip_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("new_trip");
+        application.setRoot("new_trip");
     }
 
     @FXML
     private void _bookings_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("bookings");
+        application.setRoot("bookings");
     }
 
     @FXML
     private void frame_3_ek3_onClick() throws IOException {
-        TravelAgencyServiceApplication.setRoot("landing_page");
+        application.setRoot("landing_page");
     }
 
 

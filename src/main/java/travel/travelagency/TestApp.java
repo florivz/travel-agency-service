@@ -66,7 +66,7 @@ public class TestApp extends Application {
     }
 
     public static void main(String[] args) {
-        mainView = "starting_page.fxml";
+        mainView = "bookings.fxml";
         language_file = "en_US.properties";
         launch();
     }
