@@ -1,11 +1,14 @@
 package travel.travelagency.controllers;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 
+import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -16,38 +19,33 @@ public class StartingPageController {
 
     public static final String VIEW_NAME = "starting_page.fxml";
 
+    private final String LANGUAGES_DIRECTORY = "src/main/resources/languages/";
 
-    @FXML private Rectangle _bg__starting_page;
-    @FXML private Text order_no_;
-    @FXML private TextField bookingID;
-    @FXML private Text customer_name;
-    @FXML private TextField customerID;
-    @FXML private Text customer_id;
-    @FXML private TextField customerName;
-    @FXML private Text search;
-    @FXML private Text search_for_an_existing_trip;
-    @FXML private ImageView david_vives_elf8m_ywrty_unsplash_1;
-    @FXML private Text destination;
-    @FXML private Text where_to_;
-    @FXML private Text people;
-    @FXML private Text how_many_persons_;
-    @FXML private Text date;
-    @FXML private Text select_date;
-    @FXML private Text search_ek1;
-    @FXML private Rectangle rectangle_6;
-    @FXML private Text log_out;
-    @FXML private ImageView ellipse_2;
-    @FXML private Text home;
-    @FXML private Text _new_trip_ek1;
-    @FXML private Text _bookings;
-    @FXML private Rectangle line_1;
-    @FXML private Text life_is_short__travel_often;
-    @FXML private Text book_a_new_trip;
+    private final String VIEW_DIRECTORY = "landing_page/";
+
+    @FXML public Rectangle startingPage;
+    @FXML public Group searchTripGroup;
+    @FXML public Group bookingIDGroup;
+    @FXML public Text bookingIDText;
+    @FXML public TextField bookingIDTextField;
+    @FXML public Group customerNameGroup;
+    @FXML public Text customerNameText;
+    @FXML public TextField customerNameTextField;
+    @FXML public Group customerIDGroup;
+    @FXML public Text customerIDText;
+    @FXML public TextField customerIDTextField;
+    @FXML public Button searchButton;
 
     public void initialize() throws IOException{
-
-        //custom code here
-
+        Properties languageProperties = LanguagePropertiesLoader.loadProperties(
+            LANGUAGES_DIRECTORY + VIEW_DIRECTORY + TravelAgencyServiceApplication.getLanguageFile()
+        );
+        bookingIDText.setText(languageProperties.getProperty("booking.number"));
+        bookingIDTextField.setPromptText(languageProperties.getProperty("booking.number"));
+        customerIDText.setText(languageProperties.getProperty("customer.number"));
+        customerIDTextField.setPromptText(languageProperties.getProperty("customer.number"));
+        customerNameText.setText(languageProperties.getProperty("customer.name"));
+        customerNameTextField.setPromptText(languageProperties.getProperty("customer.name"));
     }
 
 

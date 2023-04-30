@@ -11,66 +11,60 @@
     <content>
         <Pane prefHeight="1022" prefWidth="1440">
             <children>
-                <Rectangle fx:id="_bg__starting_page" fill="#FFFFFF" height="1024" layoutX="0" layoutY="0" width="1440">
+                <Rectangle fx:id="startingPage" fill="#FFFFFF" height="1024" width="1440">
                 </Rectangle>
-                <!-- android style --><Group fx:id="exisiting_trip" layoutX="255" layoutY="802">
+                <Group fx:id="searchTripGroup" layoutX="255" layoutY="802">
+                    <Group fx:id="bookingIDGroup" layoutX="44" layoutY="32">
+                        <Text fx:id="bookingIDText" fill="#000000" layoutX="3.6666666666667" layoutY="20" text="Booking No." textAlignment="CENTER" wrappingWidth="110">
+                            <font>
+                                <Font name="Poppins" size="20" />
+                            </font>
+                        </Text>
+                        <TextField fx:id="bookingIDTextField" layoutX="5.3333333333333" layoutY="50">
+                            <font>
+                                <Font name="Poppins" size="16" />
+                            </font>
+                        </TextField>
+                    </Group>
+                    <Group fx:id="customerNameGroup" layoutX="398" layoutY="32">
+                        <Text fx:id="customerNameText" fill="#000000" layoutX="3.6666666666667" layoutY="20" text="Customer Name" textAlignment="CENTER" wrappingWidth="182">
+                            <font>
+                                <Font name="Poppins" size="20" />
+                            </font>
+                        </Text>
+                        <TextField fx:id="customerNameTextField" layoutX="5.3333333333333" layoutY="50">
+                            <font>
+                                <Font name="Poppins" size="16" />
+                            </font>
+                        </TextField>
+                    </Group>
+                    <Group fx:id="customerIDGroup" layoutX="221" layoutY="32">
+                        <Text fx:id="customerIDText" fill="#000000" layoutX="3.6666666666667" layoutY="20" text="Customer ID" textAlignment="CENTER" wrappingWidth="140">
+                            <font>
+                                <Font name="Poppins" size="20" />
+                            </font>
+                        </Text>
+                        <TextField fx:id="customerIDTextField" layoutX="5.3333333333333" layoutY="50">
+                            <font>
+                                <Font name="Poppins" size="16" />
+                            </font>
+                        </TextField>
+                    </Group>
 
-                <!-- android style --><Group fx:id="frame_5" layoutX="44" layoutY="32">
-
-                <Text fx:id="order_no_" fill="#000000" layoutX="3.6666666666667" layoutY="20" text="Order No" textAlignment="CENTER" wrappingWidth="110">
-                    <font>
-                        <Font name="Poppins" size="20" />
-                    </font>
-                </Text>
-                <TextField fx:id="bookingID" layoutX="5.3333333333333" layoutY="50">
-                    <font>
-                        <Font name="Poppins" size="16" />
-                    </font>
-                </TextField>
+                    <Button fx:id= "searchButton" layoutX="746.0" layoutY="34.0" text="SEARCH" textAlignment="CENTER" onAction="#_search_bookings_onClick">
+                        <font>
+                            <Font name="Mako" size="24" />
+                        </font>
+                    </Button>
             </Group>
 
-                <!-- android style --><Group fx:id="frame_7" layoutX="398" layoutY="32">
+            <Text fx:id="search_for_an_existing_trip" fill="#3B768A" layoutX="268.33333333333" layoutY="785" text="Search for an existing trip" wrappingWidth="586">
+                <font>
+                    <Font name="Merriweather" size="40" />
+                </font>
+            </Text>
 
-                <Text fx:id="customer_name" fill="#000000" layoutX="3.6666666666667" layoutY="20" text="Customer Name" textAlignment="CENTER" wrappingWidth="182">
-                    <font>
-                        <Font name="Poppins" size="20" />
-                    </font>
-                </Text>
-                <TextField fx:id="customerID" layoutX="5.3333333333333" layoutY="50">
-                    <font>
-                        <Font name="Poppins" size="16" />
-                    </font>
-                </TextField>
-            </Group>
-
-            <Group fx:id="frame_6" layoutX="221" layoutY="32">
-                <Text fx:id="customer_id" fill="#000000" layoutX="3.6666666666667" layoutY="20" text="Customer ID" textAlignment="CENTER" wrappingWidth="140">
-                    <font>
-                        <Font name="Poppins" size="20" />
-                    </font>
-                </Text>
-                <TextField fx:id="customerName" layoutX="5.3333333333333" layoutY="50">
-                    <font>
-                        <Font name="Poppins" size="16" />
-                    </font>
-                </TextField>
-            </Group>
-
-          <Button layoutX="746.0" layoutY="34.0" text="SEARCH" textAlignment="CENTER" onAction="#_search_bookings_onClick">
-              <font>
-                  <Font name="Mako" size="24" />
-              </font>
-          </Button>
-
-            </Group>
-
-                <Text fx:id="search_for_an_existing_trip" fill="#3B768A" layoutX="268.33333333333" layoutY="785" text="Search for an existing trip" wrappingWidth="586">
-                    <font>
-                        <Font name="Merriweather" size="40" />
-                    </font>
-                </Text>
-                <!-- android style --><Group fx:id="bild" layoutX="160" layoutY="113">
-
+            <Group fx:id="bild" layoutX="160" layoutY="113">
                 <ImageView fx:id="david_vives_elf8m_ywrty_unsplash_1" fitHeight="355" fitWidth="1120" layoutX="0" layoutY="0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../drawable/david_vives_elf8m_ywrty_unsplash_1.png" />

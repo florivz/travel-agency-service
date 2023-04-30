@@ -11,7 +11,7 @@
     <content>
         <Pane prefWidth="1440" prefHeight="1022" >
             <children>
-                <Rectangle fx:id="_bg__landing_page" width="1440" height="1024" fill="#FFFFFF">
+                <Rectangle fx:id="landingPage" width="1440" height="1024" fill="#FFFFFF">
                 </Rectangle>
                 <Rectangle fx:id="rectangle_2" width="720" height="1024" fill="#FFFFFF">
                 </Rectangle>
@@ -24,7 +24,7 @@
                     <Image url="@../../../drawable/rectangle_3.png"/>
                 </ImageView>
 
-                <Text fx:id="headerMessage" textAlignment="CENTER" fill="#000000" layoutX="209.33333333333" layoutY="400" wrappingWidth="337" text="Welcome back!" >
+                <Text fx:id="headerMessage" textAlignment="LEFT" fill="#000000" layoutX="200" layoutY="400" wrappingWidth="400" text="Welcome back!" >
                     <font>
                         <Font name="Poppins" size="40" />
                     </font>
@@ -32,7 +32,7 @@
 
                 <Group fx:id="credentialsGroup" layoutY="452" layoutX="161">
                     <Group fx:id="usernameGroup">
-                        <TextField fx:id="usernameTextField" promptText="Username" onAction="#_login_onClick">
+                        <TextField fx:id="usernameTextField" promptText="Username" onAction="#_login_onClick" maxWidth="400">
                             <font>
                                 <Font name="Poppins" size="32" />
                             </font>
@@ -40,7 +40,7 @@
                     </Group>
 
                     <Group fx:id="passwordGroup" layoutY="80">
-                        <PasswordField fx:id="passwordTextField" promptText="Password" onAction="#_login_onClick">
+                        <PasswordField fx:id="passwordTextField" promptText="Password" onAction="#_login_onClick" maxWidth="400">
                             <font>
                                 <Font name="Poppins" size="32" />
                             </font>

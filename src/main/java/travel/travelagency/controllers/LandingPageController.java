@@ -21,6 +21,8 @@ public class LandingPageController {
     static final Logger logger = LogManager.getLogger(LandingPageController.class);
 
     public static final String VIEW_NAME = "landing_page.fxml";
+
+    @FXML public Text headerMessage;
     @FXML public Group credentialsGroup;
     @FXML public Group usernameGroup;
     @FXML private TextField usernameTextField;
@@ -67,6 +69,7 @@ public class LandingPageController {
         Properties languageProperties = LanguagePropertiesLoader.loadProperties(
             LANGUAGES_DIRECTORY + VIEW_DIRECTORY + TravelAgencyServiceApplication.getLanguageFile()
         );
+        headerMessage.setText(languageProperties.getProperty("title"));
         usernameTextField.setPromptText(languageProperties.getProperty("username"));
         passwordTextField.setPromptText(languageProperties.getProperty("password"));
     }
