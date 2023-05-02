@@ -7,13 +7,13 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<ScrollPane hbarPolicy="NEVER" prefHeight="1024" prefWidth="1440" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="travel.travelagency.controllers.StartingPageController">
+<?import org.controlsfx.control.table.FilterValue?>
+<?import org.controlsfx.control.table.FilterPanel?>
+<?import javafx.collections.transformation.FilteredList?>
+<ScrollPane hbarPolicy="NEVER" prefHeight="1024" prefWidth="1440" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="travel.travelagency.controllers.ViewBookingsController">
     <content>
         <Pane prefHeight="1022" prefWidth="1440">
             <children>
-                <Rectangle id="startingPage" fill="#FFFFFF" height="1024" width="1440">
-                </Rectangle>
-
                 <Group id="taskbar">
                     <Rectangle id="background" fill="#FFFFFF" height="102" width="1600">
                     </Rectangle>
@@ -49,14 +49,7 @@
                     </Group>
                     <Rectangle id="dividerLine" fill="#3B768A" height="1" layoutY="102" width="1600"/>
                 </Group>
-
-                <Group id="complementaryImageGroup" layoutX="160" layoutY="113">
-                    <ImageView id="complementaryImage" fitHeight="355" fitWidth="1120" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../../drawable/complementary_image_2.png"/>
-                    </ImageView>
-                </Group>
-
-                <Group id="searchBookingGroup" layoutX="255" layoutY="556">
+                <Group id="searchBookingGroup" layoutX="255" layoutY="180">
                     <Text fx:id="searchBookingTitle" fill="#3B768A" text="Search for an existing booking" wrappingWidth="800">
                         <font>
                             <Font name="Merriweather" size="40" />
@@ -68,7 +61,7 @@
                                 <Font name="Poppins" size="20" />
                             </font>
                         </Text>
-                        <TextField fx:id="bookingIDTextField" layoutY="30" maxWidth="200">
+                        <TextField fx:id="bookingIDTextField" layoutY="30" maxWidth="200" onAction="#_search_bookings_onClick">
                             <font>
                                 <Font name="Poppins" size="16" />
                             </font>
@@ -80,7 +73,7 @@
                                 <Font name="Poppins" size="20" />
                             </font>
                         </Text>
-                        <TextField fx:id="customerNameTextField"  layoutY="30" maxWidth="200">
+                        <TextField fx:id="customerNameTextField"  layoutY="30" maxWidth="200" onAction="#_search_bookings_onClick">
                             <font>
                                 <Font name="Poppins" size="16" />
                             </font>
@@ -92,7 +85,7 @@
                                 <Font name="Poppins" size="20" />
                             </font>
                         </Text>
-                        <TextField fx:id="customerIDTextField" layoutY="30" maxWidth="200">
+                        <TextField fx:id="customerIDTextField" layoutY="30" maxWidth="200" onAction="#_search_bookings_onClick">
                             <font>
                                 <Font name="Poppins" size="16" />
                             </font>
@@ -104,17 +97,11 @@
                         </font>
                     </Button>
                 </Group>
-                <Group id="createBookingGroup" layoutX="255" layoutY="785">
-                    <Text fx:id="createBookingTitle" fill="#3B768A" text="Create a new booking" wrappingWidth="800">
-                        <font>
-                            <Font name="Merriweather" size="40" />
-                        </font>
-                    </Text>
-                    <Button fx:id= "createBookingButton" layoutX="746.0" layoutY="40" text="CREATE" textAlignment="CENTER" disable="true">
-                        <font>
-                            <Font name="Mako" size="24" />
-                        </font>
-                    </Button>
+                <Group id="bookingsListGroup" layoutX="160" layoutY="350">
+                    <TableView fx:id="bookingsTableView" minHeight="20" maxHeight="500" onMouseClicked="#_bookingsTableView_onClick">
+                    </TableView>
+                    <TableView fx:id="tripTableView" minHeight="20" maxHeight="500" onMouseClicked="#_tripTableView_onClick">
+                    </TableView>
                 </Group>
             </children>
         </Pane>

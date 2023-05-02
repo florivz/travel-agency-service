@@ -33,10 +33,6 @@ public class LandingPageController extends TravelAgencyController {
     @FXML public Text infoMessage;
     @FXML public Button loginButton;
 
-    private final String LANGUAGES_DIRECTORY = "src/main/resources/languages/";
-
-    private final String VIEW_DIRECTORY = "landing_page/";
-
     /**
      * Text to be displayed when login credentials are falsely
      */
@@ -52,49 +48,31 @@ public class LandingPageController extends TravelAgencyController {
      */
     private String msg_view_not_loaded;
 
-    private class LoginThread extends Thread {
-
-        @Override
-        public void run() {
-            try {
-                TravelAgencyEntityManagerFactory factory = TravelAgencyDatabaseAuthenticator.loginToDataBase(
-                    usernameTextField.getText(), passwordTextField.getText()
-                );
-                FXMLLoader loader = TravelAgencyServiceApplication.getFXMLLoader(StartingPageController.VIEW_NAME);
-                Scene scene = application.loadScene(loader);
-                StartingPageController controller = loader.getController();
-                controller.setApplication(application);
-                controller.setEntityManagerFactory(factory);
-                Platform.runLater(() -> application.setScene(scene));
-            } catch (RuntimeException e) {
-                logger.info(e.getMessage());
-                final String MSG;
-                if(e.getClass().equals(IllegalStateException.class))
-                    MSG = msg_view_not_loaded;
-                else {
-                    MSG = msg_invalid_credentials;
-                }
-                Platform.runLater(() -> {
-                    usernameTextField.clear();
-                    passwordTextField.clear();
-                    infoMessage.setFill(Color.RED);
-                    infoMessage.setText(MSG);
-                    usernameTextField.requestFocus();
-                });
-            }
-        }
-
+    /**
+     * Constructor for this controller passing the <code>Application</code> object this
+     * instance belongs tp
+     * @param application Application calling the contructor
+     */
+    public LandingPageController(TravelAgencyServiceApplication application) {
+        this.application = application;
     }
 
+    /**
+     * This method is called when the landing_page.fxml file is loaded
+     */
     public void initialize() {
-        setTexts(TravelAgencyServiceApplication.getLanguageFile());
+        setTexts(application.getLanguageFile());
         usernameTextField.requestFocus();
     }
 
+    /**
+     * This private method sets all texts to the corresponding translation in the language file provided.
+     * @param languageFile language file name
+     */
     private void setTexts(String languageFile) {
         //load texts for java fx elements
         Properties languageProperties = LanguagePropertiesLoader.loadProperties(
-                LANGUAGES_DIRECTORY + VIEW_DIRECTORY, languageFile
+                TravelAgencyServiceApplication.LANGUAGE_DIRECTORY + "landing_page/", languageFile
         );
         headerMessage.setText(languageProperties.getProperty("login.title", "Welcome back!"));
         usernameTextField.setPromptText(languageProperties.getProperty("login.username", "Username"));
@@ -103,7 +81,7 @@ public class LandingPageController extends TravelAgencyController {
 
         //load texts for error messages
         Properties errorMessageProperties = LanguagePropertiesLoader.loadProperties(
-            LANGUAGES_DIRECTORY + "error_messages/", languageFile
+            TravelAgencyServiceApplication.LANGUAGE_DIRECTORY + "error_messages/", languageFile
         );
         msg_invalid_credentials = errorMessageProperties.getProperty(
             "landingPage.invalidDatabaseCredentials", "Invalid credentials"
@@ -114,20 +92,72 @@ public class LandingPageController extends TravelAgencyController {
 
         //load texts for info texts
         Properties infoTextProperties = LanguagePropertiesLoader.loadProperties(
-            LANGUAGES_DIRECTORY + "info_texts/", languageFile
+            TravelAgencyServiceApplication.LANGUAGE_DIRECTORY + "info_texts/", languageFile
         );
         msg_login_attempt = infoTextProperties.getProperty(
             "landingPage.attemptLogin", "Attempting login..."
         );
     }
 
+    /**
+     * This method calls the <code>attempLogin()</code> method.
+     * It is triggered when the log in button is pressed
+     * @param actionEvent automatically generated actionEvent from the runtime
+     */
     @FXML
-    private void _login_onClick(ActionEvent actionEvent) throws IOException {
-        infoMessage.setFill(Color.BLACK);
-        infoMessage.setText(msg_login_attempt);
-        new LoginThread().start();
+    private void _loginButton_onClick(ActionEvent actionEvent) {
+        actionEvent.consume();
+        attemptLogin();
     }
 
+    /**
+     * This method calls the <code>attempLogin()</code> method.
+     * It is triggered when the username text field is entered
+     * @param actionEvent automatically generated actionEvent from the runtime
+     */
+    public void _usernameTextField_onClick(ActionEvent actionEvent) {
+        actionEvent.consume();
+        attemptLogin();
+    }
 
+    /**
+     * This method calls the <code>attempLogin()</code> method.
+     * It is triggered when the password text field is entered
+     * @param actionEvent automatically generated actionEvent from the runtime
+     */
+    public void _passwordTextField_onClick(ActionEvent actionEvent) {
+        actionEvent.consume();
+        attemptLogin();
+    }
+
+    /**
+     * This private method tries to login into the database using the
+     * credentials of the text fields username and password.
+     */
+    private void attemptLogin() {
+        infoMessage.setFill(Color.BLACK);
+        infoMessage.setText(msg_login_attempt);
+        new Thread(() -> {
+            try {
+                TravelAgencyEntityManagerFactory factory = TravelAgencyDatabaseAuthenticator.loginToDataBase(
+                        usernameTextField.getText(), passwordTextField.getText()
+                );
+                FXMLLoader loader = TravelAgencyServiceApplication.getFXMLLoader(StartingPageController.VIEW_NAME);
+                application.setEntityManagerFactory(factory);
+                loader.setControllerFactory(c -> new StartingPageController(application));
+                Scene scene = application.loadScene(loader);
+                Platform.runLater(() -> application.setScene(scene));
+            } catch (IOException | RuntimeException e) {
+                logger.error(e.getMessage());
+                Platform.runLater(() -> {
+                    usernameTextField.clear();
+                    passwordTextField.clear();
+                    infoMessage.setFill(Color.RED);
+                    infoMessage.setText(e.getClass().equals(RuntimeException.class) ? msg_invalid_credentials : msg_view_not_loaded);
+                    usernameTextField.requestFocus();
+                });
+            }
+        }).start();
+    }
 }
 

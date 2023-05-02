@@ -3,25 +3,26 @@ package travel.travelagency.controllers;
 import java.io.IOException;
 import java.util.Properties;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.LoadException;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.text.Text;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import travel.travelagency.TravelAgencyServiceApplication;
 import travel.travelagency.database.TravelAgencyEntityManagerFactory;
 
 public class StartingPageController extends TravelAgencyController {
 
+    static final Logger logger = LogManager.getLogger(StartingPageController.class);
+
     public static final String VIEW_NAME = "starting_page.fxml";
-
-    private final String LANGUAGES_DIRECTORY = "src/main/resources/languages/";
-
-    private final String VIEW_DIRECTORY = "starting_page/";
 
     @FXML public Text agencyName;
 
@@ -43,9 +44,18 @@ public class StartingPageController extends TravelAgencyController {
 
     private TravelAgencyEntityManagerFactory factory;
 
+    public StartingPageController(TravelAgencyServiceApplication application) {
+        this.application = application;
+    }
+
     public void initialize() throws IOException{
+        setTexts(application.getLanguageFile());
+        setListeners();
+    }
+
+    private void setTexts(String languageFile) {
         Properties languageProperties = LanguagePropertiesLoader.loadProperties(
-            LANGUAGES_DIRECTORY + VIEW_DIRECTORY, TravelAgencyServiceApplication.getLanguageFile()
+            TravelAgencyServiceApplication.LANGUAGE_DIRECTORY + "starting_page/", languageFile
         );
         agencyName.setText(languageProperties.getProperty("menu.agencyName", "Agency Reis"));
         home.setText(languageProperties.getProperty("menu.home", "Home"));
@@ -66,6 +76,21 @@ public class StartingPageController extends TravelAgencyController {
         createBookingButton.setText(languageProperties.getProperty("createBooking.createButton"));
     }
 
+    private void setListeners() {
+        bookingIDTextField.setTextFormatter(createDigitFormatter());
+        customerIDTextField.setTextFormatter(createDigitFormatter());
+    }
+
+    private TextFormatter<String> createDigitFormatter() {
+        return new TextFormatter<String>(change -> {
+            if (change.getControlNewText().matches("\\d*")) {
+                return change;
+            } else {
+                return null;
+            }
+        });
+    }
+
     public void setEntityManagerFactory(TravelAgencyEntityManagerFactory factory) {
         this.factory = factory;
     }
@@ -73,28 +98,39 @@ public class StartingPageController extends TravelAgencyController {
 
     @FXML
     private void _home_onClick() {
-        application.setRoot(VIEW_NAME);
+        application.setRoot(VIEW_NAME, new StartingPageController(application));
     }
 
     @FXML
     private void _searchBookings_onClick() {
-        application.setRoot(BookingsController.VIEW_NAME);
+        application.setRoot(ViewBookingsController.VIEW_NAME, new ViewBookingsController(application));
     }
 
     @FXML
     private void _logout_onClick(ActionEvent actionEvent) {
         factory = null;
-        application.setRoot(LandingPageController.VIEW_NAME);
+        application.setRoot(LandingPageController.VIEW_NAME, new LandingPageController(application));
     }
 
     @FXML
-    private void _search_bookings_onClick(ActionEvent actionEvent) {
-        FXMLLoader loader = TravelAgencyServiceApplication.getFXMLLoader(BookingsController.VIEW_NAME);
-        Scene scene = application.loadScene(loader);
-        BookingsController controller = loader.getController();
-        controller.setApplication(application);
-        controller.setEntityManager(factory.createEntityManager());
-        application.setScene(scene);
+    private void _search_bookings_onClick(ActionEvent actionEvent) throws LoadException {
+        FXMLLoader loader = TravelAgencyServiceApplication.getFXMLLoader(ViewBookingsController.VIEW_NAME);
+        try {
+            ViewBookingsController controller = new ViewBookingsController(application);
+            loader.setControllerFactory(c -> controller);
+            Scene scene = application.loadScene(loader);
+            if(! bookingIDTextField.getText().isEmpty())
+                controller.setBookingID(Integer.parseInt(bookingIDTextField.getText()));
+            if(! customerIDTextField.getText().isEmpty())
+                controller.setCustomerID(Integer.parseInt(customerIDTextField.getText()));
+            if(! customerNameTextField.getText().isEmpty())
+                controller.setCustomerName(customerNameText.getText());
+            application.setScene(scene);
+        } catch (LoadException e) {
+            logger.error(e.getMessage());
+        } finally {
+            factory = null;
+        }
     }
 }
 

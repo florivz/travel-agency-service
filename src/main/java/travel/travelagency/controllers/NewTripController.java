@@ -42,22 +42,22 @@ public class NewTripController extends TravelAgencyController {
 
     @FXML
     private void frame_3_onClick() throws IOException {
-        application.setRoot("trip_search");
+        //code
     }
 
     @FXML
     private void frame_3_ek1_onClick() throws IOException {
-        application.setRoot("landing_page");
+        //code
     }
 
     @FXML
     private void _home_onClick() throws IOException {
-        application.setRoot("languages/starting_page");
+        //code
     }
 
     @FXML
     private void _bookings_onClick() throws IOException {
-        application.setRoot("bookings");
+        //code
     }
 
 

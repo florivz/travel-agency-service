@@ -28,10 +28,15 @@ public class TravelAgencyViewConsumptionServiceImplementation implements TravelA
     private List<BookingConsumable> convertBookingEntityToConsumable(List<Booking> bookings) {
         List<BookingConsumable> bookingConsumables = new LinkedList<>();
         for (Booking booking : bookings) {
+            PersonalData pDat = booking.getCustomer().getPersonalData();
             bookingConsumables.add(new BookingConsumable(
                 booking.getID(),
                 booking.getCustomer().getID(),
-                booking.getCustomer().getPersonalData().getLastName(),
+                (
+                    (pDat.getFirstName() != null && pDat.getFirstName().isEmpty() ? pDat.getFirstName() + " " : "") +
+                    (pDat.getMiddleName() != null && pDat.getMiddleName().isEmpty() ? pDat.getMiddleName() + " " : "") +
+                    (pDat.getLastName() != null ? pDat.getLastName() : "")
+                ),
                 booking.getDate(),
                 booking.getTotalPrice(),
                 "EUR"
@@ -123,6 +128,12 @@ public class TravelAgencyViewConsumptionServiceImplementation implements TravelA
     @Override
     public List<BookingConsumable> getBookings(String customerLastName) {
         List<Booking> bookingList = dataService.getBookings(customerLastName);
+        return bookingList == null ? new LinkedList<>() : convertBookingEntityToConsumable(bookingList);
+    }
+
+    @Override
+    public List<BookingConsumable> getBookings() {
+        List<Booking> bookingList = dataService.getBookings();
         return bookingList == null ? new LinkedList<>() : convertBookingEntityToConsumable(bookingList);
     }
 

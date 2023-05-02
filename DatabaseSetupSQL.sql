@@ -263,11 +263,11 @@ GRANT SELECT ON `booking` TO `DEMO_USER`;
 
 -- export data of table travel-agency-service_db.booking: 3 rows
 DELETE FROM `booking`;
-INSERT INTO `booking` (`booking_id`, `customer_id`) VALUES
-    (1, 1),
-    (2, 2),
-    (3, 3),
-    (4, 4);
+INSERT INTO `booking` (`booking_id`, `customer_id`, `date`) VALUES
+    (1, 1, '2023-02-01'),
+    (2, 2, '2022-12-05'),
+    (3, 3, '2023-01-014'),
+    (4, 4, '2023-04-04');
 
 -- export structure of table travel-agency-service_db.trip
 CREATE TABLE IF NOT EXISTS `trip` (

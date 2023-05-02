@@ -98,6 +98,11 @@ public class TravelAgencyViewDataServiceImplementation implements TravelAgencyVi
   }
 
   @Override
+  public List<Booking> getBookings() {
+    return getBookingList(null, null);
+  }
+
+  @Override
   public Booking getBooking(int bookingID, int customerID, String customerLastName) throws RuntimeException {
     if(customerLastName == null) {
       logger.warn(MSG_CUSTOMER_LASTNAME_NULL);

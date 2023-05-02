@@ -32,7 +32,7 @@
 
                 <Group id="credentialsGroup" layoutY="452" layoutX="161">
                     <Group fx:id="usernameGroup">
-                        <TextField fx:id="usernameTextField" onAction="#_login_onClick" maxWidth="400">
+                        <TextField fx:id="usernameTextField" onAction="#_usernameTextField_onClick" maxWidth="400">
                             <font>
                                 <Font name="Poppins" size="32" />
                             </font>
@@ -40,7 +40,7 @@
                     </Group>
 
                     <Group id="passwordGroup" layoutY="80">
-                        <PasswordField fx:id="passwordTextField" onAction="#_login_onClick" maxWidth="400">
+                        <PasswordField fx:id="passwordTextField" onAction="#_passwordTextField_onClick" maxWidth="400">
                             <font>
                                 <Font name="Poppins" size="32" />
                             </font>
@@ -56,7 +56,7 @@
                     </Group>
 
                     <Group id="loginButtonGroup" layoutY="220">
-                        <Button fx:id="loginButton" textAlignment="CENTER" onAction="#_login_onClick">
+                        <Button fx:id="loginButton" textAlignment="CENTER" onAction="#_loginButton_onClick">
                             <font>
                                 <Font name="Mako" size="32" />
                             </font>
