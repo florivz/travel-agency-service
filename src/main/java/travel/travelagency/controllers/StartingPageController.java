@@ -1,6 +1,5 @@
 package travel.travelagency.controllers;
 
-import java.io.IOException;
 import java.util.Properties;
 
 import javafx.event.ActionEvent;
@@ -16,7 +15,6 @@ import javafx.scene.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import travel.travelagency.TravelAgencyServiceApplication;
-import travel.travelagency.database.TravelAgencyEntityManagerFactory;
 
 public class StartingPageController extends TravelAgencyController {
 

@@ -32,7 +32,7 @@ public class NewTripController extends TravelAgencyController {
     @FXML private Rectangle line_1;
     @FXML private Text life_is_short__travel_often;
 
-    public void initialize() throws IOException{
+    public void initialize() {
 
         //custom code here
 
@@ -40,22 +40,22 @@ public class NewTripController extends TravelAgencyController {
 
 
     @FXML
-    private void frame_3_onClick() throws IOException {
+    private void frame_3_onClick() {
         //code
     }
 
     @FXML
-    private void frame_3_ek1_onClick() throws IOException {
+    private void frame_3_ek1_onClick() {
         //code
     }
 
     @FXML
-    private void _home_onClick() throws IOException {
+    private void _home_onClick() {
         //code
     }
 
     @FXML
-    private void _bookings_onClick() throws IOException {
+    private void _bookings_onClick() {
         //code
     }
 

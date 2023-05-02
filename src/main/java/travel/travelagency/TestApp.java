@@ -15,8 +15,6 @@ public class TestApp extends Application {
 
     private static String mainView;
 
-    private static String language_file;
-
     private static final String VIEW_DIRECTORY = "views";
 
     private static Scene scene;

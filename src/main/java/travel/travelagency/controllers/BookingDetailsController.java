@@ -1,5 +1,4 @@
 package travel.travelagency.controllers;
-import java.io.IOException;
 import javafx.fxml.FXML;
 
 public class BookingDetailsController extends TravelAgencyController {
