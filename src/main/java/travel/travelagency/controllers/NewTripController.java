@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import travel.travelagency.TravelAgencyServiceApplication;
 
 public class NewTripController extends TravelAgencyController {
 

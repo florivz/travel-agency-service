@@ -69,7 +69,7 @@ public class ViewBookingsController extends TravelAgencyController {
         this.application = application;
     }
 
-    public void initialize() throws IOException{
+    public void initialize() {
         setTexts(application.getLanguageFile());
         this.service = new TravelAgencyViewConsumptionServiceImplementation(
             new TravelAgencyViewDataServiceImplementation(
@@ -102,25 +102,22 @@ public class ViewBookingsController extends TravelAgencyController {
         TableColumn<BookingConsumable, Double> totalPriceCol = createTableColumn(languageProperties, "totalPrice", 200);
         TableColumn<BookingConsumable, String> currencyCol = createTableColumn(languageProperties, "currencyKey", 100);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                List<BookingConsumable> bookingsList = loadBookingList();
-                ObservableList<BookingConsumable> bookingsObsList = FXCollections.observableList(bookingsList);
-                Platform.runLater(() -> {
-                    bookingsTableView.getColumns().add(bookingIDCol);
-                    bookingsTableView.getColumns().add(customerIDCol);
-                    bookingsTableView.getColumns().add(customerNameCol);
-                    bookingsTableView.getColumns().add(bookingDateCol);
-                    bookingsTableView.getColumns().add(totalPriceCol);
-                    bookingsTableView.getColumns().add(currencyCol);
+        new Thread(() -> {
+            List<BookingConsumable> bookingsList = loadBookingList();
+            ObservableList<BookingConsumable> bookingsObsList = FXCollections.observableList(bookingsList);
+            Platform.runLater(() -> {
+                bookingsTableView.getColumns().add(bookingIDCol);
+                bookingsTableView.getColumns().add(customerIDCol);
+                bookingsTableView.getColumns().add(customerNameCol);
+                bookingsTableView.getColumns().add(bookingDateCol);
+                bookingsTableView.getColumns().add(totalPriceCol);
+                bookingsTableView.getColumns().add(currencyCol);
 
-                    bookingsTableView.getItems().clear();
-                    bookingsTableView.setItems(bookingsObsList);
-                    bookingsTableView.setPlaceholder(null);
-                    bookingsTableView.setVisible(true);
-                });
-            }
+                bookingsTableView.getItems().clear();
+                bookingsTableView.setItems(bookingsObsList);
+                bookingsTableView.setPlaceholder(null);
+                bookingsTableView.setVisible(true);
+            });
         }).start();
     }
 
@@ -134,23 +131,20 @@ public class ViewBookingsController extends TravelAgencyController {
         TableColumn<TripConsumable, Integer> noFlightsCol = createTableColumn(languageProperties, "numberOfFlights", 200);
         TableColumn<TripConsumable, Double> totalPriceCol = createTableColumn(languageProperties, "totalPrice", 200);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                List<TripConsumable> tripList = loadTripList();
-                ObservableList<TripConsumable> tripObsList = FXCollections.observableList(tripList);
-                Platform.runLater(() -> {
-                    tripTableView.getColumns().add(tripIDCol);
-                    tripTableView.getColumns().add(noHotelsCol);
-                    tripTableView.getColumns().add(noFlightsCol);
-                    tripTableView.getColumns().add(totalPriceCol);
+        new Thread(() -> {
+            List<TripConsumable> tripList = loadTripList();
+            ObservableList<TripConsumable> tripObsList = FXCollections.observableList(tripList);
+            Platform.runLater(() -> {
+                tripTableView.getColumns().add(tripIDCol);
+                tripTableView.getColumns().add(noHotelsCol);
+                tripTableView.getColumns().add(noFlightsCol);
+                tripTableView.getColumns().add(totalPriceCol);
 
-                    tripTableView.getItems().clear();
-                    tripTableView.setItems(tripObsList);
-                    tripTableView.setPlaceholder(null);
-                    tripTableView.setVisible(true);
-                });
-            }
+                tripTableView.getItems().clear();
+                tripTableView.setItems(tripObsList);
+                tripTableView.setPlaceholder(null);
+                tripTableView.setVisible(true);
+            });
         }).start();
     }
 
@@ -162,7 +156,7 @@ public class ViewBookingsController extends TravelAgencyController {
     }
 
     private List<BookingConsumable> loadBookingList() {
-        List<BookingConsumable> bookingsList = new LinkedList<>();
+        List<BookingConsumable> bookingsList;
         Integer bookingID = bookingIDTextField.getText().isEmpty() ?
                 null : Integer.parseInt(bookingIDTextField.getText());
         Integer customerID = customerIDTextField.getText().isEmpty() ?
@@ -225,6 +219,7 @@ public class ViewBookingsController extends TravelAgencyController {
     }
 
     public void _searchBookings_onClick(MouseEvent mouseEvent) {
+        mouseEvent.consume();
         bookingIDTextField.clear();
         customerIDTextField.clear();
         customerNameTextField.clear();
@@ -232,7 +227,9 @@ public class ViewBookingsController extends TravelAgencyController {
     }
 
     public void _logout_onClick(ActionEvent actionEvent) {
+        actionEvent.consume();
         service = null;
+        application.setEntityManagerFactory(null);
         application.setRoot(LandingPageController.VIEW_NAME, new LandingPageController(application));
     }
 
@@ -246,7 +243,7 @@ public class ViewBookingsController extends TravelAgencyController {
     }
 
     public void _tripTableView_onClick(MouseEvent mouseEvent) {
-
+        //code
     }
 
     /**
@@ -254,6 +251,7 @@ public class ViewBookingsController extends TravelAgencyController {
      * @param actionEvent automatically generated actionEvent from runtime
      */
     public void _search_bookings_onClick(ActionEvent actionEvent) {
+        actionEvent.consume();
         this.loadBookingsTableView();
     }
 }

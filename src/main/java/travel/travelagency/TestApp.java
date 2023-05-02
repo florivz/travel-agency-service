@@ -61,10 +61,6 @@ public class TestApp extends Application {
         return fxmlLoader.load();
     }
 
-    public static String getLanguageFile() {
-        return language_file;
-    }
-
     public static void main(String[] args) {
         mainView = "landing_page.fxml";
         language_file = "en_US.properties";

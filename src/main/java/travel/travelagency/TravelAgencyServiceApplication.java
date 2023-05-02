@@ -16,7 +16,6 @@ import travel.travelagency.controllers.TravelAgencyController;
 import travel.travelagency.database.TravelAgencyEntityManagerFactory;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 public class TravelAgencyServiceApplication extends Application {
 

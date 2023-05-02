@@ -7,9 +7,6 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<?import org.controlsfx.control.table.FilterValue?>
-<?import org.controlsfx.control.table.FilterPanel?>
-<?import javafx.collections.transformation.FilteredList?>
 <ScrollPane hbarPolicy="NEVER" prefHeight="1024" prefWidth="1440" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="travel.travelagency.controllers.ViewBookingsController">
     <content>
         <Pane prefHeight="1022" prefWidth="1440">

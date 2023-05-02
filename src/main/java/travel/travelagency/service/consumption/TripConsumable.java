@@ -1,7 +1,5 @@
 package travel.travelagency.service.consumption;
 
-import java.time.LocalDate;
-
 public record TripConsumable(
     Integer tripID, Integer numberOfHotels, Integer numberOfFlights, Double totalPrice
 ) {

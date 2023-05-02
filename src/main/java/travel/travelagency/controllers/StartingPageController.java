@@ -42,13 +42,11 @@ public class StartingPageController extends TravelAgencyController {
     @FXML public Text createBookingTitle;
     @FXML public Button createBookingButton;
 
-    private TravelAgencyEntityManagerFactory factory;
-
     public StartingPageController(TravelAgencyServiceApplication application) {
         this.application = application;
     }
 
-    public void initialize() throws IOException{
+    public void initialize() {
         setTexts(application.getLanguageFile());
         setListeners();
     }
@@ -82,7 +80,7 @@ public class StartingPageController extends TravelAgencyController {
     }
 
     private TextFormatter<String> createDigitFormatter() {
-        return new TextFormatter<String>(change -> {
+        return new TextFormatter<>(change -> {
             if (change.getControlNewText().matches("\\d*")) {
                 return change;
             } else {
@@ -90,11 +88,6 @@ public class StartingPageController extends TravelAgencyController {
             }
         });
     }
-
-    public void setEntityManagerFactory(TravelAgencyEntityManagerFactory factory) {
-        this.factory = factory;
-    }
-
 
     @FXML
     private void _home_onClick() {
@@ -108,12 +101,14 @@ public class StartingPageController extends TravelAgencyController {
 
     @FXML
     private void _logout_onClick(ActionEvent actionEvent) {
-        factory = null;
+        actionEvent.consume();
+        application.setEntityManagerFactory(null);
         application.setRoot(LandingPageController.VIEW_NAME, new LandingPageController(application));
     }
 
     @FXML
-    private void _search_bookings_onClick(ActionEvent actionEvent) throws LoadException {
+    private void _search_bookings_onClick(ActionEvent actionEvent) {
+        actionEvent.consume();
         FXMLLoader loader = TravelAgencyServiceApplication.getFXMLLoader(ViewBookingsController.VIEW_NAME);
         try {
             ViewBookingsController controller = new ViewBookingsController(application);
@@ -128,8 +123,6 @@ public class StartingPageController extends TravelAgencyController {
             application.setScene(scene);
         } catch (LoadException e) {
             logger.error(e.getMessage());
-        } finally {
-            factory = null;
         }
     }
 }

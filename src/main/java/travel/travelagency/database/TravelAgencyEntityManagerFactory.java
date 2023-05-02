@@ -8,7 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.service.spi.ServiceException;
 
 /**
  * This class creates <code>EntityManager</code> connected to the database.
@@ -60,7 +59,7 @@ public class TravelAgencyEntityManagerFactory {
         throw new RuntimeException(MSG);
       }
     } catch (Exception e) {
-      final String MSG = String.format(MSG_UNABLE_TO_CREATE, loginProperties.toString(), persistenceUnit);
+      final String MSG = String.format(MSG_UNABLE_TO_CREATE, loginProperties, persistenceUnit);
       logger.error(MSG);
       throw new RuntimeException(MSG);
     }
