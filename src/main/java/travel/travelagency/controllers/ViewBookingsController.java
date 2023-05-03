@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.LoadException;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -46,6 +47,7 @@ public class ViewBookingsController extends TravelAgencyController {
     @FXML public Button logoutButton;
 
     //search bar
+    @FXML public Group searchBookingGroup;
     @FXML public Text searchBookingTitle;
     @FXML public Text bookingIDText;
     @FXML public TextField bookingIDTextField;
@@ -54,6 +56,23 @@ public class ViewBookingsController extends TravelAgencyController {
     @FXML public Text customerIDText;
     @FXML public TextField customerIDTextField;
     @FXML public Button searchBookingButton;
+
+    //Booking details
+    @FXML public Group bookingDetailsGroup;
+    @FXML public Text bookingDetailsTitle;
+    @FXML public Text bookingMasterDataBookingIDText;
+    @FXML public Text bookingMasterDataBookingID;
+    @FXML public Text bookingMasterDataCustomerIDText;
+    @FXML public Text bookingMasterDataCustomerID;
+    @FXML public Text bookingMasterDataCustomerNameText;
+    @FXML public Text bookingMasterDataCustomerName;
+    @FXML public Text bookingMasterDataDateText;
+    @FXML public Text bookingMasterDataDate;
+    @FXML public Text bookingMasterDataPrice;
+    @FXML public Text bookingMasterDataPriceText;
+    @FXML public Text bookingMasterDataCurrency;
+    @FXML public Text bookingMasterDataCurrencyText;
+    @FXML public Button backButton;
 
     //table view
     @FXML public TableView<BookingConsumable> bookingsTableView;
@@ -64,10 +83,18 @@ public class ViewBookingsController extends TravelAgencyController {
      */
     private TravelAgencyViewConsumptionService service;
 
+    /**
+     * Constructor for this controller passing the <code>Application</code> object this
+     * instance belongs to
+     * @param application Application calling the contructor
+     */
     public ViewBookingsController(TravelAgencyServiceApplication application) {
         this.application = application;
     }
 
+    /**
+     * This method is called when the landing_page.fxml file is loaded
+     */
     public void initialize() {
         setTexts(application.getLanguageFile());
         this.service = new TravelAgencyViewConsumptionServiceImplementation(
@@ -78,6 +105,10 @@ public class ViewBookingsController extends TravelAgencyController {
         this.loadBookingsTableView();
     }
 
+    /**
+     * This private method sets all texts to the corresponding translation in the language file provided.
+     * @param languageFile language file name
+     */
     private void setTexts(String languageFile) {
         Properties languageProperties = LanguagePropertiesLoader.loadProperties(
             TravelAgencyServiceApplication.LANGUAGE_DIRECTORY + "starting_page/", languageFile
@@ -87,10 +118,40 @@ public class ViewBookingsController extends TravelAgencyController {
         createBooking.setText(languageProperties.getProperty("menu.createBooking", "New Booking"));
         searchBookings.setText(languageProperties.getProperty("menu.showBookings", "Show Bookings"));
         logoutButton.setText(languageProperties.getProperty("menu.logout", "LOG OUT"));
+
+        searchBookingTitle.setText(languageProperties.getProperty("searchBooking.title", "Search for an existing booking"));
+        bookingIDText.setText(languageProperties.getProperty("searchBooking.bookingNumber", "Booking No."));
+        bookingIDTextField.setPromptText(languageProperties.getProperty("searchBooking.bookingNumber", "Booking No."));
+        customerIDText.setText(languageProperties.getProperty("searchBooking.customerNumber", "Customer No."));
+        customerIDTextField.setPromptText(languageProperties.getProperty("searchBooking.customerNumber", "Customer No."));
+        customerNameText.setText(languageProperties.getProperty("searchBooking.customerName", "Customer Name"));
+        customerNameTextField.setPromptText(languageProperties.getProperty("searchBooking.customerName", "Customer Name"));
+        searchBookingButton.setText(languageProperties.getProperty("searchBooking.searchButton", "SEARCH"));
+
+        bookingDetailsTitle.setText(languageProperties.getProperty("details.title", "Booking Details"));
+        bookingMasterDataBookingIDText.setText(
+                languageProperties.getProperty("tableView.bookingID", "Booking No.") + ':');
+        bookingMasterDataCustomerIDText.setText(
+                languageProperties.getProperty("tableView.customerID", "Customer No.") + ':');
+        bookingMasterDataCustomerNameText.setText(
+                languageProperties.getProperty("tableView.customerName", "Customer") + ':');
+        bookingMasterDataDateText.setText(
+                languageProperties.getProperty("tableView.date", "Date of booking") + ':');
+        bookingMasterDataPriceText.setText(
+                languageProperties.getProperty("tableView.totalPrice", "Total Price") + ':');
+        bookingMasterDataCurrencyText.setText(
+                languageProperties.getProperty("tableView.currencyKey", "Currency") + ':');
+        backButton.setText(languageProperties.getProperty("details.back", "BACK"));
     }
 
+    /**
+     * this table loads all bookings into the bookingTableView using
+     * the filters from the corresponding text fields.
+     */
     public void loadBookingsTableView() {
+        bookingDetailsGroup.setVisible(false);
         tripTableView.setVisible(false);
+        bookingsTableView.getColumns().clear();
         Properties languageProperties = LanguagePropertiesLoader.loadProperties(
             TravelAgencyServiceApplication.LANGUAGE_DIRECTORY + "view_bookings/", application.getLanguageFile()
         );
@@ -115,13 +176,20 @@ public class ViewBookingsController extends TravelAgencyController {
                 bookingsTableView.getItems().clear();
                 bookingsTableView.setItems(bookingsObsList);
                 bookingsTableView.setPlaceholder(null);
+                searchBookingGroup.setVisible(true);
                 bookingsTableView.setVisible(true);
             });
         }).start();
     }
 
+    /**
+     * this table loads all trips into the tripTableView using
+     * the booking from the selected booking
+     */
     public void loadTripsTableView() {
+        searchBookingGroup.setVisible(false);
         bookingsTableView.setVisible(false);
+        tripTableView.getColumns().clear();
         Properties languageProperties = LanguagePropertiesLoader.loadProperties(
                 TravelAgencyServiceApplication.LANGUAGE_DIRECTORY + "view_bookings/", application.getLanguageFile()
         );
@@ -142,11 +210,22 @@ public class ViewBookingsController extends TravelAgencyController {
                 tripTableView.getItems().clear();
                 tripTableView.setItems(tripObsList);
                 tripTableView.setPlaceholder(null);
+                bookingDetailsGroup.setVisible(true);
                 tripTableView.setVisible(true);
             });
         }).start();
     }
 
+    /**
+     * This method creates a new table column with the provided id, width, and title
+     * loaded from the language properties
+     * @param languageProperties language properties determining the column's heading
+     * @param id id of the column. This attribute will later be retrieved using a corresponding getter
+     * @param width column width
+     * @return <code>TableColumn</code> object with the attributes specified
+     * @param <T> underlying table structure
+     * @param <V> data type of column
+     */
     private <T, V> TableColumn<T, V> createTableColumn(Properties languageProperties, String id, int width) {
         TableColumn<T, V> column = new TableColumn<>(languageProperties.getProperty("tableView." + id, id));
         column.setCellValueFactory(new PropertyValueFactory<>(id));
@@ -217,8 +296,7 @@ public class ViewBookingsController extends TravelAgencyController {
         }
     }
 
-    public void _searchBookings_onClick(MouseEvent mouseEvent) {
-        mouseEvent.consume();
+    public void _searchBookings_onClick() {
         bookingIDTextField.clear();
         customerIDTextField.clear();
         customerNameTextField.clear();
@@ -237,7 +315,13 @@ public class ViewBookingsController extends TravelAgencyController {
             return;
         TableView<BookingConsumable> tableView = (TableView<BookingConsumable>) mouseEvent.getSource();
         BookingConsumable bookingConsumable = tableView.getSelectionModel().getSelectedItem();
-        bookingIDTextField.setText(String.valueOf(bookingConsumable.getBookingID()));
+        bookingMasterDataBookingID.setText(String.valueOf(bookingConsumable.getBookingID()));
+        bookingMasterDataCustomerID.setText(String.valueOf(bookingConsumable.getCustomerID()));
+        bookingMasterDataCustomerName.setText(bookingConsumable.getCustomerName());
+        bookingMasterDataDate.setText(bookingConsumable.getDate().toString());
+        bookingMasterDataPrice.setText(String.valueOf(bookingConsumable.getTotalPrice()));
+        bookingMasterDataCurrency.setText(bookingConsumable.getCurrencyKey());
+        bookingIDTextField.setText(bookingConsumable.getBookingID().toString());
         loadTripsTableView();
     }
 

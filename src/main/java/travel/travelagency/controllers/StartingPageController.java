@@ -40,15 +40,28 @@ public class StartingPageController extends TravelAgencyController {
     @FXML public Text createBookingTitle;
     @FXML public Button createBookingButton;
 
+    /**
+     * Constructor for this controller passing the <code>Application</code> object this
+     * instance belongs to
+     * @param application Application calling the contructor
+     */
     public StartingPageController(TravelAgencyServiceApplication application) {
         this.application = application;
     }
 
+
+    /**
+     * This method is called when the landing_page.fxml file is loaded
+     */
     public void initialize() {
         setTexts(application.getLanguageFile());
         setListeners();
     }
 
+    /**
+     * This private method sets all texts to the corresponding translation in the language file provided.
+     * @param languageFile language file name
+     */
     private void setTexts(String languageFile) {
         Properties languageProperties = LanguagePropertiesLoader.loadProperties(
             TravelAgencyServiceApplication.LANGUAGE_DIRECTORY + "starting_page/", languageFile
@@ -59,14 +72,14 @@ public class StartingPageController extends TravelAgencyController {
         searchBookings.setText(languageProperties.getProperty("menu.showBookings", "Show Bookings"));
         logoutButton.setText(languageProperties.getProperty("menu.logout", "LOG OUT"));
 
-        searchBookingTitle.setText(languageProperties.getProperty("searchBooking.title"));
-        bookingIDText.setText(languageProperties.getProperty("searchBooking.bookingNumber"));
-        bookingIDTextField.setPromptText(languageProperties.getProperty("searchBooking.bookingNumber"));
-        customerIDText.setText(languageProperties.getProperty("searchBooking.customerNumber"));
-        customerIDTextField.setPromptText(languageProperties.getProperty("searchBooking.customerNumber"));
-        customerNameText.setText(languageProperties.getProperty("searchBooking.customerName"));
-        customerNameTextField.setPromptText(languageProperties.getProperty("searchBooking.customerName"));
-        searchBookingButton.setText(languageProperties.getProperty("searchBooking.searchButton"));
+        searchBookingTitle.setText(languageProperties.getProperty("searchBooking.title", "Search for an existing booking"));
+        bookingIDText.setText(languageProperties.getProperty("searchBooking.bookingNumber", "Booking No."));
+        bookingIDTextField.setPromptText(languageProperties.getProperty("searchBooking.bookingNumber", "Booking No."));
+        customerIDText.setText(languageProperties.getProperty("searchBooking.customerNumber", "Customer No."));
+        customerIDTextField.setPromptText(languageProperties.getProperty("searchBooking.customerNumber", "Customer No."));
+        customerNameText.setText(languageProperties.getProperty("searchBooking.customerName", "Customer Name"));
+        customerNameTextField.setPromptText(languageProperties.getProperty("searchBooking.customerName", "Customer Name"));
+        searchBookingButton.setText(languageProperties.getProperty("searchBooking.searchButton", "SEARCH"));
 
         createBookingTitle.setText(languageProperties.getProperty("createBooking.title"));
         createBookingButton.setText(languageProperties.getProperty("createBooking.createButton"));

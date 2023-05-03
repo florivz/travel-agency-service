@@ -46,7 +46,7 @@
                     </Group>
                     <Rectangle id="dividerLine" fill="#3B768A" height="1" layoutY="102" width="1600"/>
                 </Group>
-                <Group id="searchBookingGroup" layoutX="255" layoutY="180">
+                <Group fx:id="searchBookingGroup" layoutX="255" layoutY="180">
                     <Text fx:id="searchBookingTitle" fill="#3B768A" text="Search for an existing booking" wrappingWidth="800">
                         <font>
                             <Font name="Merriweather" size="40" />
@@ -89,6 +89,81 @@
                         </TextField>
                     </Group>
                     <Button fx:id= "searchBookingButton" layoutX="746.0" layoutY="40" text="SEARCH" textAlignment="CENTER" onAction="#_search_bookings_onClick">
+                        <font>
+                            <Font name="Mako" size="24" />
+                        </font>
+                    </Button>
+                </Group>
+                <Group fx:id="bookingDetailsGroup" layoutX="255" layoutY="180">
+                    <Text fx:id="bookingDetailsTitle" fill="#3B768A" wrappingWidth="800">
+                        <font>
+                            <Font name="Merriweather" size="40" />
+                        </font>
+                    </Text>
+                    <Group id="bookingMasterDataGroup" layoutY="40">
+                        <Text fx:id="bookingMasterDataBookingIDText" fill="#000000" wrappingWidth="160">
+                            <font>
+                                <Font name="Poppins" size="20" />
+                            </font>
+                        </Text>
+                        <Text fx:id="bookingMasterDataBookingID" fill="#000000" layoutX="160" wrappingWidth="160">
+                            <font>
+                                <Font name="Poppins" size="20" />
+                            </font>
+                        </Text>
+                        <Text fx:id="bookingMasterDataCustomerIDText" fill="#000000" layoutY="25" wrappingWidth="160">
+                            <font>
+                                <Font name="Poppins" size="20" />
+                            </font>
+                        </Text>
+                        <Text fx:id="bookingMasterDataCustomerID" fill="#000000" layoutX="160" layoutY="25" wrappingWidth="160">
+                            <font>
+                                <Font name="Poppins" size="20" />
+                            </font>
+                        </Text>
+                        <Text fx:id="bookingMasterDataCustomerNameText" fill="#000000" layoutY="50" wrappingWidth="160">
+                            <font>
+                                <Font name="Poppins" size="20" />
+                            </font>
+                        </Text>
+                        <Text fx:id="bookingMasterDataCustomerName" fill="#000000" layoutX="160" layoutY="50" wrappingWidth="160">
+                            <font>
+                                <Font name="Poppins" size="20" />
+                            </font>
+                        </Text>
+
+                        <Text fx:id="bookingMasterDataDateText" fill="#000000" layoutX="320" wrappingWidth="160">
+                            <font>
+                                <Font name="Poppins" size="20" />
+                            </font>
+                        </Text>
+                        <Text fx:id="bookingMasterDataDate" fill="#000000" layoutX="480" wrappingWidth="160">
+                            <font>
+                                <Font name="Poppins" size="20" />
+                            </font>
+                        </Text>
+                        <Text fx:id="bookingMasterDataPriceText" fill="#000000" layoutX="320" layoutY="25" wrappingWidth="160">
+                            <font>
+                                <Font name="Poppins" size="20" />
+                            </font>
+                        </Text>
+                        <Text fx:id="bookingMasterDataPrice" fill="#000000" layoutX="480" layoutY="25" wrappingWidth="160">
+                            <font>
+                                <Font name="Poppins" size="20" />
+                            </font>
+                        </Text>
+                        <Text fx:id="bookingMasterDataCurrencyText" fill="#000000" layoutX="320" layoutY="50" wrappingWidth="160">
+                            <font>
+                                <Font name="Poppins" size="20" />
+                            </font>
+                        </Text>
+                        <Text fx:id="bookingMasterDataCurrency" fill="#000000" layoutX="480" layoutY="50" wrappingWidth="160">
+                            <font>
+                                <Font name="Poppins" size="20" />
+                            </font>
+                        </Text>
+                    </Group>
+                    <Button fx:id= "backButton" layoutX="746.0" layoutY="40" textAlignment="CENTER" onAction="#_searchBookings_onClick">
                         <font>
                             <Font name="Mako" size="24" />
                         </font>

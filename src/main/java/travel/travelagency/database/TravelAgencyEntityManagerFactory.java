@@ -1,6 +1,7 @@
 package travel.travelagency.database;
 
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
 import javax.persistence.EntityManager;
@@ -8,6 +9,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.service.spi.ServiceException;
 
 /**
  * This class creates <code>EntityManager</code> connected to the database.
@@ -24,6 +26,13 @@ public class TravelAgencyEntityManagerFactory {
   private static final String MSG_UNABLE_TO_CREATE =
         "Unable to create EntityManagerFactory using properties %s and persistence unit %s";
 
+  private static final String DRIVER_PROPERTY = "javax.persistence.jdbc.driver";
+
+  private static final String URL_PROPERTY = "javax.persistence.jdbc.url";
+
+  private static final String USER_PROPERTY = "javax.persistence.jdbc.user";
+
+  private static final String PASSWORD_PROPERTY = "javax.persistence.jdbc.password";
 
   /**
    * private <code>EntityManagerFactory</code> used to create <code>EntityManager</code> objects.
@@ -36,20 +45,31 @@ public class TravelAgencyEntityManagerFactory {
    */
   public TravelAgencyEntityManagerFactory(Map<String, String> loginProperties) {
     //check if user property is set
-    if(! loginProperties.containsKey("javax.persistence.jdbc.user")) {
-      final String MSG = String.format(MSG_MISSING_PROPERTY, "javax.persistence.jdbc.user");
-      logger.warn(MSG);
-      throw new RuntimeException(MSG);
-    }
+    if(! loginProperties.containsKey(USER_PROPERTY))
+      missingProperty(USER_PROPERTY);
+
     //check if password property is set
-    if(! loginProperties.containsKey("javax.persistence.jdbc.password")) {
-      final String MSG = String.format(MSG_MISSING_PROPERTY, "javax.persistence.jdbc.password");
-      logger.warn(MSG);
-      throw new RuntimeException(MSG);
-    }
+    if(! loginProperties.containsKey(PASSWORD_PROPERTY))
+      missingProperty(PASSWORD_PROPERTY);
+
+    //load db properties
     String dbPropertiesPath = "db.properties";
     String persistenceUnit = null;
     Properties p = this.getDBAccessProperties(dbPropertiesPath);
+
+    //load jdbc driver
+    if(p.containsKey(DRIVER_PROPERTY))
+      loginProperties.put(DRIVER_PROPERTY, p.getProperty(DRIVER_PROPERTY));
+    else
+      missingProperty(DRIVER_PROPERTY);
+
+    //load jdbc url
+    if(p.containsKey(URL_PROPERTY))
+      loginProperties.put(URL_PROPERTY, p.getProperty(URL_PROPERTY));
+    else
+      missingProperty(URL_PROPERTY);
+
+    //try creating EntityManagerFactory
     try {
       persistenceUnit = p.getProperty("persistence_unit");
       if (persistenceUnit != null)
@@ -61,7 +81,7 @@ public class TravelAgencyEntityManagerFactory {
     } catch (Exception e) {
       final String MSG = String.format(MSG_UNABLE_TO_CREATE, loginProperties, persistenceUnit);
       logger.error(MSG);
-      throw new RuntimeException(MSG);
+      throw new ServiceException(MSG);
     }
   }
 
@@ -84,6 +104,12 @@ public class TravelAgencyEntityManagerFactory {
       throw new RuntimeException(msg);
     }
     return dbAccessProperties;
+  }
+
+  private void missingProperty(String property) throws RuntimeException {
+    final String MSG = String.format(MSG_MISSING_PROPERTY, property);
+    logger.warn(MSG);
+    throw new RuntimeException(MSG);
   }
 
 }

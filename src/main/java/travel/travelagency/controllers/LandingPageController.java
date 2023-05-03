@@ -17,7 +17,7 @@ import javafx.scene.control.PasswordField;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import travel.travelagency.TravelAgencyServiceApplication;
-import travel.travelagency.authentication.TravelAgencyDatabaseAuthenticator;
+import travel.travelagency.database.TravelAgencyDatabaseAuthenticator;
 import travel.travelagency.database.TravelAgencyEntityManagerFactory;
 
 public class LandingPageController extends TravelAgencyController {
@@ -50,7 +50,7 @@ public class LandingPageController extends TravelAgencyController {
 
     /**
      * Constructor for this controller passing the <code>Application</code> object this
-     * instance belongs tp
+     * instance belongs to
      * @param application Application calling the contructor
      */
     public LandingPageController(TravelAgencyServiceApplication application) {
