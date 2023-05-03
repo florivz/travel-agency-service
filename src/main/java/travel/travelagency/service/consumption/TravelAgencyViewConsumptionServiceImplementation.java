@@ -25,15 +25,20 @@ public class TravelAgencyViewConsumptionServiceImplementation implements TravelA
      * @param bookings A List of all <code>Booking</code> jpa entities to be converted
      * @return A List of successfully converted <code>BookingConsumable</code> objects
      */
-    private List<BookingConsumable> convertBookingEntityToConsumable(List<Booking> bookings) {
+    private List<BookingConsumable> convertBookingEntitiesToConsumables(List<Booking> bookings) {
         List<BookingConsumable> bookingConsumables = new LinkedList<>();
         for (Booking booking : bookings) {
+            PersonalData pDat = booking.getCustomer().getPersonalData();
             bookingConsumables.add(new BookingConsumable(
                 booking.getID(),
                 booking.getCustomer().getID(),
-                booking.getCustomer().getPersonalData().getLastName(),
+                (
+                    (pDat.getFirstName() != null && ! pDat.getFirstName().isEmpty() ? pDat.getFirstName() + " " : "") +
+                    (pDat.getMiddleName() != null && ! pDat.getMiddleName().isEmpty() ? pDat.getMiddleName() + " " : "") +
+                    (pDat.getLastName() != null ? pDat.getLastName() : "")
+                ),
                 booking.getDate(),
-                booking.getTotalPrice(),
+                Math.floor(booking.getTotalPrice() * 100) / 100,
                 "EUR"
             ));
         }
@@ -47,7 +52,7 @@ public class TravelAgencyViewConsumptionServiceImplementation implements TravelA
      * @param trips A List of all <code>Trip</code> jpa entities to be converted
      * @return A List of successfully converted <code>TripConsumable</code> objects
      */
-    private List<TripConsumable> convertTripEntityToConsumable(List<Trip> trips) {
+    private List<TripConsumable> convertTripEntitiesToConsumables(List<Trip> trips) {
         List<TripConsumable> tripConsumables = new LinkedList<>();
         for (Trip trip : trips) {
             tripConsumables.add(new TripConsumable(
@@ -67,7 +72,7 @@ public class TravelAgencyViewConsumptionServiceImplementation implements TravelA
      * @param hotelBookings A List of all <code>HotelBooking</code> jpa entities to be converted
      * @return A List of successfully converted <code>HotelBookingConsumable</code> objects
      */
-    private List<HotelBookingConsumable> convertHotelBookingEntityToConsumable(List<HotelBooking> hotelBookings) {
+    private List<HotelBookingConsumable> convertHotelBookingEntitiesToConsumables(List<HotelBooking> hotelBookings) {
         List<HotelBookingConsumable> hotelBookingConsumables = new LinkedList<>();
         for (HotelBooking hotelBooking : hotelBookings) {
             hotelBookingConsumables.add(new HotelBookingConsumable(
@@ -111,43 +116,49 @@ public class TravelAgencyViewConsumptionServiceImplementation implements TravelA
     @Override
     public List<BookingConsumable> getBookings(int customerID, String customerLastName) {
         List<Booking> bookingList = dataService.getBookings(customerID, customerLastName);
-        return bookingList == null ? new LinkedList<>() : convertBookingEntityToConsumable(bookingList);
+        return bookingList == null ? new LinkedList<>() : convertBookingEntitiesToConsumables(bookingList);
     }
 
     @Override
     public List<BookingConsumable> getBookings(int customerID) {
         List<Booking> bookingList = dataService.getBookings(customerID);
-        return bookingList == null ? new LinkedList<>() : convertBookingEntityToConsumable(bookingList);
+        return bookingList == null ? new LinkedList<>() : convertBookingEntitiesToConsumables(bookingList);
     }
 
     @Override
     public List<BookingConsumable> getBookings(String customerLastName) {
         List<Booking> bookingList = dataService.getBookings(customerLastName);
-        return bookingList == null ? new LinkedList<>() : convertBookingEntityToConsumable(bookingList);
+        return bookingList == null ? new LinkedList<>() : convertBookingEntitiesToConsumables(bookingList);
+    }
+
+    @Override
+    public List<BookingConsumable> getBookings() {
+        List<Booking> bookingList = dataService.getBookings();
+        return bookingList == null ? new LinkedList<>() : convertBookingEntitiesToConsumables(bookingList);
     }
 
     @Override
     public List<BookingConsumable> getBooking(int bookingID, int customerID, String customerLastName) {
         Booking booking = dataService.getBooking(bookingID, customerID, customerLastName);
-        return booking == null ? new LinkedList<>() : convertBookingEntityToConsumable(List.of(booking));
+        return booking == null ? new LinkedList<>() : convertBookingEntitiesToConsumables(List.of(booking));
     }
 
     @Override
     public List<BookingConsumable> getBooking(int bookingID, int customerID) {
         Booking booking = dataService.getBooking(bookingID, customerID);
-        return booking == null ? new LinkedList<>() : convertBookingEntityToConsumable(List.of(booking));
+        return booking == null ? new LinkedList<>() : convertBookingEntitiesToConsumables(List.of(booking));
     }
 
     @Override
     public List<BookingConsumable> getBooking(int bookingID, String customerLastName) {
         Booking booking = dataService.getBooking(bookingID, customerLastName);
-        return booking == null ? new LinkedList<>() : convertBookingEntityToConsumable(List.of(booking));
+        return booking == null ? new LinkedList<>() : convertBookingEntitiesToConsumables(List.of(booking));
     }
 
     @Override
     public List<BookingConsumable> getBooking(int bookingID) {
         Booking booking = dataService.getBooking(bookingID);
-        return booking == null ? new LinkedList<>() : convertBookingEntityToConsumable(List.of(booking));
+        return booking == null ? new LinkedList<>() : convertBookingEntitiesToConsumables(List.of(booking));
     }
 
     @Override
@@ -158,7 +169,7 @@ public class TravelAgencyViewConsumptionServiceImplementation implements TravelA
             logger.warn(MSG);
             throw new RuntimeException(MSG);
         }
-        return convertTripEntityToConsumable(booking.getTripSet().stream().toList());
+        return convertTripEntitiesToConsumables(booking.getTripSet().stream().toList());
     }
 
     @Override
@@ -169,7 +180,7 @@ public class TravelAgencyViewConsumptionServiceImplementation implements TravelA
             logger.warn(MSG);
             throw new RuntimeException(MSG);
         }
-        return convertHotelBookingEntityToConsumable(trip.getHotelBookingSet().stream().toList());
+        return convertHotelBookingEntitiesToConsumables(trip.getHotelBookingSet().stream().toList());
     }
 
     @Override

@@ -47,6 +47,14 @@ public interface TravelAgencyViewDataService {
   List<Booking> getBookings(String customerLastName) throws RuntimeException;
 
   /**
+   * This method returns all bookings from the database.
+   * If no booking is found, this method shall return an empty <code>List</code> object.
+   * @return A <code>List</code> object containing all bookings from the database.
+   *         If no booking is found, an empty <code>List</code> object shall be returned.
+   */
+  List<Booking> getBookings() throws RuntimeException;
+
+  /**
    * This method returns the booking with the specified booking ID, customer ID, and customer's last name.
    * If no corresponding booking is found, this method shall return <code>null</code>.
    * @param bookingID An <code>int</code> of the booking ID to be filtered by.

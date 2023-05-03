@@ -48,6 +48,14 @@ public interface TravelAgencyViewConsumptionService {
   List<BookingConsumable> getBookings(String customerLastName);
 
   /**
+   * This method returns a <code>List<BookingConsumable></code> object containing all bookings from the database.
+   * If no booking is found, this method shall return an empty <code>List</code> object.
+   * @return A <code>List</code> object containing all <code>BookingConsumption</code> objects from the
+   *         database. If no booking is found,an empty <code>List</code> object shall be returned.
+   */
+  List<BookingConsumable> getBookings();
+
+  /**
    * This method returns a <code>List<BookingConsumable></code> object filtered by
    * booking ID, customer ID and the customer's last name.
    * Since the booking id is unique the resulting <code>List</code> object will be of length 1.

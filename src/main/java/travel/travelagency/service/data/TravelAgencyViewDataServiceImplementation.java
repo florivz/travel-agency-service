@@ -17,11 +17,23 @@ public class TravelAgencyViewDataServiceImplementation implements TravelAgencyVi
 
   static final Logger logger = LogManager.getLogger(TravelAgencyViewDataServiceImplementation.class);
 
+  /**
+   * Message if the customerLastName parameter is equal to <code>null</code>
+   */
   private static final String MSG_CUSTOMER_LASTNAME_NULL =
       "Cannot filter by customerLastName = 'null'";
 
+  /**
+   * Message if the corresponding entity is/entities are not found
+   */
   private static final String MSG_ENTITY_NOT_FOUND =
       "Could not retrieve %s with %s = %s so null was returned.";
+
+  /**
+   * Message if entityManager is unable to retrieve the entities specified
+   */
+  private static final String MSG_INVALID_ENTITY_MANAGER =
+      "Unable to locate persister for class %s. Make sure to run the database setup properly.";
 
   public TravelAgencyViewDataServiceImplementation(EntityManager entityManager) {
     this.EM = entityManager;
@@ -36,10 +48,16 @@ public class TravelAgencyViewDataServiceImplementation implements TravelAgencyVi
    * @return A <code>List</code> object containing all bookings matching the filters above.
    */
   private List<Booking> getBookingList(Integer customerID, String customerLastName) {
-    TypedQuery<Booking> typedQuery = EM.createNamedQuery(Booking.FIND_WITH_FILTERS, Booking.class)
-      .setParameter(Booking.CUSTOMER_ID, customerID)
-      .setParameter(Booking.CUSTOMER_LASTNAME, customerLastName);
-    return typedQuery.getResultList();
+    try {
+      TypedQuery<Booking> typedQuery = EM.createNamedQuery(Booking.FIND_WITH_FILTERS, Booking.class)
+              .setParameter(Booking.CUSTOMER_ID, customerID)
+              .setParameter(Booking.CUSTOMER_LASTNAME, customerLastName);
+      return typedQuery.getResultList();
+    } catch (IllegalArgumentException e) {
+      final String MSG = String.format(MSG_INVALID_ENTITY_MANAGER, Booking.class);
+      logger.error(MSG);
+      throw new RuntimeException(MSG);
+    }
   }
 
   /**
@@ -50,12 +68,18 @@ public class TravelAgencyViewDataServiceImplementation implements TravelAgencyVi
    * @return The <code>Booking</code> object to the corresponding booking ID.
    */
   private Booking getSingleBooking(int bookingID) {
-    Booking booking = EM.find(Booking.class, bookingID);
-    if(booking == null) {
-      final String MSG = String.format(MSG_ENTITY_NOT_FOUND, "Booking", "ID", bookingID);
+    try {
+      Booking booking = EM.find(Booking.class, bookingID);
+      if (booking == null) {
+        final String MSG = String.format(MSG_ENTITY_NOT_FOUND, "Booking", "ID", bookingID);
+        throw new RuntimeException(MSG);
+      }
+      return booking;
+    } catch (IllegalArgumentException e) {
+      final String MSG = String.format(MSG_INVALID_ENTITY_MANAGER, Booking.class);
+      logger.error(MSG);
       throw new RuntimeException(MSG);
     }
-    return booking;
   }
 
   /**
@@ -66,12 +90,18 @@ public class TravelAgencyViewDataServiceImplementation implements TravelAgencyVi
    * @return The <code>Trip</code> object to the corresponding trip ID.
    */
   private Trip getSingleTrip(int tripID) {
-    Trip trip = EM.find(Trip.class, tripID);
-    if(trip == null) {
-      final String MSG = String.format(MSG_ENTITY_NOT_FOUND, "Trip", "ID", trip);
+    try {
+      Trip trip = EM.find(Trip.class, tripID);
+      if(trip == null) {
+        final String MSG = String.format(MSG_ENTITY_NOT_FOUND, "Trip", "ID", trip);
+        throw new RuntimeException(MSG);
+      }
+      return trip;
+    } catch (IllegalArgumentException e) {
+      final String MSG = String.format(MSG_INVALID_ENTITY_MANAGER, Trip.class);
+      logger.error(MSG);
       throw new RuntimeException(MSG);
     }
-    return trip;
   }
 
   @Override
@@ -95,6 +125,11 @@ public class TravelAgencyViewDataServiceImplementation implements TravelAgencyVi
       throw new RuntimeException(MSG_CUSTOMER_LASTNAME_NULL);
     }
     return getBookingList(null, customerLastName);
+  }
+
+  @Override
+  public List<Booking> getBookings() {
+    return getBookingList(null, null);
   }
 
   @Override

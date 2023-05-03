@@ -20,6 +20,10 @@ module travel.travelagency {
     exports travel.travelagency.controllers;
   opens travel.travelagency.controllers to javafx.fxml;
     exports travel.travelagency.database;
-  opens travel.travelagency.database to javafx.fxml, org.hibernate.orm.core;
+  opens travel.travelagency.service.consumption to javafx.base, javafx.fxml;
+    exports travel.travelagency.service.consumption;
+    exports travel.travelagency.service.data;
+    exports travel.travelagency.entities;
+  opens travel.travelagency.database to javafx.fxml, javafx.base, org.hibernate.orm.core;
   opens travel.travelagency.entities to org.hibernate.orm.core;
 }
