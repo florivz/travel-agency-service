@@ -325,16 +325,14 @@ public class ViewBookingsController extends TravelAgencyController {
         loadTripsTableView();
     }
 
-    public void _tripTableView_onClick(MouseEvent mouseEvent) {
+    public void _tripTableView_onClick() {
         //code
     }
 
     /**
      * Action Listener for search button and text fields for booking id, customer id, and customer name
-     * @param actionEvent automatically generated actionEvent from runtime
      */
-    public void _search_bookings_onClick(ActionEvent actionEvent) {
-        actionEvent.consume();
+    public void _search_bookings_onClick() {
         this.loadBookingsTableView();
     }
 }

@@ -1,7 +1,6 @@
 package travel.travelagency.database;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
 import javax.persistence.EntityManager;

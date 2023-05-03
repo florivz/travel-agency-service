@@ -2,7 +2,6 @@ package travel.travelagency.database;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.service.spi.ServiceException;
 
 import java.util.HashMap;
 import java.util.Map;
