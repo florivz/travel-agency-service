@@ -155,9 +155,9 @@ public class ViewBookingsController extends TravelAgencyController {
         Properties languageProperties = LanguagePropertiesLoader.loadProperties(
             TravelAgencyServiceApplication.LANGUAGE_DIRECTORY + "view_bookings/", application.getLanguageFile()
         );
-        TableColumn<BookingConsumable, Integer> bookingIDCol = createTableColumn(languageProperties, "bookingID", 200);
-        TableColumn<BookingConsumable, Integer> customerIDCol = createTableColumn(languageProperties, "customerID", 200);
-        TableColumn<BookingConsumable, String> customerNameCol = createTableColumn(languageProperties, "customerName", 200);
+        TableColumn<BookingConsumable, Integer> bookingIDCol = createTableColumn(languageProperties, "bookingID", 100);
+        TableColumn<BookingConsumable, Integer> customerIDCol = createTableColumn(languageProperties, "customerID", 100);
+        TableColumn<BookingConsumable, String> customerNameCol = createTableColumn(languageProperties, "customerName", 400);
         TableColumn<BookingConsumable, LocalDate> bookingDateCol = createTableColumn(languageProperties, "date", 200);
         TableColumn<BookingConsumable, Double> totalPriceCol = createTableColumn(languageProperties, "totalPrice", 200);
         TableColumn<BookingConsumable, String> currencyCol = createTableColumn(languageProperties, "currencyKey", 100);
